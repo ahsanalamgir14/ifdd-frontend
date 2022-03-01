@@ -1,1 +1,18 @@
-{}
+{
+	"placeholder": {
+		"global_search": "Recherchez un établissement, un lieu..."
+	},
+	"alt": {
+		"logo_ifdd": "Logo IFDD",
+		"logo_oif": "Logo OIF",
+		"logo_sdg": "Logo SDG"
+	},
+	"title": {
+		"civil_organization_map": "Carte des Organizations de la Société Civile"
+	},
+	"button": {
+		"terms_of_use": "Conditions d'utilisation",
+		"register": "Inscription",
+		"login": "Connexion"
+	}
+}

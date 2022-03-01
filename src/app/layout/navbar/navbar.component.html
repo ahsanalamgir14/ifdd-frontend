@@ -1,0 +1,63 @@
+<div class="flex flex-col md:flex-row shadow-md">
+  <div class="flex flex-row md:hidden h-11">
+    <button class="flex items-center px-3 text-secondary" (click)="openSidebar()">
+      <ng-icon name="hero-menu" size="24"></ng-icon>
+    </button>
+    <form class="flex-1">
+      <input type="text"
+        class="w-full h-full px-0 border-0 focus:border-secondary-light focus:shadow-none placeholder-primary focus:ring-transparent text-sm italic"
+        [placeholder]="'placeholder.global_search'|translate">
+    </form>
+    <button class="flex items-center px-3 text-secondary border-l border-black border-opacity-10">
+      <ng-icon name="hero-user-solid" size="24"></ng-icon>
+    </button>
+  </div>
+  <div
+    class="md:relative fixed md:translate-x-0 top-0 bottom-0 left-0 flex flex-col md:flex-row flex-1 w-60 md:w-auto md:h-20 bg-white shadow-lg z-20 md:px-5 transition-transform"
+    [ngClass]="{'-translate-x-60': !sidebarVisible, 'translate-x-0': sidebarVisible}">
+    <div
+      class="flex flex-col md:flex-row items-center pl-4 md:p-0 after:hidden after:md:block after:h-3/4 after:mx-4 after:w-0.5 after:bg-slate-200">
+      <div class="flex">
+        <a href="" class="pr-0 pt-2 md:pt-0">
+          <img src="/assets/logos/ifdd.svg" [alt]="'alt.logo_ifdd'|translate">
+        </a>
+        <button class="flex items-center md:hidden px-4 py-2 text-primary" (click)="closeSidebar()">
+          <ng-icon name="hero-x" size="24"></ng-icon>
+        </button>
+      </div>
+      <a href="" class="pr-0 ml-auto md:ml-0">
+        <img src="/assets/logos/oif.svg" [alt]="'alt.logo_oif'|translate">
+      </a>
+      <a href="" class="pr-4 mr-auto md:mr-0">
+        <img src="/assets/logos/sdg.png" [alt]="'alt.logo_sdg'|translate">
+      </a>
+    </div>
+    <div class="flex flex-col md:flex-row flex-1 justify-between p-8 md:p-0 bg-primary md:bg-white">
+      <h1 class="hidden md:flex items-center w-44 text-sm text-neutral-700">{{ 'title.civil_organization_map'|translate
+        }}</h1>
+      <nav class="flex flex-col md:flex-row">
+        <a [routerLink]="item.link" *ngFor="let item of menuItems"
+          class="flex items-center mb-3 md:mb-0 text-xs xl:text-[13px] font-extrabold pl-1 pr-3 md:px-4 py-0.5 md:py-0 uppercase hover:bg-primary hover:text-white focus:bg-primary focus:text-white bg-white rounded-lg md:rounded-none"
+          [ngClass]="{'text-primary md:bg-primary md:text-white': item.active, 'text-primary md:text-secondary': !item.active}">
+          <img [src]="item.image" [alt]="item.label" *ngIf="!item.active">
+          <img [src]="item.activeImage" [alt]="item.label" *ngIf="item.active">
+          <span>{{ item.label }}</span>
+          <span class="inline-flex md:hidden ml-auto">
+            <ng-icon name="hero-arrow-right" strokeWidth="3" size="18" class="text-accent"></ng-icon>
+          </span>
+        </a>
+        <button></button>
+      </nav>
+      <button class="md:hidden block text-center text-secondary text-xs font-bold">{{ 'button.terms_of_use'|translate
+        }}</button>
+      <div class="hidden md:flex items-center ml-4">
+        <button class="px-4 py-2 bg-accent text-primary text-xs font-extrabold rounded-lg uppercase">{{
+          'button.register'|translate }}</button>
+        <button class="px-4 py-2 ml-4 bg-secondary-light text-primary text-xs font-extrabold rounded-lg uppercase">{{
+          'button.login'|translate }}</button>
+      </div>
+    </div>
+  </div>
+  <div class="block md:hidden fixed top-0 left-0 right-0 bottom-0 bg-black opacity-20 z-10" *ngIf="sidebarVisible"
+    (click)="closeSidebar()"></div>
+</div>
