@@ -5,13 +5,15 @@ import { BaseLayoutComponent } from './base-layout/base-layout.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 
 
 
 @NgModule({
   declarations: [
     BaseLayoutComponent,
-    NavbarComponent
+    NavbarComponent,
+    SearchBarComponent
   ],
   imports: [
     CommonModule,

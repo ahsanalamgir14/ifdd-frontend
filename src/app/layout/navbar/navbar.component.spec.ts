@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { SearchBarStubComponent } from '../testing';
 
 import { NavbarComponent } from './navbar.component';
 
@@ -21,7 +22,11 @@ describe('NavbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NavbarComponent, AboutStubComponent ],
+      declarations: [
+        NavbarComponent,
+        AboutStubComponent,
+        SearchBarStubComponent
+      ],
       imports: [
         TranslateModule.forRoot(),
         SharedModule,

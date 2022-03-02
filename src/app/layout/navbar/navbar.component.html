@@ -3,11 +3,7 @@
     <button class="flex items-center px-3 text-secondary" (click)="openSidebar()">
       <ng-icon name="hero-menu" size="24"></ng-icon>
     </button>
-    <form class="flex-1">
-      <input type="text"
-        class="w-full h-full px-0 border-0 focus:border-secondary-light focus:shadow-none placeholder-primary focus:ring-transparent text-sm italic"
-        [placeholder]="'placeholder.global_search'|translate">
-    </form>
+    <app-search-bar class="flex-1 flex items-center"></app-search-bar>
     <button class="flex items-center px-3 text-secondary border-l border-black border-opacity-10">
       <ng-icon name="hero-user-solid" size="24"></ng-icon>
     </button>
