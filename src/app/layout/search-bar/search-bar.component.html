@@ -1,5 +1,8 @@
-<form class="flex-1">
+<form class="flex-1 relative">
+  <span *ngIf="isFull" class="absolute top-1/4 left-3 text-primary">
+    <ng-icon name="hero-search" strokeWidth="3" size="20"></ng-icon>
+  </span>
   <input type="text"
-    class="w-full h-full px-0 border-0 focus:border-secondary-light focus:shadow-none placeholder-primary focus:ring-transparent text-sm italic"
+    class="w-full h-full px-0 border-0 focus:border-secondary-light focus:shadow-none placeholder-primary focus:ring-transparent text-sm italic" [ngClass]="{'rounded-lg pl-12 pr-4 py-3 shadow-lg': isFull}"
     [placeholder]="'placeholder.global_search'|translate">
 </form>

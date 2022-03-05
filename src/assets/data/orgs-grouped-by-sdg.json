@@ -1,0 +1,86 @@
+[
+  {
+    "sdg": {
+      "id": 1,
+      "name": "Pas de pauvreté"
+    },
+    "orgsCount": 12
+  },
+  {
+    "sdg": {
+      "id": 2,
+      "name": "Faim \"zéro\""
+    },
+    "orgsCount": 32
+  },
+  {
+    "sdg": {
+      "id": 3,
+      "name": "Bonne santé et bien-être"
+    },
+    "orgsCount": 41
+  },
+  {
+    "sdg": {
+      "id": 4,
+      "name": "Education de qualité"
+    },
+    "orgsCount": 22
+  },
+  {
+    "sdg": {
+      "id": 5,
+      "name": "Égalité entre les sexes"
+    },
+    "orgsCount": 78
+  },
+  {
+    "sdg": {
+      "id": 6,
+      "name": "Eau propre et assainissement"
+    },
+    "orgsCount": 59
+  },
+  {
+    "sdg": {
+      "id": 7,
+      "name": "Energie propre et d'un coût abordable"
+    },
+    "orgsCount": 66
+  },
+  {
+    "sdg": {
+      "id": 8,
+      "name": "Travail et croissance économique"
+    },
+    "orgsCount": 45
+  },
+  {
+    "sdg": {
+      "id": 9,
+      "name": "Industrie, innovation et infrastructure"
+    },
+    "orgsCount": 34
+  },
+  {
+    "sdg": {
+      "id": 10,
+      "name": "Inégalités et réduites"
+    },
+    "orgsCount": 76
+  },
+  {
+    "sdg": {
+      "id": 11,
+      "name": "Villes et communautés durables"
+    },
+    "orgsCount": 44
+  },
+  {
+    "sdg": {
+      "id": 12,
+      "name": "Consommation et production durables"
+    },
+    "orgsCount": 57
+  }
+]

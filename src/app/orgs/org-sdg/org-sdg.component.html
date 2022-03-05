@@ -1,0 +1,10 @@
+<div class="group flex items-center py-3 border-t border-neutral-200 cursor-pointer" [ngClass]="{'bg-primary -mx-2 px-2 rounded-lg': selected}" *ngIf="orgSdg">
+  <img [src]="'/assets/logos/sdg/' + orgSdg.sdg.id + '.svg'" [alt]="orgSdg.sdg.name">
+  <div class="ml-3">
+    <h3 class="text-xs font-bold" [ngClass]="{'text-white': selected, 'text-primary': !selected}">{{ orgSdg.sdg.name }}</h3>
+    <p *ngIf="orgSdg.orgsCount > 1" class="text-xs font-semibold lowercase" [ngClass]="{'text-neutral-300': selected, 'text-neutral-400': !selected}">
+      <span *ngIf="orgSdg.orgsCount > 1">{{ orgSdg.orgsCount }} {{ 'text.organizations'|translate }}</span>
+      <span *ngIf="orgSdg.orgsCount === 1">{{ orgSdg.orgsCount }} {{ 'text.organization'|translate }}</span>
+    </p>
+  </div>
+</div>

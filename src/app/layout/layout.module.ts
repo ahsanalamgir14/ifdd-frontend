@@ -6,6 +6,10 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+
+import { NgScrollbarModule } from 'ngx-scrollbar';
+import { OrgsModule } from '../orgs/orgs.module';
 
 
 
@@ -13,13 +17,16 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
   declarations: [
     BaseLayoutComponent,
     NavbarComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    SidebarComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     TranslateModule,
-    SharedModule
+    SharedModule,
+    NgScrollbarModule,
+    OrgsModule
   ]
 })
 export class LayoutModule { }

@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 import { SearchBarComponent } from './search-bar.component';
 
@@ -10,7 +11,7 @@ describe('SearchBarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ SearchBarComponent ],
-      imports: [ TranslateModule.forRoot() ]
+      imports: [ SharedModule, TranslateModule.forRoot() ]
     })
     .compileComponents();
   });

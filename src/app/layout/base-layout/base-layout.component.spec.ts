@@ -10,13 +10,23 @@ import { BaseLayoutComponent } from './base-layout.component';
 })
 export class NavbarStubComponent { }
 
+@Component({
+  selector: 'app-sidebar',
+  template: 'sidebar works!'
+})
+export class SidebarStubComponent {}
+
 describe('BaseLayoutComponent', () => {
   let component: BaseLayoutComponent;
   let fixture: ComponentFixture<BaseLayoutComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BaseLayoutComponent, NavbarStubComponent ],
+      declarations: [
+        BaseLayoutComponent,
+        NavbarStubComponent,
+        SidebarStubComponent
+      ],
       imports: [ RouterTestingModule ]
     })
     .compileComponents();

@@ -1,15 +1,17 @@
-<div class="flex flex-col md:flex-row shadow-md">
+<div class="fixed top-0 left-0 right-0 flex flex-col md:flex-row shadow-lg bg-white z-20">
   <div class="flex flex-row md:hidden h-11">
     <button class="flex items-center px-3 text-secondary" (click)="openSidebar()">
       <ng-icon name="hero-menu" size="24"></ng-icon>
     </button>
-    <app-search-bar class="flex-1 flex items-center"></app-search-bar>
+    <app-search-bar [isFull]="false" class="flex-1 flex items-center"></app-search-bar>
     <button class="flex items-center px-3 text-secondary border-l border-black border-opacity-10">
       <ng-icon name="hero-user-solid" size="24"></ng-icon>
     </button>
   </div>
+  <div class="block md:hidden fixed top-0 left-0 right-0 bottom-0 bg-black opacity-20" *ngIf="sidebarVisible"
+    (click)="closeSidebar()"></div>
   <div
-    class="md:relative fixed md:translate-x-0 top-0 bottom-0 left-0 flex flex-col md:flex-row flex-1 w-60 md:w-auto md:h-20 bg-white shadow-lg z-20 md:px-5 transition-transform"
+    class="md:relative fixed md:translate-x-0 top-0 bottom-0 left-0 flex flex-col md:flex-row flex-1 w-60 md:w-auto md:h-20 bg-white shadow-lg md:px-5 transition-transform"
     [ngClass]="{'-translate-x-60': !sidebarVisible, 'translate-x-0': sidebarVisible}">
     <div
       class="flex flex-col md:flex-row items-center pl-4 md:p-0 after:hidden after:md:block after:h-3/4 after:mx-4 after:w-0.5 after:bg-slate-200">
@@ -42,7 +44,6 @@
             <ng-icon name="hero-arrow-right" strokeWidth="3" size="18" class="text-accent"></ng-icon>
           </span>
         </a>
-        <button></button>
       </nav>
       <button class="md:hidden block text-center text-secondary text-xs font-bold">{{ 'button.terms_of_use'|translate
         }}</button>
@@ -54,6 +55,4 @@
       </div>
     </div>
   </div>
-  <div class="block md:hidden fixed top-0 left-0 right-0 bottom-0 bg-black opacity-20 z-10" *ngIf="sidebarVisible"
-    (click)="closeSidebar()"></div>
 </div>
