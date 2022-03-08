@@ -8,7 +8,6 @@ import { SharedModule } from '../shared/shared.module';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
-import { NgScrollbarModule } from 'ngx-scrollbar';
 import { OrgsModule } from '../orgs/orgs.module';
 
 
@@ -25,7 +24,6 @@ import { OrgsModule } from '../orgs/orgs.module';
     RouterModule,
     TranslateModule,
     SharedModule,
-    NgScrollbarModule,
     OrgsModule
   ]
 })
