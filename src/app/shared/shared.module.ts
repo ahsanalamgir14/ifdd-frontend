@@ -5,11 +5,15 @@ import { NgIconsModule } from '@ng-icons/core';
 import { HeroArrowRight, HeroChevronDown, HeroMenu, HeroSearch, HeroUserSolid, HeroX } from '@ng-icons/heroicons';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [],
   exports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     NgIconsModule,
     TranslateModule,
     OverlayModule,
@@ -18,6 +22,8 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
   imports: [
     OverlayModule,
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     NgIconsModule.withIcons({
       HeroArrowRight,
       HeroChevronDown,

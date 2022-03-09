@@ -9,24 +9,30 @@
       </p>
     </div>
   </div>
-  <div class="flex items-center w-full h-8 mt-3 px-3 bg-white rounded-lg border-none" *ngIf="selected" (click)="toggleTargets()" cdkOverlayOrigin
+  <div class="flex items-center w-full h-8 mt-3 px-3 bg-white rounded-lg border-none trigger" *ngIf="selected" (click)="toggleTargets()" cdkOverlayOrigin
   #trigger="cdkOverlayOrigin">
-    <p class="mr-auto text-xs text-primary font-semibold">{{ 'text.all_goal_targets'|translate:{number: orgSdg.sdg.id} }}</p>
+    <p class="mr-auto text-xs text-primary font-semibold">{{ getSelectPlaceholder() }}</p>
     <span class="w-0 h-0 border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4 border-t-primary"></span>
-    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="showTargets" [cdkConnectedOverlayOffsetY]="-32" [cdkConnectedOverlayMinHeight]="300" [cdkConnectedOverlayPositions]="[]">
-      <div class="fixed top-0 bottom-0 right-0 left-0 max-w-xl p-3 bg-white rounded-lg overflow-y-auto shadow-lg" *ngIf="showTargets">
+    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="showTargets" [cdkConnectedOverlayPanelClass]="getCdkConnectedOverlayPanelClasses()" [cdkConnectedOverlayHasBackdrop]="true" (backdropClick)="toggleTargets()">
+      <div class="max-w-xl px-10 pt-5 md:px-3 md:pt-3 bg-white rounded-lg overflow-y-auto shadow-lg" *ngIf="showTargets">
         <div class="flex items-center pb-3 border-b border-b-primary">
-          <input type="checkbox" checked class="text-primary focus:ring-primary" id="">
-          <h4 class="ml-3 text-xs text-primary font-extrabold">{{ 'text.all_goal_targets'|translate:{number: orgSdg.sdg.id} }}</h4>
+          <label class="text-xs text-primary font-extrabold">
+            <input type="checkbox" [checked]="allSelected()" class="mr-3 text-primary focus:ring-primary">
+            {{ 'text.all_goal_targets'|translate:{number: this.orgSdg.sdg.id} }}
+          </label>
           <button class="flex items-center text-primary ml-auto" (click)="toggleTargets()">
             <ng-icon name="hero-x" size="24"></ng-icon>
           </button>
         </div>
         <ng-container *ngIf="targets.length !== 0">
-          <div *ngFor="let target of targets" class="flex items-start py-3 border-b border-b-neutral-200">
-            <input type="checkbox" checked [id]="target.id" class="text-primary focus:ring-primary">
-            <label class="ml-3 text-primary text-xs" [for]="target.id">{{ target.id }} {{ target.title }}</label>
-          </div>
+          <form>
+            <div *ngFor="let target of targets" class="py-3 border-b border-b-neutral-200">
+              <label class="flex text-primary text-xs">
+                <input type="checkbox" [value]="target.id" (change)="onCheckboxChange($event)" checked class="mr-3 text-primary focus:ring-primary">
+                {{ target.id }} {{ target.title }}
+              </label>
+            </div>
+          </form>
         </ng-container>
       </div>
     </ng-template>

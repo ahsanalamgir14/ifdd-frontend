@@ -21,6 +21,7 @@
 	"text": {
 		"organizations": "Organisations",
 		"organization": "Organisation",
+		"target": "Cible {{target}}",
 		"all_goal_targets": "Toutes les cibles de l'objectif {{number}}"
 	}
 }

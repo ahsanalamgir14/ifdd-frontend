@@ -22,10 +22,6 @@ describe('OrgService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return an Observable<OrgSdg[]>', () => {
-    expect(service.getOrgsBySdg()).toBeInstanceOf(Object);
-  });
-
   it('should return 12 SDGs', () => {
     service.getOrgsBySdg().subscribe((orgsSdg: OrgsSdg[]) => {
       expect(orgsSdg.length).toEqual(2);
