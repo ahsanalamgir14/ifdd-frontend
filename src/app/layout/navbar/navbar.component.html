@@ -14,19 +14,19 @@
     class="md:relative fixed md:translate-x-0 top-0 bottom-0 left-0 flex flex-col md:flex-row flex-1 w-60 md:w-auto md:h-20 bg-white shadow-lg md:px-5 transition-transform"
     [ngClass]="{'-translate-x-60': !sidebarVisible, 'translate-x-0': sidebarVisible}">
     <div
-      class="flex flex-col md:flex-row items-center pl-4 md:p-0 after:hidden after:md:block after:h-3/4 after:mx-4 after:w-0.5 after:bg-slate-200">
+      class="flex flex-col md:flex-row items-center pl-4 md:p-0 after:hidden after:md:block after:h-3/4 after:mx-3 after:w-0.5 after:bg-slate-200">
       <div class="flex">
         <a href="" class="pr-0 pt-2 md:pt-0">
-          <img src="/assets/logos/ifdd.svg" [alt]="'alt.logo_ifdd'|translate">
+          <img src="/assets/logos/ifdd.svg" [alt]="'alt.logo_ifdd'|translate" width="150">
         </a>
         <button class="flex items-center md:hidden px-4 py-2 text-primary" (click)="closeSidebar()">
           <ng-icon name="hero-x" size="24"></ng-icon>
         </button>
       </div>
       <a href="" class="pr-0 ml-auto md:ml-0">
-        <img src="/assets/logos/oif.svg" [alt]="'alt.logo_oif'|translate">
+        <img src="/assets/logos/oif.svg" [alt]="'alt.logo_oif'|translate" width="150">
       </a>
-      <a href="" class="pr-4 mr-auto md:mr-0">
+      <a href="" class="pr-3 mr-auto md:mr-0">
         <img src="/assets/logos/sdg.png" [alt]="'alt.logo_sdg'|translate">
       </a>
     </div>
