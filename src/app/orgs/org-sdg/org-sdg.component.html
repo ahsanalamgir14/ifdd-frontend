@@ -17,7 +17,7 @@
       <div class="max-w-xl px-10 pt-5 md:px-3 md:pt-3 bg-white rounded-lg overflow-y-auto shadow-lg" *ngIf="showTargets">
         <div class="flex items-center pb-3 border-b border-b-primary">
           <label class="text-xs text-primary font-extrabold">
-            <input type="checkbox" [checked]="allSelected()" class="mr-3 text-primary focus:ring-primary">
+            <input type="checkbox" [checked]="allSelected()" (change)="onSelectAll($event)" class="mr-3 text-primary focus:ring-primary">
             {{ 'text.all_goal_targets'|translate:{number: this.orgSdg.sdg.id} }}
           </label>
           <button class="flex items-center text-primary ml-auto" (click)="toggleTargets()">
@@ -25,10 +25,10 @@
           </button>
         </div>
         <ng-container *ngIf="targets.length !== 0">
-          <form>
-            <div *ngFor="let target of targets" class="py-3 border-b border-b-neutral-200">
+          <form [formGroup]="form">
+            <div *ngFor="let target of targets; let i = index;" class="py-3 border-b border-b-neutral-200" formArrayName="targets">
               <label class="flex text-primary text-xs">
-                <input type="checkbox" [value]="target.id" (change)="onCheckboxChange($event)" checked class="mr-3 text-primary focus:ring-primary">
+                <input type="checkbox" (change)="onCheckboxChange($event, i)" checked [formControlName]="i" class="mr-3 text-primary focus:ring-primary">
                 {{ target.id }} {{ target.title }}
               </label>
             </div>

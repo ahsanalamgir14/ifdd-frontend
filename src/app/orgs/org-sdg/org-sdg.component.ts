@@ -1,6 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, ControlContainer, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { OrgsSdg } from '../orgs-sdg';
@@ -51,9 +51,11 @@ export class OrgSdgComponent {
       .pipe(
         finalize(() => this.loading = false)
       )
-      .subscribe(targets => {
-        this.targets = targets;
-        this.initializeForm();
+      .subscribe({
+        next: targets => {
+          this.targets = targets;
+          this.initializeForm();
+        }
       });
   }
 
@@ -65,12 +67,26 @@ export class OrgSdgComponent {
     return ['max-h-72', '-translate-y-8'];
   }
 
+  getSelectedTargets(): Target[] {
+    const selectedTargets: Target[] = [];
+
+    const targetsFormControl = this.form.get('targets') as FormArray;
+    targetsFormControl.controls.forEach((control: AbstractControl, index: number) => {
+      if (control.value) {
+        selectedTargets.push(this.targets[index]);
+      }
+    });
+
+    return selectedTargets;
+  }
+
   getSelectPlaceholder(): string {
     const targets = this.form.get('targets');
-    if (targets && targets.value && targets.value.length !== this.targets.length) {
+    if (!this.allSelected()) {
+      const selectedTargets: Target[] = this.getSelectedTargets();
       const selectedTexts: string[] = [];
-      targets.value.forEach((id: string) => {
-        selectedTexts.push(this.i18n.instant('text.target', {target: id}));
+      selectedTargets.forEach((target: Target) => {
+        selectedTexts.push(this.i18n.instant('text.target', {target: target.id}));
       });
 
       return selectedTexts.join(', ');
@@ -80,30 +96,31 @@ export class OrgSdgComponent {
   }
 
   allSelected(): boolean {
-    return this.form.get('targets')?.value.length === this.targets.length;
+    return this.form.get('targets')?.value.every((value: boolean) => value);
   }
 
   initializeForm(): void {
     const checkboxArray: FormArray = this.form.get('targets') as FormArray;
     this.targets.forEach((target: Target) => {
-      checkboxArray.push(new FormControl(target.id));
+      checkboxArray.push(new FormControl(true));
     })
   }
 
-  onCheckboxChange(event: any): void {
-    const checkboxArray: FormArray = this.form.get('targets') as FormArray;
-    if (event.target && event.target.checked) {
-      checkboxArray.push(new FormControl(event.target.value));
-    } else {
-      let i: number = 0;
-      checkboxArray.controls.forEach((item: AbstractControl) => {
-        if (item.value === event.target.value) {
-          checkboxArray.removeAt(i);
-          return;
-        }
+  onSelectAll(event: any): void {
+    const targetsFormControl = this.form.get('targets') as FormArray;
+    const value = event.target?.checked || false;
 
-        i++;
-      });
-    }
+    targetsFormControl.controls.forEach((control: AbstractControl) => {
+      control.setValue(value);
+    });
+  }
+
+  onCheckboxChange(event: any, position: number): void {
+    const targetsFormControl = this.form.get('targets') as FormArray;
+    targetsFormControl.controls.forEach((control: AbstractControl, index: number) => {
+      if (position === index) {
+        control.setValue(control.value);
+      }
+    });
   }
 }
