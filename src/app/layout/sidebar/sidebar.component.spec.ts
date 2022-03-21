@@ -95,4 +95,20 @@ describe('SidebarComponent', () => {
 
     expect(component.isOpen()).toBe(true);
   });
+
+  it('should always return component._open when mobileQuery.matches', () => {
+    // TODO: mock this
+    component.mobileQuery = {
+      matches: true,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      media: '',
+      onchange: () => {},
+      addListener: () => {},
+      removeListener: () => {},
+      dispatchEvent: (event: Event) => true
+    };
+
+    expect(component.isOpen()).toEqual(false);
+  });
 });

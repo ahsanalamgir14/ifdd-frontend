@@ -66,12 +66,56 @@ describe('OrgSdgComponent', () => {
     // Select the first checkbox
     const checkbox = fixture.debugElement.queryAll(By.css('input[type="checkbox"]'))[1];
     // Uncheck the first target
-    checkbox.triggerEventHandler('change', { target: { checked: false, value: '1.1' } });
+    checkbox.triggerEventHandler('change', { target: { checked: false } });
     fixture.detectChanges();
     // Check the first target
-    checkbox.triggerEventHandler('change', { target: { checked: true, value: '1.1' } });
+    checkbox.triggerEventHandler('change', { target: { checked: true } });
+    fixture.detectChanges();
+    expect(component.form.get('targets')?.value).toEqual([true, true, true]);
+  });
+
+  it('should check all the check boxes', () => {
+    targetServiceSpy.getTargetsForSdg.and.returnValue(of(targets));
+    // Open the targets selector
+    const targetsTrigger = fixture.debugElement.query(By.directive(CdkOverlayOrigin));
+    targetsTrigger.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    // Select the first checkbox
+    const checkbox = fixture.debugElement.queryAll(By.css('input[type="checkbox"]'))[0];
+    checkbox.triggerEventHandler('change', { target: { checked: true } });
     fixture.detectChanges();
 
-    expect(component.form.get('targets')?.value.length).toBe(3);
-  })
+    expect(component.form.get('targets')?.value).toEqual([true, true, true]);
+  });
+
+  it('should uncheck all the check boxes', () => {
+    targetServiceSpy.getTargetsForSdg.and.returnValue(of(targets));
+    // Open the targets selector
+    const targetsTrigger = fixture.debugElement.query(By.directive(CdkOverlayOrigin));
+    targetsTrigger.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    // Select the first checkbox
+    const checkbox = fixture.debugElement.queryAll(By.css('input[type="checkbox"]'))[0];
+    checkbox.triggerEventHandler('change', { target: { checked: true } });
+    checkbox.triggerEventHandler('change', { target: { checked: false } });
+    fixture.detectChanges();
+
+    expect(component.form.get('targets')?.value).toEqual([false, false, false]);
+  });
+
+  it('should return overlay panel classes', () => {
+    // TODO: mock this
+    component.mobileQuery = {
+      matches: true,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      media: '',
+      onchange: () => {},
+      addListener: () => {},
+      removeListener: () => {},
+      dispatchEvent: (event: Event) => true
+    };
+
+    expect(component.getCdkConnectedOverlayPanelClasses()).toEqual(['fixed', '!top-0', '!bottom-0', '!left-0', '!right-0']);
+  });
 });

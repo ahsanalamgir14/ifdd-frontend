@@ -70,7 +70,6 @@ export class SidebarComponent implements OnDestroy, OnInit {
       )
       .subscribe(data => {
         this.orgsBySdg = data;
-        this.selectedOrgSdg = this.orgsBySdg[0];
       });
   }
 }
