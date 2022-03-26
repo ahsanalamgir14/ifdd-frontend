@@ -1,0 +1,5 @@
+<div class="grid grid-cols-3 gap-0.5 w-20">
+  <div *ngFor="let sdgId of sdgIds" class="col-span-1 w-6 h-4 flex items-center justify-center" [ngClass]="getCssClass(sdgId)">
+    <span *ngIf="isActive(sdgId)" class="text-white text-xs leading-none font-medium">{{ sdgId }}</span>
+  </div>
+</div>

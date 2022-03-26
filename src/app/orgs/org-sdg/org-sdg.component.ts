@@ -1,6 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, ControlContainer, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { OrgsSdg } from '../orgs-sdg';
@@ -16,6 +16,7 @@ export class OrgSdgComponent {
   private _mobileQueryListener: () => void;
   @Input() orgSdg!: OrgsSdg;
   @Input() selected = false;
+  @Output() targetsSelection: EventEmitter<Target[]> = new EventEmitter();
   mobileQuery: MediaQueryList;
   form: FormGroup;
   showTargets: boolean = false;
@@ -42,6 +43,10 @@ export class OrgSdgComponent {
 
     if (this.showTargets && !this.targets.length) {
       this.getTargets();
+    }
+
+    if (!this.showTargets) {
+      this.targetsSelection.emit(this.getSelectedTargets())
     }
   }
 
@@ -122,5 +127,11 @@ export class OrgSdgComponent {
         control.setValue(control.value);
       }
     });
+  }
+
+  onOverlayKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      this.toggleTargets();
+    }
   }
 }

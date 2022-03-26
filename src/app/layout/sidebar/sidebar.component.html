@@ -1,6 +1,6 @@
-<div class="fixed md:pt-20 pl-0 md:pl-5 pr-0 md:pr-5 md:top-0 bottom-0 left-0 right-0 md:right-auto md:w-[400px] md:bg-secondary md:z-0 overflow-y-auto" [ngClass]="{'top-0 z-20': isOpen(), 'top-12': !isOpen()}">
-  <app-search-bar class="hidden md:block mt-5"></app-search-bar>
-  <div class="relative flex flex-col md:mt-3 bg-white rounded-lg shadow-lg" [ngClass]="{'pb-14': isOpen(), 'mt-2 mx-3': !isOpen()}">
+<div class="fixed md:pt-20 pl-0 md:pl-5 pr-0 md:pr-5 md:top-0 bottom-0 left-0 right-0 md:right-auto md:w-[400px] md:bg-secondary md:z-0 overflow-y-auto" [ngClass]="{'top-0 z-20': isOpen() && !showOrgs, 'top-12': !isOpen(), 'top-0 bg-secondary': isOpen() && showOrgs}">
+  <app-search-bar class="hidden md:block mt-5" [isRounded]="!showOrgs"></app-search-bar>
+  <div *ngIf="!showOrgs" class="relative flex flex-col md:mt-3 bg-white rounded-lg shadow-lg" [ngClass]="{'pb-14': isOpen(), 'mt-2 mx-3': !isOpen()}">
     <h2 class="flex items-center justify-center md:pt-4 md:pb-5 text-xs md:text-sm text-secondary text-center md:text-left font-semibold" [ngClass]="{'pb-4 pt-4 px-7': isOpen(), 'pb-2 pt-2 px-4': !isOpen()}">
       {{ 'title.filter_by_objectives'|translate }}
       <button *ngIf="isOpen()" class="md:hidden ml-auto text-primary" (click)="toggle()">
@@ -13,13 +13,42 @@
     <ng-scrollbar [autoHeightDisabled]="false" *ngIf="isOpen()">
       <div class="group px-7 flex-1 max-h-[calc(100vh-116px)] md:max-h-[calc(100vh-300px)]">
         <div *ngFor="let item of orgsBySdg" class="last:pb-10">
-          <app-org-sdg [orgSdg]="item" [selected]="item === selectedOrgSdg" (click)="onSelectSdg(item)"></app-org-sdg>
+          <app-org-sdg [orgSdg]="item" [selected]="item === selectedOrgSdg" (targetsSelection)="onTargetsSelection($event)" (click)="onSelectSdg(item)"></app-org-sdg>
         </div>
       </div>
     </ng-scrollbar>
     <div *ngIf="isOpen()" class="absolute bottom-0 left-0 right-0 flex px-5 py-3 bg-white rounded-b-lg shadow-[0px_-5px_10px_rgb(0,0,0,.2)]">
       <button *ngIf="selectedOrgSdg" class="p-2 bg-secondary-light text-primary text-xs font-extrabold rounded-lg uppercase" (click)="reinitialize()">{{ 'button.reinitialize'|translate }}</button>
-      <button class="p-2 ml-auto bg-accent text-primary text-xs font-extrabold rounded-lg uppercase">{{ 'button.display_orgs'|translate:{orgsCount: selectedOrgsCount()} }}</button>
+      <button class="p-2 ml-auto bg-accent text-primary text-xs font-extrabold rounded-lg uppercase" (click)="onShowOrgs()">{{ 'button.display_orgs'|translate:{orgsCount: selectedOrgsCount()} }}</button>
     </div>
+  </div>
+  <div *ngIf="showOrgs" class="relative flex flex-col pt-14 md:pt-0 pb-5 px-3 md:px-0" [ngClass]="{'mt-2 mx-3': !isOpen()}" [ngClass]="{'md:mt-3': !showOrgs}">
+    <div class="flex flex-col items-center justify-center p-3 bg-white shadow-lg border-t-neutral-200 border-t" [ngClass]="{'rounded-lg': mobileQuery.matches || (!mobileQuery.matches && !showOrgs), 'rounded-b-lg': !mobileQuery.matches && showOrgs}">
+      <ul class="w-full flex" [ngClass]="{'mb-3': selectedTargets.length !== 0}">
+        <li *ngFor="let target of selectedTargets; let i = index;" class="px-1 py-1 mr-2 flex items-center border-2 border-neutral-200 rounded-xl">
+          <div class="w-3 h-3 rounded-full" [ngClass]="getTargetColorClass(target)"></div>
+          <span class="inline-flex mx-1 text-xs text-neutral-500 font-bold">{{ target.id }}</span>
+          <button class="flex items-center text-neutral-500" (click)="unselectTarget(i)">
+            <ng-icon name="hero-x" strokeWidth="2"></ng-icon>
+          </button>
+        </li>
+      </ul>
+      <button class="flex text-primary text-xs md:text-sm font-bold items-center lowercase" (click)="hideOrgs()">
+        <span>{{ 'button.update_filters'|translate }}</span>
+        <ng-icon name="hero-chevron-down" strokeWidth="3" class="inline-flex ml-4"></ng-icon>
+      </button>
+    </div>
+    <div class="flex mt-3 md:mt-2 mb-3 md:mb-4">
+      <p class="font-bold text-sm text-white">
+        <span>{{ orgs.length }} </span>
+        <span *ngIf="orgs.length === 1">{{ 'text.one_org'|translate }}</span>
+        <span *ngIf="orgs.length !== 1">{{ 'text.orgs_count'|translate }}</span>
+      </p>
+      <button class="ml-auto font-bold text-sm text-white">
+        {{ 'button.filter_by_relevance'|translate }}
+        <ng-icon name="hero-chevron-down" strokeWidth="3"></ng-icon>
+      </button>
+    </div>
+    <app-org [org]="org" *ngFor="let org of orgs"></app-org>
   </div>
 </div>

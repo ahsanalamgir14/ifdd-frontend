@@ -1,0 +1,186 @@
+[
+  {
+    "id": 1,
+    "name": "Mouvement des jeunes pour le Réveil et le Développement",
+    "description": "Le Mouvement des Jeunes pour le Réveil et le Développement est une organisation à caractère social, humanitaire et de solidarité internationale œuvrant dans les domaines de : Education scolaire des enfants et des jeunes ; Autonomisation des jeunes, des femmes et l’alphabétisation, Prévention et préservation de l’environnement, Paix, Sécurité Sports. Il est membre du Conseil Économique, Social et Culturel de l’Union Africaine (AU-ECOSOCC) et doté du statut  consultatif  spécial du Conseil Économique  et Social des Nations Unies (ECOSOC –ONU), statut d’observateur  de la Convention Cadre des Nations Unies sur les Changements Climatiques (CCNUCC).",
+    "contact": {
+      "name": "Mohamed ALIDOU",
+      "website": "https://example.com/",
+      "emailAddress": "contact@example.com",
+      "phoneNumber": "+33123456789",
+      "facebook": "https://facebook.com",
+      "poBox": "BP:338 Parakou, Quartier Dokparou, Benin"
+    },
+    "presentation": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD.Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
+    "organization": "ONG ordinaire fondée le 01/03/1993",
+    "interventionZones": [],
+    "sdgs": [
+      {
+        "id": 1,
+        "name": "",
+        "targets": []
+      },
+      {
+        "id": 3,
+        "name": "",
+        "targets": []
+      },
+      {
+        "id": 8,
+        "name": "",
+        "targets": []
+      }
+    ],
+    "similarOrgs": []
+  },
+  {
+    "id": 2,
+    "name": "Association pour la Protection de l'Enfance Malheuruese",
+    "description": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD.Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
+    "contact": {
+      "name": "Mohamed ALIDOU",
+      "website": "https://example.com/",
+      "emailAddress": "contact@example.com",
+      "phoneNumber": "+33123456789",
+      "facebook": "https://facebook.com",
+      "poBox": "BP:338 Parakou, Quartier Dokparou, Benin"
+    },
+    "presentation": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD.Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
+    "organization": "ONG ordinaire fondée le 01/03/1993",
+    "interventionZones": [],
+    "sdgs": [
+      {
+        "id": 2,
+        "name": "",
+        "targets": []
+      },
+      {
+        "id": 6,
+        "name": "",
+        "targets": []
+      },
+      {
+        "id": 10,
+        "name": "",
+        "targets": []
+      }
+    ],
+    "similarOrgs": []
+  },
+  {
+    "id": 3,
+    "name": "Association de Promotion du Développement Economique et Social et de la protection de l’Environnement",
+    "description": "AProDESE intervient dans les domaines de : Eau-Hygiène et Assainissement;  Agriculture durable ; Santé-Environnement; Education-Formation; Bonne Gouvernance ; Gestion des Ressources naturelles; Réalisation des infrastructures sociocommunautaires; Lutte contre les IST et le VIH-SIDA ; Genre et Développement ; Etudes et Recherches",
+    "contact": {
+      "name": "Mohamed ALIDOU",
+      "website": "https://example.com/",
+      "emailAddress": "contact@example.com",
+      "phoneNumber": "+33123456789",
+      "facebook": "https://facebook.com",
+      "poBox": "BP:338 Parakou, Quartier Dokparou, Benin"
+    },
+    "presentation": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD.Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
+    "organization": "ONG ordinaire fondée le 01/03/1993",
+    "interventionZones": [],
+    "sdgs": [
+      {
+        "id": 12,
+        "name": "",
+        "targets": []
+      }
+    ],
+    "similarOrgs": []
+  },
+  {
+    "id": 4,
+    "name": "SECOURS HUMANITAIRE BENIN",
+    "description": "SEHUBE intervient dans la lutte contre l'enfance malheureuse; la promotion de la femme et l'intermédiation sociale en santé. Actions concrètes: - Intervention pour la sauvegarde du droit des enfants; insertion socio professionnelle des jeunes (fille et garçon) vulnérables - Facilitation de la gestion des conflits conjugaux; appui technique à l'autonomisation des femmes en situation difficile - Mobilisation sociale en santé de la reproduction et santé oculaire , la lutte contre le SIDA, le paludisme- Appui à l'analyse et le contrôle des actions publiques en faveur du bien - être des enfants et des femmes. Projets: Changement d'habitude par Opposition à la corruption en milieu scolaire (CHOC/MS) GIZ; Appui nutritionnel aux PVVIH par les Communautés à la base, FOND Mondial/PMLS 2;",
+    "contact": {
+      "name": "Mohamed ALIDOU",
+      "website": "https://example.com/",
+      "emailAddress": "contact@example.com",
+      "phoneNumber": "+33123456789",
+      "facebook": "https://facebook.com",
+      "poBox": "BP:338 Parakou, Quartier Dokparou, Benin"
+    },
+    "presentation": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD.Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
+    "organization": "ONG ordinaire fondée le 01/03/1993",
+    "interventionZones": [],
+    "sdgs": [
+      {
+        "id": 9,
+        "name": "",
+        "targets": []
+      },
+      {
+        "id": 5,
+        "name": "",
+        "targets": []
+      }
+    ],
+    "similarOrgs": []
+  },
+  {
+    "id": 5,
+    "name": "Association de Lutte pour un Développement Intégré et pour la Protection de l'Environnement",
+    "description": "ALDIPE est une ONG créée le 10 Juin 1989 qui s'est donnée comme mission de participer au développement socio-économique et culturel de l’Afrique en général et du Bénin en particulier par l’appui aux zones déshéritées et aux populations défavorisées à travers des approches de responsabilisation et d’autopromotion. Le corps de métier de l'ONG ALDIPE est l'agriculture durable mais elle intervient aussi dans d'autres domaines connexes que sont : Education et formation, santé communautaire, eau hygiène et assainissement, nutrition, promotion de l'entrepreneuriat des jeunes et des femmes, droits des enfants et des femmes, protection de l'environnement",
+    "contact": {
+      "name": "Mohamed ALIDOU",
+      "website": "https://example.com/",
+      "emailAddress": "contact@example.com",
+      "phoneNumber": "+33123456789",
+      "facebook": "https://facebook.com",
+      "poBox": "BP:338 Parakou, Quartier Dokparou, Benin"
+    },
+    "presentation": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD.Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
+    "organization": "ONG ordinaire fondée le 01/03/1993",
+    "interventionZones": [],
+    "sdgs": [
+      {
+        "id": 4,
+        "name": "",
+        "targets": []
+      },
+      {
+        "id": 7,
+        "name": "",
+        "targets": []
+      },
+      {
+        "id": 11,
+        "name": "",
+        "targets": []
+      }
+    ],
+    "similarOrgs": []
+  },
+  {
+    "id": 6,
+    "name": "Plate-forme Béninoise pour la Sécurité Alimentaire",
+    "description": "Projet 1- Projet d’amélioration de la couverture en eau potable et des conditions d’hygiène et d’assainissement dans la commune de Parakou (PACEPHA-Parakou). Projet 2- ProSOL Projet de formation et d’encadrement des petits exploitants agricoles",
+    "contact": {
+      "name": "Mohamed ALIDOU",
+      "website": "https://example.com/",
+      "emailAddress": "contact@example.com",
+      "phoneNumber": "+33123456789",
+      "facebook": "https://facebook.com",
+      "poBox": "BP:338 Parakou, Quartier Dokparou, Benin"
+    },
+    "presentation": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD.Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
+    "organization": "ONG ordinaire fondée le 01/03/1993",
+    "interventionZones": [],
+    "sdgs": [
+      {
+        "id": 6,
+        "name": "",
+        "targets": []
+      },
+      {
+        "id": 10,
+        "name": "",
+        "targets": []
+      }
+    ],
+    "similarOrgs": []
+  }
+]

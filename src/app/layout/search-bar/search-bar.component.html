@@ -6,7 +6,7 @@
     <ng-icon name="hero-x" strokeWidth="3" size="20"></ng-icon>
   </button>
   <input type="text"
-    class="w-full h-full px-0 border-0 focus:border-secondary-light focus:shadow-none placeholder-primary focus:ring-transparent text-sm italic" [ngClass]="{'rounded-lg pl-12 pr-4 py-3 shadow-lg': isFull}" [(ngModel)]="place" name="name"
+    class="w-full h-full px-0 border-0 focus:border-secondary-light focus:shadow-none placeholder-primary focus:ring-transparent text-sm italic" [ngClass]="{'pl-12 pr-4 py-3 shadow-lg': isFull, 'rounded-lg': isFull && isRounded, 'rounded-t-lg': isFull && !isRounded}" [(ngModel)]="place" name="name"
     [placeholder]="'placeholder.global_search'|translate"  cdkOverlayOrigin (keyup)="search(getValue($event))"
     #trigger="cdkOverlayOrigin" autocomplete="off">
     <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="showPlaces" [cdkConnectedOverlayPanelClass]="getConnectedOverlayPanelClasses()" [cdkConnectedOverlayWidth]="getOverlayWidth()" [cdkConnectedOverlayOffsetY]="getOverlayOffset()">

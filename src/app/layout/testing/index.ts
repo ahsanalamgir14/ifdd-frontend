@@ -6,4 +6,5 @@ import { Component, Input } from "@angular/core";
 })
 export class SearchBarStubComponent {
   @Input() isFull = false;
+  @Input() isRounded = true;
 }

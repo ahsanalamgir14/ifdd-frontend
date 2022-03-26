@@ -12,6 +12,7 @@ export class SearchBarComponent implements OnInit {
   private _mobileQueryListener: () => void;
   private searchText$ = new Subject<string>();
   @Input() isFull: boolean = true;
+  @Input() isRounded: boolean = true;
   @Output() selected: EventEmitter<Place|null> = new EventEmitter<Place|null>()
   mobileQuery: MediaQueryList;
   places: Place[] = [];
