@@ -2,6 +2,7 @@
   {
     "id": 1,
     "name": "Mouvement des jeunes pour le Réveil et le Développement",
+    "code": "MJRD",
     "description": "Le Mouvement des Jeunes pour le Réveil et le Développement est une organisation à caractère social, humanitaire et de solidarité internationale œuvrant dans les domaines de : Education scolaire des enfants et des jeunes ; Autonomisation des jeunes, des femmes et l’alphabétisation, Prévention et préservation de l’environnement, Paix, Sécurité Sports. Il est membre du Conseil Économique, Social et Culturel de l’Union Africaine (AU-ECOSOCC) et doté du statut  consultatif  spécial du Conseil Économique  et Social des Nations Unies (ECOSOC –ONU), statut d’observateur  de la Convention Cadre des Nations Unies sur les Changements Climatiques (CCNUCC).",
     "contact": {
       "name": "Mohamed ALIDOU",
@@ -11,14 +12,30 @@
       "facebook": "https://facebook.com",
       "poBox": "BP:338 Parakou, Quartier Dokparou, Benin"
     },
-    "presentation": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD.Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
+    "presentation": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD. Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
     "organization": "ONG ordinaire fondée le 01/03/1993",
-    "interventionZones": [],
+    "interventionZones": [
+      "Quartier des Côteaux",
+      "Terrains agricoles du Sud"
+    ],
     "sdgs": [
       {
         "id": 1,
         "name": "",
-        "targets": []
+        "targets": [
+          {
+            "id": "1.1",
+            "title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea dignissimos deleniti labore, vitae incidunt laboriosam nostrum fugiat adipisci, reprehenderit pariatur recusandae rerum ullam. Iusto non dolore, distinctio quo aliquid facere."
+          },
+          {
+            "id": "1.2",
+            "title": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem aliquam quidem, earum accusamus minima culpa dolorem modi rerum delectus laborum, harum magnam. Tempora cupiditate ut dolorem velit? Soluta, excepturi numquam!"
+          },
+          {
+            "id": "1.3",
+            "title": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla nesciunt, nemo totam adipisci, vitae ducimus placeat commodi doloremque corporis hic velit! Error similique alias voluptatem quod. Omnis exercitationem nemo dolore?"
+          }
+        ]
       },
       {
         "id": 3,
@@ -36,7 +53,7 @@
   {
     "id": 2,
     "name": "Association pour la Protection de l'Enfance Malheuruese",
-    "description": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD.Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
+    "description": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD. Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
     "contact": {
       "name": "Mohamed ALIDOU",
       "website": "https://example.com/",
@@ -45,14 +62,31 @@
       "facebook": "https://facebook.com",
       "poBox": "BP:338 Parakou, Quartier Dokparou, Benin"
     },
-    "presentation": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD.Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
+    "presentation": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD. Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
     "organization": "ONG ordinaire fondée le 01/03/1993",
     "interventionZones": [],
     "sdgs": [
       {
         "id": 2,
         "name": "",
-        "targets": []
+        "targets": [
+          {
+            "id": "2.1",
+            "title": "D’ici à 2030, éliminer la faim et faire en sorte que chacun, en particulier les pauvres et les personnes en situation vulnérable, y compris les nourrissons, ait accès tout au long de l’année à une alimentation saine, nutritive et suffisante"
+          },
+          {
+            "id": "2.2",
+            "title": "D’ici à 2030, mettre fin à toutes les formes de malnutrition, y compris en réalisant d’ici à 2025 les objectifs arrêtés à l’échelle internationale relatifs aux retards de croissance et à l’émaciation parmi les enfants de moins de 5 ans, et répondre aux besoins nutritionnels des adolescentes, des femmes enceintes ou allaitantes et des personnes âgées"
+          },
+          {
+            "id": "2.3",
+            "title": "D’ici à 2030, doubler la productivité agricole et les revenus des petits producteurs alimentaires, en particulier les femmes, les autochtones, les exploitants familiaux, les éleveurs et les pêcheurs, y compris en assurant l’égalité d’accès aux terres, aux autres ressources productives et intrants, au savoir, aux services financiers, aux marchés et aux possibilités d’ajout de valeur et d’emploi autres qu’agricoles"
+          },
+          {
+            "id": "2.4",
+            "title": "D’ici à 2030, assurer la viabilité des systèmes de production alimentaire et mettre en œuvre des pratiques agricoles résilientes qui permettent d’accroître la productivité et la production, contribuent à la préservation des écosystèmes, renforcent les capacités d’adaptation aux changements climatiques, aux phénomènes météorologiques extrêmes, à la sécheresse, aux inondations et à d’autres catastrophes et améliorent progressivement la qualité des terres et des sols"
+          }
+        ]
       },
       {
         "id": 6,
@@ -79,7 +113,7 @@
       "facebook": "https://facebook.com",
       "poBox": "BP:338 Parakou, Quartier Dokparou, Benin"
     },
-    "presentation": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD.Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
+    "presentation": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD. Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
     "organization": "ONG ordinaire fondée le 01/03/1993",
     "interventionZones": [],
     "sdgs": [
@@ -103,7 +137,7 @@
       "facebook": "https://facebook.com",
       "poBox": "BP:338 Parakou, Quartier Dokparou, Benin"
     },
-    "presentation": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD.Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
+    "presentation": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD. Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
     "organization": "ONG ordinaire fondée le 01/03/1993",
     "interventionZones": [],
     "sdgs": [
@@ -132,7 +166,7 @@
       "facebook": "https://facebook.com",
       "poBox": "BP:338 Parakou, Quartier Dokparou, Benin"
     },
-    "presentation": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD.Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
+    "presentation": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD. Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
     "organization": "ONG ordinaire fondée le 01/03/1993",
     "interventionZones": [],
     "sdgs": [
@@ -166,7 +200,7 @@
       "facebook": "https://facebook.com",
       "poBox": "BP:338 Parakou, Quartier Dokparou, Benin"
     },
-    "presentation": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD.Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
+    "presentation": "Faciliter l’insertion et l’épanouissement des enfants en situation de vulnérabilité selon l’approche fondée sur les droits afin d’améliorer les cibles des ODD. Accompagner  les parents les  communautés dans la création et l’animation d’un environnement protecteur inclusif des enfants de façon holistique",
     "organization": "ONG ordinaire fondée le 01/03/1993",
     "interventionZones": [],
     "sdgs": [

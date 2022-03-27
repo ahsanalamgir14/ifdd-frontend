@@ -1,7 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { finalize } from 'rxjs';
-import { SDG_IDS, SDGS_COLOR_CLASSES, SDG_IDS_COLORS_MAPPING } from 'src/app/core/constants';
 import { Org } from 'src/app/orgs/org';
 
 import { OrgService } from 'src/app/orgs/org.service';
@@ -19,10 +18,10 @@ export class SidebarComponent implements OnDestroy, OnInit {
   orgsBySdg: OrgSdg[] = [];
   selectedOrgSdg: OrgSdg | null = null;
   selectedTargets: Target[] = [];
+  selectedOrg: Org | null = null;
   orgs: Org[] = [];
   showOrgs: boolean = false;
   loading = false;
-  sdgsIdsMapping = SDG_IDS_COLORS_MAPPING;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private orgService: OrgService) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
@@ -87,10 +86,12 @@ export class SidebarComponent implements OnDestroy, OnInit {
     this.selectedTargets.splice(position, 1);
   }
 
-  getTargetColorClass(target: Target): string {
-    const id: string = target.id.split('.')[0];
+  onSelectOrg(org: Org): void {
+    this.selectedOrg = org;
+  }
 
-    return this.sdgsIdsMapping[id];
+  onCloseOrgDetails(): void {
+    this.selectedOrg = null;
   }
 
   private getOrgs(): void {

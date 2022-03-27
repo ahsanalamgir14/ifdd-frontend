@@ -5,6 +5,7 @@ import { Target } from "./target";
 export class Org {
   public id?: number;
   public name?: string;
+  public code?: string;
   public description?: string;
   public contact?: Contact;
   public presentation?: string;
@@ -17,6 +18,7 @@ export class Org {
     if(data) {
       this.id = data.id;
       this.name = data.name;
+      this.code = data.code;
       this.description = data.description;
       this.presentation = data.presentation;
       this.organization = data.organization;

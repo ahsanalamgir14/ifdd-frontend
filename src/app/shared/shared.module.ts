@@ -2,7 +2,18 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgIconsModule } from '@ng-icons/core';
-import { HeroArrowRight, HeroChevronDown, HeroMenu, HeroSearch, HeroUserSolid, HeroX } from '@ng-icons/heroicons';
+import {
+  HeroArrowRight,
+  HeroChevronDown,
+  HeroGlobeAlt,
+  HeroLocationMarkerSolid,
+  HeroMailSolid,
+  HeroMenu,
+  HeroPhoneSolid,
+  HeroSearch,
+  HeroUserSolid,
+  HeroX
+} from '@ng-icons/heroicons';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -27,7 +38,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgIconsModule.withIcons({
       HeroArrowRight,
       HeroChevronDown,
+      HeroGlobeAlt,
+      HeroLocationMarkerSolid,
+      HeroMailSolid,
       HeroMenu,
+      HeroPhoneSolid,
       HeroSearch,
       HeroUserSolid,
       HeroX

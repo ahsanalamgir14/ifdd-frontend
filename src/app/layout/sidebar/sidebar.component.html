@@ -24,15 +24,9 @@
   </div>
   <div *ngIf="showOrgs" class="relative flex flex-col pt-14 md:pt-0 pb-5 px-3 md:px-0" [ngClass]="{'mt-2 mx-3': !isOpen()}" [ngClass]="{'md:mt-3': !showOrgs}">
     <div class="flex flex-col items-center justify-center p-3 bg-white shadow-lg border-t-neutral-200 border-t" [ngClass]="{'rounded-lg': mobileQuery.matches || (!mobileQuery.matches && !showOrgs), 'rounded-b-lg': !mobileQuery.matches && showOrgs}">
-      <ul class="w-full flex" [ngClass]="{'mb-3': selectedTargets.length !== 0}">
-        <li *ngFor="let target of selectedTargets; let i = index;" class="px-1 py-1 mr-2 flex items-center border-2 border-neutral-200 rounded-xl">
-          <div class="w-3 h-3 rounded-full" [ngClass]="getTargetColorClass(target)"></div>
-          <span class="inline-flex mx-1 text-xs text-neutral-500 font-bold">{{ target.id }}</span>
-          <button class="flex items-center text-neutral-500" (click)="unselectTarget(i)">
-            <ng-icon name="hero-x" strokeWidth="2"></ng-icon>
-          </button>
-        </li>
-      </ul>
+      <div class="w-full flex" [ngClass]="{'mb-3': selectedTargets.length !== 0}">
+        <app-org-target [target]="target" *ngFor="let target of selectedTargets; let i = index;" (unselectTarget)="unselectTarget(i)"></app-org-target>
+      </div>
       <button class="flex text-primary text-xs md:text-sm font-bold items-center lowercase" (click)="hideOrgs()">
         <span>{{ 'button.update_filters'|translate }}</span>
         <ng-icon name="hero-chevron-down" strokeWidth="3" class="inline-flex ml-4"></ng-icon>
@@ -49,6 +43,12 @@
         <ng-icon name="hero-chevron-down" strokeWidth="3"></ng-icon>
       </button>
     </div>
-    <app-org [org]="org" *ngFor="let org of orgs"></app-org>
+    <app-org [org]="org" *ngFor="let org of orgs" (click)="onSelectOrg(org)"></app-org>
   </div>
+</div>
+
+<div class="fixed z-20 md:z-0 md:pt-20 top-0 bottom-0 left-0 right-0 md:right-auto md:translate-x-[400px] md:w-[400px] bg-white transition-transform" *ngIf="selectedOrg">
+  <ng-scrollbar [autoHeightDisabled]="false">
+    <app-org-details [selectedOrg]="selectedOrg" (hide)="onCloseOrgDetails()"></app-org-details>
+  </ng-scrollbar>
 </div>

@@ -6,7 +6,13 @@
 	},
 	"title": {
 		"civil_organization_map": "Carte des Organizations de la Société Civile",
-		"filter_by_objectives": "Filtrer par objectifs de développement durable"
+		"filter_by_objectives": "Filtrer par objectifs de développement durable",
+		"contact": "Contact",
+		"presentation": "Présentation",
+		"organization": "Organisation de la Société Civile",
+		"intervention_zones": "Zones d'interventions",
+		"sdgs": "Objectifs de développement durable",
+		"similar_orgs": "Organisations similaires"
 	},
 	"button": {
 		"terms_of_use": "Conditions d'utilisation",
@@ -27,5 +33,12 @@
 		"organization": "Organisation",
 		"all_goal_targets": "Toutes les cibles de l'objectif {{number}}",
 		"target": "Cible {{target}}"
+	},
+	"link": {
+		"website": "Site Web",
+		"mail": "Mail",
+		"phone": "Appeler",
+		"share": "Partager",
+    "save": "Enregistrer"
 	}
 }

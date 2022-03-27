@@ -1,0 +1,99 @@
+<div *ngIf="org">
+  <div class="flex flex-col p-5 bg-neutral-100">
+    <div class="flex items-center">
+      <div class="flex">
+        <img [src]="'/assets/logos/sdg/' + sdg.id + '.svg'" [alt]="sdg.name" *ngFor="let sdg of org.sdgs" class="mr-3">
+      </div>
+      <button class="flex items-center ml-auto text-primary" (click)="onHide()">
+        <ng-icon name="hero-x" strokeWidth="3" size="20"></ng-icon>
+      </button>
+    </div>
+    <h3 class="mt-4 mb-3 text-xl text-primary font-bold">{{ org.name }}</h3>
+    <span class="text-secondary font-medium">{{ org.code }}</span>
+  </div>
+  <div class="px-5">
+    <div class="flex justify-between py-4 border-b border-neutral-200" *ngIf="org.contact">
+      <div class="flex flex-col items-center text-primary text-xs">
+        <a [href]="org.contact.website" *ngIf="org.contact.website" class="p-1.5 border rounded-md border-primary hover:bg-secondary focus:bg-secondary">
+          <img src="/assets/icons/actions/website.svg" alt="">
+        </a>
+        <span class="mt-1.5">{{ 'link.website'|translate }}</span>
+      </div>
+      <div class="flex flex-col items-center text-primary text-xs">
+        <a [href]="'mailto:' + org.contact.emailAddress" *ngIf="org.contact.emailAddress" class="p-1.5 border rounded-md border-primary hover:bg-secondary focus:bg-secondary">
+          <img src="/assets/icons/actions/mail.svg" alt="">
+        </a>
+        <span class="mt-1.5">{{ 'link.mail'|translate }}</span>
+      </div>
+      <div class="flex flex-col items-center text-primary text-xs">
+        <a [href]="'tel:' + org.contact.phoneNumber" *ngIf="org.contact.phoneNumber" class="p-1.5 border rounded-md border-primary hover:bg-secondary focus:bg-secondary">
+          <img src="/assets/icons/actions/phone.svg" alt="">
+        </a>
+        <span class="mt-1.5">{{ 'link.phone'|translate }}</span>
+      </div>
+      <div class="flex flex-col items-center text-primary text-xs">
+        <button class="p-1.5 border rounded-md border-primary hover:bg-secondary focus:bg-secondary">
+          <img src="/assets/icons/actions/share.svg" alt="">
+        </button>
+        <span class="mt-1.5">{{ 'link.share'|translate }}</span>
+      </div>
+      <div class="flex flex-col items-center text-primary text-xs">
+        <button class="p-1.5 border rounded-md border-primary hover:bg-secondary focus:bg-secondary">
+          <img src="/assets/icons/actions/save.svg" alt="">
+        </button>
+        <span class="mt-1.5">{{ 'link.save'|translate }}</span>
+      </div>
+    </div>
+    <div class="py-4 border-b border-neutral-200" *ngIf="org.contact">
+      <h4 class="text-secondary font-bold mb-2">{{ 'title.contact'|translate }}</h4>
+      <div class="flex items-center mb-2 text-primary">
+        <ng-icon name="hero-user-solid" size="24" class="text-secondary"></ng-icon>
+        <span class="ml-1 text-sm">{{ org.contact.name }}</span>
+      </div>
+      <div class="flex items-center mb-2 text-primary">
+        <ng-icon name="hero-phone-solid" size="24" class="text-secondary"></ng-icon>
+        <a [href]="'tel:' + org.contact.phoneNumber" class="ml-1 text-sm">{{ org.contact.phoneNumber }}</a>
+      </div>
+      <div class="flex items-center mb-2 text-primary">
+        <ng-icon name="hero-mail-solid" size="24" class="text-secondary"></ng-icon>
+        <a [href]="'mailto:' + org.contact.emailAddress" class="ml-1 text-sm underline">{{ org.contact.emailAddress }}</a>
+      </div>
+      <div class="flex items-center mb-2 text-primary">
+        <ng-icon name="hero-globe-alt" size="24" class="text-secondary"></ng-icon>
+        <a [href]="org.contact.website" class="ml-1 text-sm underline">{{ org.contact.website }}</a>
+      </div>
+      <div class="flex items-center mb-2 text-primary">
+        <ng-icon name="hero-globe-alt" size="24" class="text-secondary"></ng-icon>
+        <a [href]="org.contact.facebook" class="ml-1 text-sm underline">{{ org.contact.facebook }}</a>
+      </div>
+      <div class="flex items-center mb-2 text-primary">
+        <ng-icon name="hero-globe-alt" size="24" class="text-secondary"></ng-icon>
+        <span class="ml-1 text-sm font-medium">{{ org.contact.poBox }}</span>
+      </div>
+    </div>
+    <div class="py-4 border-b border-neutral-200">
+      <h4 class="text-secondary font-bold mb-2">{{ 'title.presentation'|translate }}</h4>
+      <div [innerText]="org.presentation" class="text-sm"></div>
+    </div>
+    <div class="py-4 border-b border-neutral-200">
+      <h4 class="text-secondary font-bold mb-2">{{ 'title.organization'|translate }}</h4>
+      <div [innerText]="org.organization" class="text-sm"></div>
+    </div>
+    <div class="py-4 border-b border-neutral-200" *ngIf="org.interventionZones">
+      <h4 class="text-secondary font-bold mb-2">{{ 'title.intervention_zones'|translate }}</h4>
+      <div class="flex items-center mb-2" *ngFor="let zone of org.interventionZones">
+        <ng-icon name="hero-location-marker-solid" size="24" class="text-secondary"></ng-icon>
+        <span class="ml-1 text-sm">{{ zone }}</span>
+      </div>
+    </div>
+    <div class="py-4 border-b border-neutral-200" *ngIf="org.sdgs">
+      <h4 class="text-secondary font-bold mb-2">{{ 'title.sdgs'|translate }}</h4>
+      <div class="w-full flex">
+        <app-org-target [target]="target" [unselectable]="true" *ngFor="let target of targets;"></app-org-target>
+      </div>
+    </div>
+    <div class="py-4 border-b border-neutral-200">
+      <h4 class="text-secondary font-bold mb-2">{{ 'title.similar_orgs'|translate }}</h4>
+    </div>
+  </div>
+</div>
