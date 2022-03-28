@@ -9,6 +9,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
 import { OrgsModule } from '../orgs/orgs.module';
+import { PageLayoutComponent } from './page-layout/page-layout.component';
 
 
 
@@ -17,7 +18,8 @@ import { OrgsModule } from '../orgs/orgs.module';
     BaseLayoutComponent,
     NavbarComponent,
     SearchBarComponent,
-    SidebarComponent
+    SidebarComponent,
+    PageLayoutComponent
   ],
   imports: [
     CommonModule,

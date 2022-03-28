@@ -18,15 +18,14 @@
 		"terms_of_use": "Conditions d'utilisation",
 		"register": "Inscription",
 		"login": "Connexion",
+		"terms_of_user": "Conditions d'utilisation",
 		"reinitialize": "Réinitialiser",
 		"display_orgs": "Afficher {{orgsCount}} organisations",
 		"update_filters": "Modifier les filtres",
 		"filter_by_relevance": "Trier par pertinence"
 	},
-	"placeholder": {
-		"global_search": "Recherchez un établissement, un lieu..."
-	},
 	"text": {
+		"copyright": "© 2022 Carte des Organisations de la Société Civile",
 		"one_org": "organisation",
 		"orgs_count": "organisations",
 		"organizations": "Organisations",
@@ -34,11 +33,14 @@
 		"all_goal_targets": "Toutes les cibles de l'objectif {{number}}",
 		"target": "Cible {{target}}"
 	},
+	"placeholder": {
+		"global_search": "Recherchez un établissement, un lieu..."
+	},
 	"link": {
 		"website": "Site Web",
 		"mail": "Mail",
 		"phone": "Appeler",
 		"share": "Partager",
-    "save": "Enregistrer"
+		"save": "Enregistrer"
 	}
 }
