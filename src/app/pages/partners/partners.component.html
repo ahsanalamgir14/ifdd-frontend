@@ -1,0 +1,16 @@
+<div class="mx-auto pb-12 container max-w-[940px]">
+  <section class="mt-12 bg-white rounded-xl shadow-lg" *ngFor="let partner of partners">
+    <div class="p-12">
+      <img [src]="partner.logo" alt="" class="mb-8">
+      <h2 class="mb-7 text-primary text-3xl font-bold">{{ partner.name }}</h2>
+      <p>{{ partner.about }}</p>
+
+      <p class="mt-12 text-primary font-bold">
+        <a [href]="partner.website" class="underline" target="_blank" rel="noopener">{{ partner.website }}</a>
+      </p>
+    </div>
+  </section>
+
+</div>
+
+<img src="/assets/images/about-footer.png" alt="" class="w-full">
