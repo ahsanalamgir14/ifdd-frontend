@@ -1,15 +1,19 @@
-<div class="group static flex flex-col py-3 border-t border-neutral-200 cursor-pointer" [ngClass]="{'bg-primary -mx-2 px-2 rounded-lg': selected}" *ngIf="orgSdg">
+<div class="group static flex flex-col py-3 border-neutral-200 cursor-pointer rounded-lg" [ngClass]="{'bg-primary -mx-2 px-2': selected && !lite, 'border-t': !lite, 'border px-3': lite, 'bg-secondary-light': selected && lite, 'justify-center h-24': lite}" *ngIf="orgSdg">
   <div class="flex items-center">
     <img [src]="'/assets/logos/sdg/' + orgSdg.sdg.id + '.svg'" [alt]="orgSdg.sdg.name">
-    <div class="ml-3">
-      <h3 class="text-xs font-bold" [ngClass]="{'text-white': selected, 'text-primary': !selected}">{{ orgSdg.sdg.name }}</h3>
-      <p *ngIf="orgSdg.orgsCount > 1" class="text-xs font-semibold lowercase" [ngClass]="{'text-neutral-300': selected, 'text-neutral-400': !selected}">
+    <div class="ml-3 mr-auto">
+      <h3 class="text-xs font-bold" [ngClass]="{'text-white': selected && !lite, 'text-primary': !selected || lite}">{{ orgSdg.sdg.name }}</h3>
+      <p *ngIf="orgSdg.orgsCount > 1" class="text-xs font-semibold lowercase" [ngClass]="{'text-neutral-300': selected, 'text-neutral-400': !selected || (selected && lite)}">
         <span *ngIf="orgSdg.orgsCount > 1">{{ orgSdg.orgsCount }} {{ 'text.organizations'|translate }}</span>
         <span *ngIf="orgSdg.orgsCount === 1">{{ orgSdg.orgsCount }} {{ 'text.organization'|translate }}</span>
       </p>
     </div>
+    <div *ngIf="lite && selected" class="flex flex-col items-end">
+      <button class="p-2 mb-1 bg-primary text-white text-xs font-bold rounded-lg uppercase">{{ 'button.details'|translate }}</button>
+      <button class="p-2 ml-auto bg-accent text-primary text-xs font-bold rounded-lg uppercase">{{ 'button.search_in_map'|translate }}</button>
+    </div>
   </div>
-  <div class="flex items-center w-full h-8 mt-3 px-3 bg-white rounded-lg border-none trigger" *ngIf="selected" (click)="toggleTargets()" cdkOverlayOrigin
+  <div class="flex items-center w-full h-8 mt-3 px-3 bg-white rounded-lg border-none trigger" *ngIf="selected && !lite" (click)="toggleTargets()" cdkOverlayOrigin
   #trigger="cdkOverlayOrigin">
     <p class="mr-auto text-xs text-primary font-semibold">{{ getSelectPlaceholder() }}</p>
     <span class="w-0 h-0 border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4 border-t-primary"></span>

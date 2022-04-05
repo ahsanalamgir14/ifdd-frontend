@@ -1,0 +1,36 @@
+<div class="mx-auto pb-12 container max-w-[940px]">
+  <section class="mt-12">
+    <div class="grid grid-cols-3 gap-4 w-full">
+      <div class="flex items-center justify-center p-3 bg-white rounded-xl shadow-lg">
+        <div></div>
+        <div>
+          <strong class="font-bold text-primary text-3xl lowercase">{{ numbers.countriesCount }} {{ 'text.countries'|translate }}</strong>
+          <p class="mb-0 font-medium text-primary lowercase">{{ 'text.accompanied'|translate }}</p>
+        </div>
+      </div>
+      <div class="flex items-center justify-center p-3 bg-white rounded-xl shadow-lg">
+        <div></div>
+        <div>
+          <strong class="font-bold text-primary text-3xl">{{ numbers.sdgsCount }}</strong>
+          <p class="mb-0 font-medium text-primary lowercase">{{ 'text.objectives'|translate }}</p>
+        </div>
+      </div>
+      <div class="flex items-center justify-center p-3 bg-white rounded-xl shadow-lg">
+        <div></div>
+        <div>
+          <strong class="font-bold text-primary text-3xl">{{ numbers.organizationsCount }}</strong>
+          <p class="mb-0 font-medium text-primary lowercase">{{ 'text.organizations'|translate }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-8 p-8 bg-white rounded-xl shadow-lg">
+    <div class="grid grid-cols-2 gap-4">
+      <div *ngFor="let orgSdg of orgsBySdg">
+        <app-org-sdg [orgSdg]="orgSdg" [lite]="true" (click)="onSelectSdg(orgSdg)" [selected]="orgSdg === selectedOrgSdg"></app-org-sdg>
+      </div>
+    </div>
+  </section>
+
+</div>

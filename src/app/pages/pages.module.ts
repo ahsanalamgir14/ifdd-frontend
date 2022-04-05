@@ -5,17 +5,21 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { AboutComponent } from './about/about.component';
 import { SharedModule } from '../shared/shared.module';
 import { PartnersComponent } from './partners/partners.component';
+import { NumbersComponent } from './numbers/numbers.component';
+import { OrgsModule } from '../orgs/orgs.module';
 
 
 @NgModule({
   declarations: [
     AboutComponent,
-    PartnersComponent
+    PartnersComponent,
+    NumbersComponent
   ],
   imports: [
     CommonModule,
     PagesRoutingModule,
-    SharedModule
+    SharedModule,
+    OrgsModule,
   ]
 })
 export class PagesModule { }

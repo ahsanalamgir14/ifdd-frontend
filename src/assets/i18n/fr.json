@@ -31,6 +31,9 @@
 		"organizations": "Organisations",
 		"organization": "Organisation",
 		"all_goal_targets": "Toutes les cibles de l'objectif {{number}}",
+		"countries": "Pays",
+		"accompanied": "Accompagnés",
+		"objectives": "Objectifs",
 		"target": "Cible {{target}}"
 	},
 	"placeholder": {

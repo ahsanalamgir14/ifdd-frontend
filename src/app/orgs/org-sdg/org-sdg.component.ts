@@ -9,13 +9,13 @@ import { TargetService } from '../target.service';
 
 @Component({
   selector: 'app-org-sdg',
-  templateUrl: './org-sdg.component.html',
-  styleUrls: ['./org-sdg.component.scss']
+  templateUrl: './org-sdg.component.html'
 })
 export class OrgSdgComponent {
   private _mobileQueryListener: () => void;
   @Input() orgSdg!: OrgsSdg;
   @Input() selected = false;
+  @Input() lite: boolean = false;
   @Output() targetsSelection: EventEmitter<Target[]> = new EventEmitter();
   mobileQuery: MediaQueryList;
   form: FormGroup;

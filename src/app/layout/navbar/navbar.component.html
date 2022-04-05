@@ -37,8 +37,8 @@
         <a [routerLink]="item.link" *ngFor="let item of menuItems"
           class="flex items-center mb-3 md:mb-0 text-xs xl:text-[13px] font-extrabold pl-1 pr-3 md:px-4 py-0.5 md:py-0 uppercase hover:bg-primary hover:text-white focus:bg-primary focus:text-white bg-white rounded-lg md:rounded-none"
           [ngClass]="{'text-primary md:bg-primary md:text-white': item.active, 'text-primary md:text-secondary': !item.active}">
-          <img [src]="item.image" [alt]="item.label" *ngIf="!item.active">
-          <img [src]="item.activeImage" [alt]="item.label" *ngIf="item.active">
+          <img [src]="item.image" [alt]="item.label" *ngIf="!item.active" width="44" height="44">
+          <img [src]="item.activeImage" [alt]="item.label" *ngIf="item.active" width="44" height="44">
           <span>{{ item.label }}</span>
           <span class="inline-flex md:hidden ml-auto">
             <ng-icon name="hero-arrow-right" strokeWidth="3" size="18" class="text-accent"></ng-icon>
