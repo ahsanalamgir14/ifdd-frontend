@@ -8,4 +8,5 @@ import { OrgsSdg } from "../orgs-sdg";
 export class OrgSdgStubComponent {
   @Input() orgSdg: OrgsSdg|null = null;
   @Input() selected = false;
+  @Input() lite = false;
 }
