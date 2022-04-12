@@ -14,7 +14,7 @@
       <div class="group px-7 flex-1 max-h-[calc(100vh-116px)] md:max-h-[calc(100vh-300px)]">
         <app-loading-lines *ngIf="loading"></app-loading-lines>
         <div *ngFor="let item of odds" class="last:pb-10">
-          <app-odd [odd]="item" [selected]="item === selectedOdd" [lite]="false" (targetsSelection)="onTargetsSelection($event)" (click)="onSelectSdg(item)"></app-odd>
+          <app-odd [odd]="item" [selected]="item === selectedOdd" [lite]="false" (categoriesSelection)="onCategoriesSelection($event)" (click)="onSelectOdd(item)"></app-odd>
         </div>
       </div>
     </ng-scrollbar>
@@ -25,8 +25,8 @@
   </div>
   <div *ngIf="showOrgs" class="relative flex flex-col pt-14 md:pt-0 pb-5 px-3 md:px-0" [ngClass]="{'mt-2 mx-3': !isOpen()}" [ngClass]="{'md:mt-3': !showOrgs}">
     <div class="flex flex-col items-center justify-center p-3 bg-white shadow-lg border-t-neutral-200 border-t" [ngClass]="{'rounded-lg': mobileQuery.matches || (!mobileQuery.matches && !showOrgs), 'rounded-b-lg': !mobileQuery.matches && showOrgs}">
-      <div class="w-full flex" [ngClass]="{'mb-3': selectedTargets.length !== 0}">
-        <app-org-target [target]="target" *ngFor="let target of selectedTargets; let i = index;" (unselectTarget)="unselectTarget(i)"></app-org-target>
+      <div class="w-full flex" [ngClass]="{'mb-3': selectedCategories.length !== 0}">
+        <app-odd-category [category]="category" *ngFor="let category of selectedCategories; let i = index;" [color]="selectedOdd?.color" (unselectCategory)="unselectCategory(i)"></app-odd-category>
       </div>
       <button class="flex text-primary text-xs md:text-sm font-bold items-center lowercase" (click)="hideOrgs()">
         <span>{{ 'button.update_filters'|translate }}</span>

@@ -89,7 +89,7 @@
     <div class="py-4 border-b border-neutral-200" *ngIf="org.sdgs">
       <h4 class="text-secondary font-bold mb-2">{{ 'title.sdgs'|translate }}</h4>
       <div class="w-full flex">
-        <app-org-target [target]="target" [unselectable]="true" *ngFor="let target of targets;"></app-org-target>
+        <app-odd-category [category]="category" [unselectable]="true" *ngFor="let category of categories;"></app-odd-category>
       </div>
     </div>
     <div class="py-4 border-b border-neutral-200">

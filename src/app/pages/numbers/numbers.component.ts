@@ -29,7 +29,7 @@ export class NumbersComponent implements OnInit {
 
   private getOdds(): void {
     this.loading = true;
-    this.oddService.getOdds()
+    this.oddService.getAll()
       .pipe(
         finalize(() => this.loading = false)
       )

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Category } from 'src/app/odds/category';
 import { Org } from '../org';
 import { OrgService } from '../org.service';
 import { Sdg } from '../sdg';
@@ -16,6 +17,7 @@ export class OrgDetailsComponent implements OnInit {
   @Output() hide: EventEmitter<boolean> = new EventEmitter<boolean>();
   org?: Org;
   targets: Target[] = [];
+  categories: Category[] = [];
 
   constructor(private orgService: OrgService) { }
 
@@ -25,7 +27,6 @@ export class OrgDetailsComponent implements OnInit {
 
   getOrg(): void {
     if (this.org?.id) {
-      console.log('called')
       this.orgService.getOrg(this.org.id).subscribe((org: Org|undefined) => {
         this.org = org;
         this.loadTargets();

@@ -13,27 +13,30 @@
       <button class="p-2 ml-auto bg-accent text-primary text-xs font-bold rounded-lg uppercase">{{ 'button.search_in_map'|translate }}</button>
     </div>
   </div>
-  <div class="flex items-center w-full h-8 mt-3 px-3 bg-white rounded-lg border-none trigger" *ngIf="selected && !lite" (click)="toggleTargets()" cdkOverlayOrigin
+  <div class="flex items-center w-full h-8 mt-3 px-3 bg-white rounded-lg border-none trigger" *ngIf="selected && !lite" (click)="toggleCategories()" cdkOverlayOrigin
   #trigger="cdkOverlayOrigin">
     <p class="mr-auto text-xs text-primary font-semibold">{{ getSelectPlaceholder() }}</p>
     <span class="w-0 h-0 border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4 border-t-primary"></span>
-    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="showTargets" [cdkConnectedOverlayPanelClass]="getCdkConnectedOverlayPanelClasses()" (overlayOutsideClick)="toggleTargets()" (overlayKeydown)="onOverlayKeydown($event)">
-      <div class="max-w-xl px-10 pt-5 md:px-3 md:pt-3 bg-white rounded-lg overflow-y-auto shadow-lg" *ngIf="showTargets">
+    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="showCategories" [cdkConnectedOverlayPanelClass]="getCdkConnectedOverlayPanelClasses()" (overlayOutsideClick)="toggleCategories()" (overlayKeydown)="onOverlayKeydown($event)">
+      <div class="max-w-sm px-10 pt-5 md:px-3 md:pt-3 bg-white rounded-lg overflow-y-auto shadow-lg" *ngIf="showCategories">
         <div class="flex items-center pb-3 border-b border-b-primary">
           <label class="text-xs text-primary font-extrabold">
             <input type="checkbox" [checked]="allSelected()" (change)="onSelectAll($event)" class="mr-3 text-primary focus:ring-primary">
-            {{ 'text.all_goal_targets'|translate:{number: odd.id} }}
+            {{ 'text.all_goal_categories'|translate:{number: odd.id} }}
           </label>
-          <button class="flex items-center text-primary ml-auto" (click)="toggleTargets()">
+          <button class="flex items-center text-primary ml-auto" (click)="toggleCategories()">
             <ng-icon name="hero-x" size="24"></ng-icon>
           </button>
         </div>
-        <ng-container *ngIf="targets.length !== 0">
+        <div class="py-3" *ngIf="loading">
+          <app-loading-lines></app-loading-lines>
+        </div>
+        <ng-container *ngIf="categories.length !== 0">
           <form [formGroup]="form">
-            <div *ngFor="let target of targets; let i = index;" class="py-3 border-b border-b-neutral-200" formArrayName="targets">
+            <div *ngFor="let category of categories; let i = index;" class="py-3 border-b border-b-neutral-200" formArrayName="categories">
               <label class="flex text-primary text-xs">
                 <input type="checkbox" (change)="onCheckboxChange($event, i)" checked [formControlName]="i" class="mr-3 text-primary focus:ring-primary">
-                {{ target.id }} {{ target.title }}
+                {{ category.category_number }} {{ category.intitule }}
               </label>
             </div>
           </form>

@@ -5,30 +5,31 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { Odd } from '../odd';
-import { Target } from 'src/app/orgs/target';
-import { TargetService } from 'src/app/orgs/target.service';
 
 import { OddComponent } from './odd.component';
+import { Category } from '../category';
+import { OddService } from '../odd.service';
 
 describe('OddComponent', () => {
   let component: OddComponent;
   let fixture: ComponentFixture<OddComponent>;
-  let targetServiceSpy: jasmine.SpyObj<TargetService>;
+  let oddServiceSpy: jasmine.SpyObj<OddService>;
   const odd: Odd = new Odd(1, 'Pas de pauvreté', 12, 'https://logo.com', '#ef9493');
-  const targets: Target[] = [
-    new Target('1.1', 'Target 1'),
-    new Target('1.2', 'Target 2'),
-    new Target('1.3', 'Target 3')
+  const categories: Category[] = [
+    new Category(1, '1.1', 'Category 1', 1),
+    new Category(2, '1.2', 'Category 2', 1),
+    new Category(3, '1.3', 'Category 3', 1),
   ];
+  odd.categories = categories;
 
   beforeEach(async () => {
-    const targetServiceMock = jasmine.createSpyObj('TargetService', ['getTargetsForSdg']);
+    const oddServiceMock = jasmine.createSpyObj('OddService', ['get']);
 
     await TestBed.configureTestingModule({
       declarations: [ OddComponent ],
       imports: [ TranslateModule.forRoot(), SharedModule ],
       providers: [
-        { provide: TargetService, useValue: targetServiceMock }
+        { provide: OddService, useValue: oddServiceMock },
       ]
     })
     .compileComponents();
@@ -39,7 +40,7 @@ describe('OddComponent', () => {
     component = fixture.componentInstance;
     component.odd = odd;
     component.selected = true;
-    targetServiceSpy = TestBed.inject(TargetService) as jasmine.SpyObj<TargetService>;
+    oddServiceSpy = TestBed.inject(OddService) as jasmine.SpyObj<OddService>;
     fixture.detectChanges();
   });
 
@@ -47,50 +48,50 @@ describe('OddComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show the targets', () => {
-    targetServiceSpy.getTargetsForSdg.and.returnValue(of([]));
-    const targetsTrigger = fixture.debugElement.query(By.directive(CdkOverlayOrigin));
-    targetsTrigger.triggerEventHandler('click', null);
+  it('should show the categories', () => {
+    oddServiceSpy.get.and.returnValue(of(odd));
+    const categoriesTrigger = fixture.debugElement.query(By.directive(CdkOverlayOrigin));
+    categoriesTrigger.triggerEventHandler('click', null);
 
-    expect(targetServiceSpy.getTargetsForSdg).toHaveBeenCalledWith(odd.id);
+    expect(oddServiceSpy.get).toHaveBeenCalledWith(odd.id);
   });
 
-  it('should select the first value in the targets', () => {
-    targetServiceSpy.getTargetsForSdg.and.returnValue(of(targets));
-    // Open the targets selector
-    const targetsTrigger = fixture.debugElement.query(By.directive(CdkOverlayOrigin));
-    targetsTrigger.triggerEventHandler('click', null);
+  it('should select the first value in the categories', () => {
+    oddServiceSpy.get.and.returnValue(of(odd));
+    // Open the categories selector
+    const categoriesTrigger = fixture.debugElement.query(By.directive(CdkOverlayOrigin));
+    categoriesTrigger.triggerEventHandler('click', null);
     fixture.detectChanges();
     // Select the first checkbox
     const checkbox = fixture.debugElement.queryAll(By.css('input[type="checkbox"]'))[1];
-    // Uncheck the first target
+    // Uncheck the first category
     checkbox.triggerEventHandler('change', { target: { checked: false } });
     fixture.detectChanges();
-    // Check the first target
+    // Check the first category
     checkbox.triggerEventHandler('change', { target: { checked: true } });
     fixture.detectChanges();
-    expect(component.form.get('targets')?.value).toEqual([true, true, true]);
+    expect(component.form.get('categories')?.value).toEqual([true, true, true]);
   });
 
   it('should check all the check boxes', () => {
-    targetServiceSpy.getTargetsForSdg.and.returnValue(of(targets));
-    // Open the targets selector
-    const targetsTrigger = fixture.debugElement.query(By.directive(CdkOverlayOrigin));
-    targetsTrigger.triggerEventHandler('click', null);
+    oddServiceSpy.get.and.returnValue(of(odd));
+    // Open the categories selector
+    const categoriesTrigger = fixture.debugElement.query(By.directive(CdkOverlayOrigin));
+    categoriesTrigger.triggerEventHandler('click', null);
     fixture.detectChanges();
     // Select the first checkbox
     const checkbox = fixture.debugElement.queryAll(By.css('input[type="checkbox"]'))[0];
     checkbox.triggerEventHandler('change', { target: { checked: true } });
     fixture.detectChanges();
 
-    expect(component.form.get('targets')?.value).toEqual([true, true, true]);
+    expect(component.form.get('categories')?.value).toEqual([true, true, true]);
   });
 
   it('should uncheck all the check boxes', () => {
-    targetServiceSpy.getTargetsForSdg.and.returnValue(of(targets));
-    // Open the targets selector
-    const targetsTrigger = fixture.debugElement.query(By.directive(CdkOverlayOrigin));
-    targetsTrigger.triggerEventHandler('click', null);
+    oddServiceSpy.get.and.returnValue(of(odd));
+    // Open the categories selector
+    const categoriesTrigger = fixture.debugElement.query(By.directive(CdkOverlayOrigin));
+    categoriesTrigger.triggerEventHandler('click', null);
     fixture.detectChanges();
     // Select the first checkbox
     const checkbox = fixture.debugElement.queryAll(By.css('input[type="checkbox"]'))[0];
@@ -98,7 +99,7 @@ describe('OddComponent', () => {
     checkbox.triggerEventHandler('change', { target: { checked: false } });
     fixture.detectChanges();
 
-    expect(component.form.get('targets')?.value).toEqual([false, false, false]);
+    expect(component.form.get('categories')?.value).toEqual([false, false, false]);
   });
 
   it('should return overlay panel classes', () => {

@@ -1,11 +1,11 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { Target } from 'src/app/orgs/target';
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, AbstractControl, FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
-import { TargetService } from 'src/app/orgs/target.service';
+import { Category } from '../category';
 import { Odd } from '../odd';
+import { OddService } from '../odd.service';
 
 @Component({
   selector: 'app-odd',
@@ -16,11 +16,11 @@ export class OddComponent {
   @Input() odd!: Odd;
   @Input() selected = false;
   @Input() lite: boolean = false;
-  @Output() targetsSelection: EventEmitter<Target[]> = new EventEmitter();
+  @Output() categoriesSelection: EventEmitter<Category[]> = new EventEmitter<Category[]>();
   mobileQuery: MediaQueryList;
   form: FormGroup;
-  showTargets: boolean = false;
-  targets: Target[] = [];
+  showCategories: boolean = false;
+  categories: Category[] = [];
   loading: boolean = false;
 
   constructor(
@@ -28,37 +28,39 @@ export class OddComponent {
     private i18n: TranslateService,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private targetService: TargetService
+    private oddService: OddService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
     this.form = this.formBuilder.group({
-      targets: this.formBuilder.array([])
+      categories: this.formBuilder.array([])
     });
   }
 
-  toggleTargets(): void {
-    this.showTargets = !this.showTargets;
+  toggleCategories(): void {
+    this.showCategories = !this.showCategories;
 
-    if (this.showTargets && !this.targets.length) {
-      this.getTargets();
+    if (this.showCategories && !this.categories.length) {
+      this.getCategories();
     }
 
-    if (!this.showTargets) {
-      this.targetsSelection.emit(this.getSelectedTargets())
+    if (!this.showCategories) {
+      this.categoriesSelection.emit(this.getSelectedCategories())
     }
   }
 
-  getTargets(): void {
+  getCategories(): void {
     this.loading = true;
-    this.targetService.getTargetsForSdg(this.odd.id)
+    this.oddService.get(this.odd.id)
       .pipe(
         finalize(() => this.loading = false)
       )
       .subscribe({
-        next: targets => {
-          this.targets = targets;
+        next: (odd: Odd|null) => {
+          if (odd) {
+            this.categories = odd.categories;
+          }
           this.initializeForm();
         }
       });
@@ -72,57 +74,57 @@ export class OddComponent {
     return ['max-h-72', '-translate-y-8'];
   }
 
-  getSelectedTargets(): Target[] {
-    const selectedTargets: Target[] = [];
+  getSelectedCategories(): Category[] {
+    const selectedCategories: Category[] = [];
 
-    const targetsFormControl = this.form.get('targets') as FormArray;
-    targetsFormControl.controls.forEach((control: AbstractControl, index: number) => {
+    const categoriesFormControl = this.form.get('categories') as FormArray;
+    categoriesFormControl.controls.forEach((control: AbstractControl, index: number) => {
       if (control.value) {
-        selectedTargets.push(this.targets[index]);
+        selectedCategories.push(this.categories[index]);
       }
     });
 
-    return selectedTargets;
+    return selectedCategories;
   }
 
   getSelectPlaceholder(): string {
-    const targets = this.form.get('targets');
+    const categories = this.form.get('categories');
     if (!this.allSelected()) {
-      const selectedTargets: Target[] = this.getSelectedTargets();
+      const selectedCategories: Category[] = this.getSelectedCategories();
       const selectedTexts: string[] = [];
-      selectedTargets.forEach((target: Target) => {
-        selectedTexts.push(this.i18n.instant('text.target', {target: target.id}));
+      selectedCategories.forEach((category: Category) => {
+        selectedTexts.push(this.i18n.instant('text.target', {target: category.category_number}));
       });
 
       return selectedTexts.join(', ');
     }
 
-    return this.i18n.instant('text.all_goal_targets', {number: this.odd.id});
+    return this.i18n.instant('text.all_goal_categories', {number: this.odd.id});
   }
 
   allSelected(): boolean {
-    return this.form.get('targets')?.value.every((value: boolean) => value);
+    return this.form.get('categories')?.value.every((value: boolean) => value);
   }
 
   initializeForm(): void {
-    const checkboxArray: FormArray = this.form.get('targets') as FormArray;
-    this.targets.forEach((target: Target) => {
+    const checkboxArray: FormArray = this.form.get('categories') as FormArray;
+    this.categories.forEach((category: Category) => {
       checkboxArray.push(new FormControl(true));
     })
   }
 
   onSelectAll(event: any): void {
-    const targetsFormControl = this.form.get('targets') as FormArray;
+    const categoriesFormControl = this.form.get('categories') as FormArray;
     const value = event.target?.checked || false;
 
-    targetsFormControl.controls.forEach((control: AbstractControl) => {
+    categoriesFormControl.controls.forEach((control: AbstractControl) => {
       control.setValue(value);
     });
   }
 
   onCheckboxChange(event: any, position: number): void {
-    const targetsFormControl = this.form.get('targets') as FormArray;
-    targetsFormControl.controls.forEach((control: AbstractControl, index: number) => {
+    const categoriesFormControl = this.form.get('categories') as FormArray;
+    categoriesFormControl.controls.forEach((control: AbstractControl, index: number) => {
       if (position === index) {
         control.setValue(control.value);
       }
@@ -131,7 +133,7 @@ export class OddComponent {
 
   onOverlayKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
-      this.toggleTargets();
+      this.toggleCategories();
     }
   }
 }

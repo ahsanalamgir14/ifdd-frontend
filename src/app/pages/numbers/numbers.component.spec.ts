@@ -11,7 +11,7 @@ describe('NumbersComponent', () => {
   let oddServiceSpy: jasmine.SpyObj<OddService>;
 
   beforeEach(async () => {
-    const oddServiceMock = jasmine.createSpyObj('OddService', ['getOdds']);
+    const oddServiceMock = jasmine.createSpyObj('OddService', ['getAll']);
 
     await TestBed.configureTestingModule({
       declarations: [ NumbersComponent ],
@@ -29,7 +29,7 @@ describe('NumbersComponent', () => {
     fixture = TestBed.createComponent(NumbersComponent);
     component = fixture.componentInstance;
     oddServiceSpy = TestBed.inject(OddService) as jasmine.SpyObj<OddService>;
-    oddServiceSpy.getOdds.and.returnValue(of([]));
+    oddServiceSpy.getAll.and.returnValue(of([]));
     fixture.detectChanges();
   });
 

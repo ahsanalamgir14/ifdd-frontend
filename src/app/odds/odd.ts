@@ -1,9 +1,12 @@
+import { Category } from "./category";
+
 export class Odd {
   public id: number;
   public name: string;
   public number_categorie: number;
   public logo_odd: string;
   public color: string;
+  public categories: Category[] = [];
 
   public constructor(
     id: number,

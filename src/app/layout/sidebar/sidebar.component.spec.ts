@@ -21,7 +21,7 @@ describe('SidebarComponent', () => {
   ];
 
   beforeEach(async () => {
-    const oddServiceMock = jasmine.createSpyObj('OddService', ['getOdds']);
+    const oddServiceMock = jasmine.createSpyObj('OddService', ['getAll']);
 
     await TestBed.configureTestingModule({
       declarations: [
@@ -48,7 +48,7 @@ describe('SidebarComponent', () => {
     fixture = TestBed.createComponent(SidebarComponent);
     component = fixture.componentInstance;
     oddServiceSpy = TestBed.inject(OddService) as jasmine.SpyObj<OddService>;
-    oddServiceSpy.getOdds.and.returnValue(of(odds));
+    oddServiceSpy.getAll.and.returnValue(of(odds));
     fixture.detectChanges();
   });
 

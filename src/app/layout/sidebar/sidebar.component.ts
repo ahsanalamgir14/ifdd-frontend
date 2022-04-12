@@ -1,13 +1,10 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { finalize } from 'rxjs';
+import { Category } from 'src/app/odds/category';
 import { Odd } from 'src/app/odds/odd';
 import { OddService } from 'src/app/odds/odd.service';
 import { Org } from 'src/app/orgs/org';
-
-import { OrgService } from 'src/app/orgs/org.service';
-import { OrgsSdg as OrgSdg } from 'src/app/orgs/orgs-sdg';
-import { Target } from 'src/app/orgs/target';
 
 @Component({
   selector: 'app-sidebar',
@@ -19,7 +16,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
   mobileQuery: MediaQueryList;
   odds: Odd[] = [];
   selectedOdd: Odd | null = null;
-  selectedTargets: Target[] = [];
+  selectedCategories: Category[] = [];
   selectedOrg: Org | null = null;
   orgs: Org[] = [];
   showOrgs: boolean = false;
@@ -43,7 +40,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
 
-  onSelectSdg(odd: Odd): void {
+  onSelectOdd(odd: Odd): void {
     this.selectedOdd = odd;
   }
 
@@ -83,13 +80,12 @@ export class SidebarComponent implements OnDestroy, OnInit {
     this.showOrgs = false;
   }
 
-  onTargetsSelection(targets: Target[]): void {
-    console.log(targets);
-    this.selectedTargets = targets;
+  onCategoriesSelection(categories: Category[]): void {
+    this.selectedCategories = categories;
   }
 
-  unselectTarget(position: number) {
-    this.selectedTargets.splice(position, 1);
+  unselectCategory(position: number) {
+    this.selectedCategories.splice(position, 1);
   }
 
   onSelectOrg(org: Org): void {
@@ -113,7 +109,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   private getOrgsBySdg(): void {
     this.loading = true;
-    this.oddService.getOdds()
+    this.oddService.getAll()
       .pipe(
         finalize(() => this.loading = false)
       )

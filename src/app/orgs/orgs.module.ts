@@ -4,7 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ActiveSdgsComponent } from './active-sdgs/active-sdgs.component';
 import { OrgComponent } from './org/org.component';
 import { OrgDetailsComponent } from './org-details/org-details.component';
-import { OrgTargetComponent } from './org-target/org-target.component';
+import { OddsModule } from '../odds/odds.module';
 
 
 
@@ -13,17 +13,16 @@ import { OrgTargetComponent } from './org-target/org-target.component';
     ActiveSdgsComponent,
     OrgComponent,
     OrgDetailsComponent,
-    OrgTargetComponent
   ],
   exports: [
     ActiveSdgsComponent,
     OrgComponent,
-    OrgDetailsComponent,
-    OrgTargetComponent
+    OrgDetailsComponent
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    OddsModule
   ]
 })
 export class OrgsModule { }

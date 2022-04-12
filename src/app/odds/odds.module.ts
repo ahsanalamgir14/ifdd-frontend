@@ -3,15 +3,18 @@ import { CommonModule } from '@angular/common';
 import { OddComponent } from './odd/odd.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
+import { OddCategoryComponent } from './odd-category/odd-category.component';
 
 
 
 @NgModule({
   declarations: [
-    OddComponent
+    OddComponent,
+    OddCategoryComponent
   ],
   exports: [
-    OddComponent
+    OddComponent,
+    OddCategoryComponent
   ],
   imports: [
     CommonModule,
