@@ -17,10 +17,13 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoadingLinesComponent } from './loading-lines/loading-lines.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    LoadingLinesComponent
+  ],
   exports: [
     CommonModule,
     FormsModule,
@@ -28,7 +31,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgIconsModule,
     TranslateModule,
     OverlayModule,
-    NgScrollbarModule
+    NgScrollbarModule,
+    LoadingLinesComponent,
   ],
   imports: [
     OverlayModule,

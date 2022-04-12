@@ -12,12 +12,13 @@
     </button>
     <ng-scrollbar [autoHeightDisabled]="false" *ngIf="isOpen()">
       <div class="group px-7 flex-1 max-h-[calc(100vh-116px)] md:max-h-[calc(100vh-300px)]">
+        <app-loading-lines *ngIf="loading"></app-loading-lines>
         <div *ngFor="let item of odds" class="last:pb-10">
           <app-odd [odd]="item" [selected]="item === selectedOdd" [lite]="false" (targetsSelection)="onTargetsSelection($event)" (click)="onSelectSdg(item)"></app-odd>
         </div>
       </div>
     </ng-scrollbar>
-    <div *ngIf="isOpen()" class="absolute bottom-0 left-0 right-0 flex px-5 py-3 bg-white rounded-b-lg shadow-[0px_-5px_10px_rgb(0,0,0,.2)]">
+    <div *ngIf="isOpen() && selectedOrgsCount() !== 0" class="absolute bottom-0 left-0 right-0 flex px-5 py-3 bg-white rounded-b-lg shadow-[0px_-5px_10px_rgb(0,0,0,.2)]">
       <button *ngIf="selectedOdd" class="p-2 bg-secondary-light text-primary text-xs font-extrabold rounded-lg uppercase" (click)="reinitialize()">{{ 'button.reinitialize'|translate }}</button>
       <button class="p-2 ml-auto bg-accent text-primary text-xs font-extrabold rounded-lg uppercase" (click)="onShowOrgs()">{{ 'button.display_orgs'|translate:{orgsCount: selectedOrgsCount()} }}</button>
     </div>
