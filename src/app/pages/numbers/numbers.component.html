@@ -11,14 +11,14 @@
       <div class="flex items-center justify-center p-3 bg-white rounded-xl shadow-lg">
         <div></div>
         <div>
-          <strong class="font-bold text-primary text-3xl">{{ numbers.sdgsCount }}</strong>
+          <strong class="font-bold text-primary text-3xl">{{ numbers.oddsCount }}</strong>
           <p class="mb-0 font-medium text-primary lowercase">{{ 'text.objectives'|translate }}</p>
         </div>
       </div>
       <div class="flex items-center justify-center p-3 bg-white rounded-xl shadow-lg">
         <div></div>
         <div>
-          <strong class="font-bold text-primary text-3xl">{{ numbers.organizationsCount }}</strong>
+          <strong class="font-bold text-primary text-3xl">{{ numbers.orgsCount }}</strong>
           <p class="mb-0 font-medium text-primary lowercase">{{ 'text.organizations'|translate }}</p>
         </div>
       </div>
@@ -27,8 +27,8 @@
 
   <section class="mt-8 p-8 bg-white rounded-xl shadow-lg">
     <div class="grid grid-cols-2 gap-4">
-      <div *ngFor="let orgSdg of orgsBySdg">
-        <app-org-sdg [orgSdg]="orgSdg" [lite]="true" (click)="onSelectSdg(orgSdg)" [selected]="orgSdg === selectedOrgSdg"></app-org-sdg>
+      <div *ngFor="let odd of odds">
+        <app-odd [odd]="odd" [lite]="true" (click)="onSelectOdd(odd)" [selected]="odd === selectedOdd"></app-odd>
       </div>
     </div>
   </section>

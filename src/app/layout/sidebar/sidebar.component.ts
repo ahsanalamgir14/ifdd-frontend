@@ -1,6 +1,8 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { finalize } from 'rxjs';
+import { Odd } from 'src/app/odds/odd';
+import { OddService } from 'src/app/odds/odd.service';
 import { Org } from 'src/app/orgs/org';
 
 import { OrgService } from 'src/app/orgs/org.service';
@@ -15,15 +17,19 @@ export class SidebarComponent implements OnDestroy, OnInit {
   private _mobileQueryListener: () => void;
   private _open = false;
   mobileQuery: MediaQueryList;
-  orgsBySdg: OrgSdg[] = [];
-  selectedOrgSdg: OrgSdg | null = null;
+  odds: Odd[] = [];
+  selectedOdd: Odd | null = null;
   selectedTargets: Target[] = [];
   selectedOrg: Org | null = null;
   orgs: Org[] = [];
   showOrgs: boolean = false;
   loading = false;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private orgService: OrgService) {
+  constructor(
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
+    private oddService: OddService
+  ) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
@@ -37,23 +43,23 @@ export class SidebarComponent implements OnDestroy, OnInit {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
 
-  onSelectSdg(orgSdg: OrgSdg): void {
-    this.selectedOrgSdg = orgSdg;
+  onSelectSdg(odd: Odd): void {
+    this.selectedOdd = odd;
   }
 
   selectedOrgsCount(): number {
-    if (this.selectedOrgSdg) {
-      return this.selectedOrgSdg.orgsCount;
+    if (this.selectedOdd) {
+      return this.selectedOdd.number_categorie;
     }
 
     let count = 0;
-    this.orgsBySdg.forEach(orgSdg => count += orgSdg.orgsCount);
+    this.odds.forEach(odd => count += odd.number_categorie);
 
     return count;
   }
 
   reinitialize(): void {
-    this.selectedOrgSdg = null;
+    this.selectedOdd = null;
   }
 
   isOpen(): boolean {
@@ -70,7 +76,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   onShowOrgs(): void {
     this.showOrgs = true;
-    this.getOrgs();
+    // this.getOrgs();
   }
 
   hideOrgs(): void {
@@ -94,25 +100,25 @@ export class SidebarComponent implements OnDestroy, OnInit {
     this.selectedOrg = null;
   }
 
-  private getOrgs(): void {
-    this.loading = true;
-    this.orgService.getOrgs()
-      .pipe(
-        finalize(() => this.loading = false)
-      )
-      .subscribe(data => {
-        this.orgs = data;
-      });
-  }
+  // private getOrgs(): void {
+  //   this.loading = true;
+  //   this.orgService.getOrgs()
+  //     .pipe(
+  //       finalize(() => this.loading = false)
+  //     )
+  //     .subscribe(data => {
+  //       this.orgs = data;
+  //     });
+  // }
 
   private getOrgsBySdg(): void {
     this.loading = true;
-    this.orgService.getOrgsBySdg()
+    this.oddService.getOdds()
       .pipe(
         finalize(() => this.loading = false)
       )
       .subscribe(data => {
-        this.orgsBySdg = data;
+        this.odds = data;
       });
   }
 }

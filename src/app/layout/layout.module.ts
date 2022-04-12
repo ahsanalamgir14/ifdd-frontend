@@ -10,6 +10,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 
 import { OrgsModule } from '../orgs/orgs.module';
 import { PageLayoutComponent } from './page-layout/page-layout.component';
+import { OddsModule } from '../odds/odds.module';
 
 
 
@@ -26,7 +27,8 @@ import { PageLayoutComponent } from './page-layout/page-layout.component';
     RouterModule,
     TranslateModule,
     SharedModule,
-    OrgsModule
+    OrgsModule,
+    OddsModule
   ]
 })
 export class LayoutModule { }

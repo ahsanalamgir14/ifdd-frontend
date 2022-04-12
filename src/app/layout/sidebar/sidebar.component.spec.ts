@@ -3,9 +3,9 @@ import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { of } from 'rxjs';
-import { OrgService } from 'src/app/orgs/org.service';
-import { OrgsSdg } from 'src/app/orgs/orgs-sdg';
-import { OrgSdgStubComponent } from 'src/app/orgs/testing';
+import { Odd } from 'src/app/odds/odd';
+import { OddService } from 'src/app/odds/odd.service';
+import { OddStubComponent } from 'src/app/odds/testing';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SearchBarStubComponent } from '../testing';
 
@@ -14,38 +14,19 @@ import { SidebarComponent } from './sidebar.component';
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
   let fixture: ComponentFixture<SidebarComponent>;
-  let orgServiceSpy: jasmine.SpyObj<OrgService>;
-  const orgsSdg: OrgsSdg[] = [
-    {
-      sdg: {
-        id: 1,
-        name: "Pas de pauvreté"
-      },
-      orgsCount: 12
-    },
-    {
-      sdg: {
-        id: 2,
-        name: "Faim \"zéro\""
-      },
-      orgsCount: 32
-    },
-    {
-      sdg: {
-        id: 3,
-        name: "Bonne santé et bien-être"
-      },
-      orgsCount: 41
-    },
+  let oddServiceSpy: jasmine.SpyObj<OddService>;
+  const odds: Odd[] = [
+    new Odd(1, 'Pas de pauvreté', 12, 'https://logo.com', '#ef9493'),
+    new Odd(2, 'Faim zéro', 12, 'https://logo.com', '#ef9493'),
   ];
 
   beforeEach(async () => {
-    const orgServiceMock = jasmine.createSpyObj('OrgService', ['getOrgsBySdg']);
+    const oddServiceMock = jasmine.createSpyObj('OddService', ['getOdds']);
 
     await TestBed.configureTestingModule({
       declarations: [
         SidebarComponent,
-        OrgSdgStubComponent,
+        OddStubComponent,
         SearchBarStubComponent,
       ],
       imports: [
@@ -55,8 +36,8 @@ describe('SidebarComponent', () => {
       ],
       providers: [
         {
-          provide: OrgService,
-          useValue: orgServiceMock
+          provide: OddService,
+          useValue: oddServiceMock
         }
       ]
     })
@@ -66,8 +47,8 @@ describe('SidebarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SidebarComponent);
     component = fixture.componentInstance;
-    orgServiceSpy = TestBed.inject(OrgService) as jasmine.SpyObj<OrgService>;
-    orgServiceSpy.getOrgsBySdg.and.returnValue(of(orgsSdg));
+    oddServiceSpy = TestBed.inject(OddService) as jasmine.SpyObj<OddService>;
+    oddServiceSpy.getOdds.and.returnValue(of(odds));
     fixture.detectChanges();
   });
 
@@ -76,17 +57,17 @@ describe('SidebarComponent', () => {
   });
 
   it('should select an SDG', () => {
-    const sdgEl = fixture.debugElement.query(By.css('app-org-sdg'));
+    const sdgEl = fixture.debugElement.query(By.css('app-odd'));
     sdgEl.triggerEventHandler('click', {});
     fixture.detectChanges();
 
-    expect(component.selectedOrgSdg).toBe(orgsSdg[0]);
+    expect(component.selectedOdd).toBe(odds[0]);
   });
 
   it('should reinitialize the selection', () => {
     component.reinitialize();
 
-    expect(component.selectedOrgSdg).toBeNull();
+    expect(component.selectedOdd).toBeNull();
   });
 
   it('should toggle the sidebar', () => {

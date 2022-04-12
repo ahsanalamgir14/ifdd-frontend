@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiRoot: 'https://ifdd.geosm.org/api',
-  apiKey: 'apiKey'
+  apiKey: 'KHb1NaDr5VLSnQghnZ9e04Xv2mnBYRHQUOZEWpGUfkEemerPnMRzeJNhzCu3VqXq'
 };
 
 /*

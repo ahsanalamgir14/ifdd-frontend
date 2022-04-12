@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { OrgService } from 'src/app/orgs/org.service';
+import { OddService } from 'src/app/odds/odd.service';
 
 import { NumbersComponent } from './numbers.component';
 
 describe('NumbersComponent', () => {
   let component: NumbersComponent;
   let fixture: ComponentFixture<NumbersComponent>;
-  let orgServiceSpy: jasmine.SpyObj<OrgService>;
+  let oddServiceSpy: jasmine.SpyObj<OddService>;
 
   beforeEach(async () => {
-    const orgServiceMock = jasmine.createSpyObj('OrgService', ['getOrgsBySdg']);
+    const oddServiceMock = jasmine.createSpyObj('OddService', ['getOdds']);
 
     await TestBed.configureTestingModule({
       declarations: [ NumbersComponent ],
@@ -19,7 +19,7 @@ describe('NumbersComponent', () => {
         TranslateModule.forRoot()
       ],
       providers: [
-        { provide: OrgService, useValue: orgServiceMock }
+        { provide: OddService, useValue: oddServiceMock }
       ]
     })
     .compileComponents();
@@ -28,8 +28,8 @@ describe('NumbersComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NumbersComponent);
     component = fixture.componentInstance;
-    orgServiceSpy = TestBed.inject(OrgService) as jasmine.SpyObj<OrgService>;
-    orgServiceSpy.getOrgsBySdg.and.returnValue(of([]));
+    oddServiceSpy = TestBed.inject(OddService) as jasmine.SpyObj<OddService>;
+    oddServiceSpy.getOdds.and.returnValue(of([]));
     fixture.detectChanges();
   });
 

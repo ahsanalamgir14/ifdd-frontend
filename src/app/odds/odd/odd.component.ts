@@ -1,19 +1,19 @@
 import { MediaMatcher } from '@angular/cdk/layout';
+import { Target } from 'src/app/orgs/target';
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, AbstractControl, FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
-import { OrgsSdg } from '../orgs-sdg';
-import { Target } from '../target';
-import { TargetService } from '../target.service';
+import { TargetService } from 'src/app/orgs/target.service';
+import { Odd } from '../odd';
 
 @Component({
-  selector: 'app-org-sdg',
-  templateUrl: './org-sdg.component.html'
+  selector: 'app-odd',
+  templateUrl: './odd.component.html'
 })
-export class OrgSdgComponent {
+export class OddComponent {
   private _mobileQueryListener: () => void;
-  @Input() orgSdg!: OrgsSdg;
+  @Input() odd!: Odd;
   @Input() selected = false;
   @Input() lite: boolean = false;
   @Output() targetsSelection: EventEmitter<Target[]> = new EventEmitter();
@@ -52,7 +52,7 @@ export class OrgSdgComponent {
 
   getTargets(): void {
     this.loading = true;
-    this.targetService.getTargetsForSdg(this.orgSdg.sdg.id)
+    this.targetService.getTargetsForSdg(this.odd.id)
       .pipe(
         finalize(() => this.loading = false)
       )
@@ -97,7 +97,7 @@ export class OrgSdgComponent {
       return selectedTexts.join(', ');
     }
 
-    return this.i18n.instant('text.all_goal_targets', {number: this.orgSdg.sdg.id});
+    return this.i18n.instant('text.all_goal_targets', {number: this.odd.id});
   }
 
   allSelected(): boolean {

@@ -1,11 +1,11 @@
-<div class="group static flex flex-col py-3 border-neutral-200 cursor-pointer rounded-lg" [ngClass]="{'bg-primary -mx-2 px-2': selected && !lite, 'border-t': !lite, 'border px-3': lite, 'bg-secondary-light': selected && lite, 'justify-center h-24': lite}" *ngIf="orgSdg">
+<div class="group static flex flex-col py-3 border-neutral-200 cursor-pointer rounded-lg" [ngClass]="{'bg-primary -mx-2 px-2': selected && !lite, 'border-t': !lite, 'border px-3': lite, 'bg-secondary-light': selected && lite, 'justify-center h-24': lite}" *ngIf="odd">
   <div class="flex items-center">
-    <img [src]="'/assets/logos/sdg/' + orgSdg.sdg.id + '.svg'" [alt]="orgSdg.sdg.name">
+    <img [src]="odd.logo_odd" [alt]="odd.name">
     <div class="ml-3 mr-auto">
-      <h3 class="text-xs font-bold" [ngClass]="{'text-white': selected && !lite, 'text-primary': !selected || lite}">{{ orgSdg.sdg.name }}</h3>
-      <p *ngIf="orgSdg.orgsCount > 1" class="text-xs font-semibold lowercase" [ngClass]="{'text-neutral-300': selected, 'text-neutral-400': !selected || (selected && lite)}">
-        <span *ngIf="orgSdg.orgsCount > 1">{{ orgSdg.orgsCount }} {{ 'text.organizations'|translate }}</span>
-        <span *ngIf="orgSdg.orgsCount === 1">{{ orgSdg.orgsCount }} {{ 'text.organization'|translate }}</span>
+      <h3 class="text-xs font-bold" [ngClass]="{'text-white': selected && !lite, 'text-primary': !selected || lite}">{{ odd.name }}</h3>
+      <p *ngIf="odd.number_categorie > 1" class="text-xs font-semibold lowercase" [ngClass]="{'text-neutral-300': selected, 'text-neutral-400': !selected || (selected && lite)}">
+        <span *ngIf="odd.number_categorie > 1">{{ odd.number_categorie }} {{ 'text.organizations'|translate }}</span>
+        <span *ngIf="odd.number_categorie === 1">{{ odd.number_categorie }} {{ 'text.organization'|translate }}</span>
       </p>
     </div>
     <div *ngIf="lite && selected" class="flex flex-col items-end">
@@ -22,7 +22,7 @@
         <div class="flex items-center pb-3 border-b border-b-primary">
           <label class="text-xs text-primary font-extrabold">
             <input type="checkbox" [checked]="allSelected()" (change)="onSelectAll($event)" class="mr-3 text-primary focus:ring-primary">
-            {{ 'text.all_goal_targets'|translate:{number: this.orgSdg.sdg.id} }}
+            {{ 'text.all_goal_targets'|translate:{number: odd.id} }}
           </label>
           <button class="flex items-center text-primary ml-auto" (click)="toggleTargets()">
             <ng-icon name="hero-x" size="24"></ng-icon>

@@ -12,6 +12,7 @@ import { OrgsModule } from './orgs/orgs.module';
 import { PlacesModule } from './places/places.module';
 import { HttpBaseUrlInterceptor } from './core/http/http-base-url.interceptor';
 import { HttpBaseHeadersInterceptor } from './core/http/http-base-headers.interceptor';
+import { OddsModule } from './odds/odds.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -37,6 +38,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SharedModule,
     OrgsModule,
     PlacesModule,
+    OddsModule,
   ],
   providers: [
     {

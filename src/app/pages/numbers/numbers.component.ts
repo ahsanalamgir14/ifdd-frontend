@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs';
-import { OrgService } from 'src/app/orgs/org.service';
-import { OrgsSdg as OrgSdg } from 'src/app/orgs/orgs-sdg';
+import { Odd } from 'src/app/odds/odd';
+import { OddService } from 'src/app/odds/odd.service';
 
 @Component({
   selector: 'app-numbers',
@@ -10,31 +10,31 @@ import { OrgsSdg as OrgSdg } from 'src/app/orgs/orgs-sdg';
 export class NumbersComponent implements OnInit {
   numbers: any = {
     countriesCount: 2,
-    sdgsCount: 17,
-    organizationsCount: 551
+    oddsCount: 17,
+    orgsCount: 551
   };
-  orgsBySdg: OrgSdg[] = [];
+  odds: Odd[] = [];
   loading: boolean = false;
-  selectedOrgSdg: OrgSdg | null = null;
+  selectedOdd: Odd | null = null;
 
-  constructor(private orgService: OrgService) { }
+  constructor(private oddService: OddService) { }
 
   ngOnInit(): void {
-    this.getOrgsBySdg();
+    this.getOdds();
   }
 
-  onSelectSdg(orgSdg: OrgSdg): void {
-    this.selectedOrgSdg = orgSdg;
+  onSelectOdd(odd: Odd): void {
+    this.selectedOdd = odd;
   }
 
-  private getOrgsBySdg(): void {
+  private getOdds(): void {
     this.loading = true;
-    this.orgService.getOrgsBySdg()
+    this.oddService.getOdds()
       .pipe(
         finalize(() => this.loading = false)
       )
       .subscribe(data => {
-        this.orgsBySdg = data;
+        this.odds = data;
       });
   }
 }

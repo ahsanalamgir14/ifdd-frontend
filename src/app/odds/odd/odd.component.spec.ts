@@ -4,19 +4,17 @@ import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { OrgsSdg } from '../orgs-sdg';
-import { Sdg } from '../sdg';
-import { Target } from '../target';
-import { TargetService } from '../target.service';
+import { Odd } from '../odd';
+import { Target } from 'src/app/orgs/target';
+import { TargetService } from 'src/app/orgs/target.service';
 
-import { OrgSdgComponent } from './org-sdg.component';
+import { OddComponent } from './odd.component';
 
-describe('OrgSdgComponent', () => {
-  let component: OrgSdgComponent;
-  let fixture: ComponentFixture<OrgSdgComponent>;
+describe('OddComponent', () => {
+  let component: OddComponent;
+  let fixture: ComponentFixture<OddComponent>;
   let targetServiceSpy: jasmine.SpyObj<TargetService>;
-  const sdg: Sdg = new Sdg(1, 'SDG 1');
-  const orgSdg: OrgsSdg = new OrgsSdg(sdg, 3);
+  const odd: Odd = new Odd(1, 'Pas de pauvreté', 12, 'https://logo.com', '#ef9493');
   const targets: Target[] = [
     new Target('1.1', 'Target 1'),
     new Target('1.2', 'Target 2'),
@@ -27,7 +25,7 @@ describe('OrgSdgComponent', () => {
     const targetServiceMock = jasmine.createSpyObj('TargetService', ['getTargetsForSdg']);
 
     await TestBed.configureTestingModule({
-      declarations: [ OrgSdgComponent ],
+      declarations: [ OddComponent ],
       imports: [ TranslateModule.forRoot(), SharedModule ],
       providers: [
         { provide: TargetService, useValue: targetServiceMock }
@@ -37,9 +35,9 @@ describe('OrgSdgComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OrgSdgComponent);
+    fixture = TestBed.createComponent(OddComponent);
     component = fixture.componentInstance;
-    component.orgSdg = orgSdg;
+    component.odd = odd;
     component.selected = true;
     targetServiceSpy = TestBed.inject(TargetService) as jasmine.SpyObj<TargetService>;
     fixture.detectChanges();
@@ -54,7 +52,7 @@ describe('OrgSdgComponent', () => {
     const targetsTrigger = fixture.debugElement.query(By.directive(CdkOverlayOrigin));
     targetsTrigger.triggerEventHandler('click', null);
 
-    expect(targetServiceSpy.getTargetsForSdg).toHaveBeenCalledWith(orgSdg.sdg.id);
+    expect(targetServiceSpy.getTargetsForSdg).toHaveBeenCalledWith(odd.id);
   });
 
   it('should select the first value in the targets', () => {

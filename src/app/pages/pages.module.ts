@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { PartnersComponent } from './partners/partners.component';
 import { NumbersComponent } from './numbers/numbers.component';
 import { OrgsModule } from '../orgs/orgs.module';
+import { OddsModule } from '../odds/odds.module';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { OrgsModule } from '../orgs/orgs.module';
     PagesRoutingModule,
     SharedModule,
     OrgsModule,
+    OddsModule
   ]
 })
 export class PagesModule { }
