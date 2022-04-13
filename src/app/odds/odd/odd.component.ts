@@ -1,5 +1,5 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, AbstractControl, FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
@@ -11,17 +11,18 @@ import { OddService } from '../odd.service';
   selector: 'app-odd',
   templateUrl: './odd.component.html'
 })
-export class OddComponent {
+export class OddComponent implements OnInit {
   private _mobileQueryListener: () => void;
   @Input() odd!: Odd;
   @Input() selected = false;
-  @Input() lite: boolean = false;
+  @Input() lite = false;
   @Output() categoriesSelection: EventEmitter<Category[]> = new EventEmitter<Category[]>();
   mobileQuery: MediaQueryList;
   form: FormGroup;
   showCategories: boolean = false;
   categories: Category[] = [];
   loading: boolean = false;
+  logoSize: number = 36;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,6 +37,12 @@ export class OddComponent {
     this.form = this.formBuilder.group({
       categories: this.formBuilder.array([])
     });
+  }
+
+  ngOnInit(): void {
+    if (this.lite) {
+      this.logoSize = 64;
+    }
   }
 
   toggleCategories(): void {
@@ -88,7 +95,6 @@ export class OddComponent {
   }
 
   getSelectPlaceholder(): string {
-    const categories = this.form.get('categories');
     if (!this.allSelected()) {
       const selectedCategories: Category[] = this.getSelectedCategories();
       const selectedTexts: string[] = [];

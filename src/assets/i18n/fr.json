@@ -22,7 +22,9 @@
 		"reinitialize": "Réinitialiser",
 		"display_orgs": "Afficher {{orgsCount}} organisations",
 		"update_filters": "Modifier les filtres",
-		"filter_by_relevance": "Trier par pertinence"
+		"filter_by_relevance": "Trier par pertinence",
+		"details": "Détails sur l'objectif",
+		"search_in_map": "Recherche sur la carte"
 	},
 	"text": {
 		"copyright": "© 2022 Carte des Organisations de la Société Civile",
