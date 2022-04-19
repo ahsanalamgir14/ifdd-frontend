@@ -11,6 +11,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { PageLayoutComponent } from './page-layout/page-layout.component';
 import { OddsModule } from '../odds/odds.module';
 import { OscsModule } from '../oscs/oscs.module';
+import { MapModule } from '../map/map.module';
 
 
 
@@ -28,7 +29,8 @@ import { OscsModule } from '../oscs/oscs.module';
     TranslateModule,
     SharedModule,
     OddsModule,
-    OscsModule
+    OscsModule,
+    MapModule
   ]
 })
 export class LayoutModule { }
