@@ -1,6 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { finalize } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 import { Category } from 'src/app/odds/category';
 import { Odd } from 'src/app/odds/odd';
 import { OddService } from 'src/app/odds/odd.service';
@@ -100,7 +100,14 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   private getOscs(): void {
     this.loading = true;
-    this.oscService.getAll().pipe(
+    let oscs$: Observable<Osc[]>;
+    if (this.selectedCategories.length > 0) {
+      oscs$ = this.oscService.search(this.selectedCategories)
+    } else {
+      oscs$ = this.oscService.getAll();
+    }
+
+    oscs$.pipe(
       finalize(() => this.loading = false)
     )
     .subscribe((oscs: Osc[]) => this.oscs = oscs);
