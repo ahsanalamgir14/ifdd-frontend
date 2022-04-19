@@ -14,11 +14,11 @@ describe('OddComponent', () => {
   let component: OddComponent;
   let fixture: ComponentFixture<OddComponent>;
   let oddServiceSpy: jasmine.SpyObj<OddService>;
-  const odd: Odd = new Odd(1, 'Pas de pauvreté', 12, 'https://logo.com', '#ef9493');
+  const odd: Odd = new Odd(1, 'Pas de pauvreté', '1', 12, 'https://logo.com', '#ef9493');
   const categories: Category[] = [
-    new Category(1, '1.1', 'Category 1', 1),
-    new Category(2, '1.2', 'Category 2', 1),
-    new Category(3, '1.3', 'Category 3', 1),
+    new Category(1, '1.1', 'Category 1', 1, odd),
+    new Category(2, '1.2', 'Category 2', 1, odd),
+    new Category(3, '1.3', 'Category 3', 1, odd),
   ];
   odd.categories = categories;
 

@@ -9,6 +9,7 @@ import { Odd } from './odd';
 })
 export class OddService {
   private url = '/odd';
+  private oddColors: any = {};
 
   constructor(public http: HttpClient) { }
 
@@ -20,13 +21,20 @@ export class OddService {
             const odd = new Odd(
               response.data.id,
               response.data.name,
+              response.data.number,
               response.data.number_categorie,
               response.data.logo_odd,
               response.data.color
             );
 
             odd.categories = response.data.categorie_odd.map(
-              (item: any) => new Category(item.id, item.category_number, item.intitule, item.id_odd)
+              (item: any) => new Category(
+                item.id,
+                item.category_number,
+                item.intitule,
+                item.id_odd,
+                odd
+              )
             );
 
             return odd;
@@ -42,17 +50,26 @@ export class OddService {
       .pipe(
         map((response: any) => {
           if (response && response.data) {
-            return response.data.map((item: any) => new Odd(
-              item.id,
-              item.name,
-              item.number_categorie,
-              item.logo_odd,
-              item.color
-            ));
+            return response.data.map((item: any) => {
+              const odd = new Odd(
+                item.id,
+                item.name,
+                item.number,
+                item.number_categorie,
+                item.logo_odd,
+                item.color
+              );
+              this.oddColors[odd.number] = odd.color;
+              return odd;
+            })
           }
 
           return [];
         })
       )
+  }
+
+  getColors(): any {
+    return this.oddColors;
   }
 }

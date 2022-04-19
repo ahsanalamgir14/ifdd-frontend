@@ -8,9 +8,9 @@ import { SharedModule } from '../shared/shared.module';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
-import { OrgsModule } from '../orgs/orgs.module';
 import { PageLayoutComponent } from './page-layout/page-layout.component';
 import { OddsModule } from '../odds/odds.module';
+import { OscsModule } from '../oscs/oscs.module';
 
 
 
@@ -27,8 +27,8 @@ import { OddsModule } from '../odds/odds.module';
     RouterModule,
     TranslateModule,
     SharedModule,
-    OrgsModule,
-    OddsModule
+    OddsModule,
+    OscsModule
   ]
 })
 export class LayoutModule { }

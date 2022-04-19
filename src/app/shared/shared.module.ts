@@ -5,6 +5,7 @@ import { NgIconsModule } from '@ng-icons/core';
 import {
   HeroArrowRight,
   HeroChevronDown,
+  HeroChevronUp,
   HeroGlobeAlt,
   HeroLocationMarkerSolid,
   HeroMailSolid,
@@ -42,6 +43,7 @@ import { LoadingLinesComponent } from './loading-lines/loading-lines.component';
     NgIconsModule.withIcons({
       HeroArrowRight,
       HeroChevronDown,
+      HeroChevronUp,
       HeroGlobeAlt,
       HeroLocationMarkerSolid,
       HeroMailSolid,

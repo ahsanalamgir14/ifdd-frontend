@@ -4,7 +4,8 @@ import { finalize } from 'rxjs';
 import { Category } from 'src/app/odds/category';
 import { Odd } from 'src/app/odds/odd';
 import { OddService } from 'src/app/odds/odd.service';
-import { Org } from 'src/app/orgs/org';
+import { Osc } from 'src/app/oscs/osc';
+import { OscService } from 'src/app/oscs/osc.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,15 +18,16 @@ export class SidebarComponent implements OnDestroy, OnInit {
   odds: Odd[] = [];
   selectedOdd: Odd | null = null;
   selectedCategories: Category[] = [];
-  selectedOrg: Org | null = null;
-  orgs: Org[] = [];
-  showOrgs: boolean = false;
+  selectedOsc: Osc | null = null;
+  oscs: Osc[] = [];
+  showOscs: boolean = false;
   loading = false;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private oddService: OddService
+    private oddService: OddService,
+    private oscService: OscService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -33,7 +35,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    this.getOrgsBySdg();
+    this.getOdds();
   }
 
   ngOnDestroy(): void {
@@ -44,7 +46,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
     this.selectedOdd = odd;
   }
 
-  selectedOrgsCount(): number {
+  selectedOscsCount(): number {
     if (this.selectedOdd) {
       return this.selectedOdd.number_categorie;
     }
@@ -71,13 +73,13 @@ export class SidebarComponent implements OnDestroy, OnInit {
     this._open = !this._open;
   }
 
-  onShowOrgs(): void {
-    this.showOrgs = true;
-    // this.getOrgs();
+  onShowOscs(): void {
+    this.showOscs = true;
+    this.getOscs();
   }
 
-  hideOrgs(): void {
-    this.showOrgs = false;
+  hideOscs(): void {
+    this.showOscs = false;
   }
 
   onCategoriesSelection(categories: Category[]): void {
@@ -88,26 +90,23 @@ export class SidebarComponent implements OnDestroy, OnInit {
     this.selectedCategories.splice(position, 1);
   }
 
-  onSelectOrg(org: Org): void {
-    this.selectedOrg = org;
+  onSelectOsc(osc: Osc): void {
+    this.selectedOsc = osc;
   }
 
-  onCloseOrgDetails(): void {
-    this.selectedOrg = null;
+  onCloseOscDetails(): void {
+    this.selectedOsc = null;
   }
 
-  // private getOrgs(): void {
-  //   this.loading = true;
-  //   this.orgService.getOrgs()
-  //     .pipe(
-  //       finalize(() => this.loading = false)
-  //     )
-  //     .subscribe(data => {
-  //       this.orgs = data;
-  //     });
-  // }
+  private getOscs(): void {
+    this.loading = true;
+    this.oscService.getAll().pipe(
+      finalize(() => this.loading = false)
+    )
+    .subscribe((oscs: Osc[]) => this.oscs = oscs);
+  }
 
-  private getOrgsBySdg(): void {
+  private getOdds(): void {
     this.loading = true;
     this.oddService.getAll()
       .pipe(

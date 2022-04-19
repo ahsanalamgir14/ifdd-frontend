@@ -6,7 +6,6 @@ import { AboutComponent } from './about/about.component';
 import { SharedModule } from '../shared/shared.module';
 import { PartnersComponent } from './partners/partners.component';
 import { NumbersComponent } from './numbers/numbers.component';
-import { OrgsModule } from '../orgs/orgs.module';
 import { OddsModule } from '../odds/odds.module';
 
 
@@ -20,7 +19,6 @@ import { OddsModule } from '../odds/odds.module';
     CommonModule,
     PagesRoutingModule,
     SharedModule,
-    OrgsModule,
     OddsModule
   ]
 })

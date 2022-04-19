@@ -1,0 +1,109 @@
+<div *ngIf="osc">
+  <div class="flex flex-col p-5 bg-neutral-100">
+    <div class="flex items-center">
+      <div class="flex">
+        <img [src]="odd.logo_odd" [alt]="odd.name" *ngFor="let odd of odds" class="mr-3 rounded-md" width="36" height="36">
+      </div>
+      <button class="flex items-center ml-auto text-primary" (click)="onHide()">
+        <ng-icon name="hero-x" strokeWidth="3" size="20"></ng-icon>
+      </button>
+    </div>
+    <h3 class="mt-4 mb-3 text-xl text-primary font-bold">{{ osc.name }}</h3>
+    <span class="text-secondary font-medium">{{ osc.abbreviation }}</span>
+  </div>
+  <div class="px-5">
+    <div class="flex justify-between py-4 border-b border-neutral-200">
+      <div class="flex flex-col items-center text-primary text-xs" *ngIf="osc.site_web">
+        <a [href]="osc.site_web" class="p-1.5 border rounded-md border-primary hover:bg-secondary focus:bg-secondary">
+          <img src="/assets/icons/actions/website.svg" alt="">
+        </a>
+        <span class="mt-1.5">{{ 'link.website'|translate }}</span>
+      </div>
+      <div class="flex flex-col items-center text-primary text-xs" *ngIf="osc.email_osc">
+        <a [href]="'mailto:' + osc.email_osc" class="p-1.5 border rounded-md border-primary hover:bg-secondary focus:bg-secondary">
+          <img src="/assets/icons/actions/mail.svg" alt="">
+        </a>
+        <span class="mt-1.5">{{ 'link.mail'|translate }}</span>
+      </div>
+      <div class="flex flex-col items-center text-primary text-xs" *ngIf="osc.telephone">
+        <a [href]="'tel:' + osc.telephone" class="p-1.5 border rounded-md border-primary hover:bg-secondary focus:bg-secondary">
+          <img src="/assets/icons/actions/phone.svg" alt="">
+        </a>
+        <span class="mt-1.5">{{ 'link.phone'|translate }}</span>
+      </div>
+      <div class="flex flex-col items-center text-primary text-xs">
+        <button class="p-1.5 border rounded-md border-primary hover:bg-secondary focus:bg-secondary">
+          <img src="/assets/icons/actions/share.svg" alt="">
+        </button>
+        <span class="mt-1.5">{{ 'link.share'|translate }}</span>
+      </div>
+      <div class="flex flex-col items-center text-primary text-xs">
+        <button class="p-1.5 border rounded-md border-primary hover:bg-secondary focus:bg-secondary">
+          <img src="/assets/icons/actions/save.svg" alt="">
+        </button>
+        <span class="mt-1.5">{{ 'link.save'|translate }}</span>
+      </div>
+    </div>
+    <div class="py-4 border-b border-neutral-200">
+      <h4 class="text-secondary font-bold mb-2">{{ 'title.contact'|translate }}</h4>
+      <div class="flex items-center mb-2 text-primary" *ngIf="osc.personne_contact">
+        <ng-icon name="hero-user-solid" size="24" class="text-secondary"></ng-icon>
+        <span class="ml-1 text-sm">{{ osc.personne_contact }}</span>
+      </div>
+      <div class="flex items-center mb-2 text-primary" *ngIf="osc.telephone">
+        <ng-icon name="hero-phone-solid" size="24" class="text-secondary"></ng-icon>
+        <a [href]="'tel:' + osc.telephone" class="ml-1 text-sm">{{ osc.telephone }}</a>
+      </div>
+      <div class="flex items-center mb-2 text-primary" *ngIf="osc.email_osc">
+        <ng-icon name="hero-mail-solid" size="24" class="text-secondary"></ng-icon>
+        <a [href]="'mailto:' + osc.email_osc" class="ml-1 text-sm underline">{{ osc.email_osc }}</a>
+      </div>
+      <div class="flex items-center mb-2 text-primary" *ngIf="osc.site_web">
+        <ng-icon name="hero-globe-alt" size="24" class="text-secondary"></ng-icon>
+        <a [href]="osc.site_web" class="ml-1 text-sm underline">{{ osc.site_web }}</a>
+      </div>
+      <div class="flex items-center mb-2 text-primary" *ngIf="osc.facebook">
+        <ng-icon name="hero-globe-alt" size="24" class="text-secondary"></ng-icon>
+        <a [href]="osc.facebook" class="ml-1 text-sm underline">{{ osc.facebook }}</a>
+      </div>
+      <div class="flex items-center mb-2 text-primary" *ngIf="osc.instagram">
+        <ng-icon name="hero-globe-alt" size="24" class="text-secondary"></ng-icon>
+        <a [href]="osc.instagram" class="ml-1 text-sm underline">{{ osc.instagram }}</a>
+      </div>
+      <div class="flex items-center mb-2 text-primary" *ngIf="osc.linkedin">
+        <ng-icon name="hero-globe-alt" size="24" class="text-secondary"></ng-icon>
+        <a [href]="osc.linkedin" class="ml-1 text-sm underline">{{ osc.linkedin }}</a>
+      </div>
+    </div>
+    <div class="py-4 border-b border-neutral-200">
+      <h4 class="text-secondary font-bold mb-2">{{ 'title.presentation'|translate }}</h4>
+      <div [innerText]="osc.description" class="text-sm"></div>
+    </div>
+    <div class="py-4 border-b border-neutral-200" *ngIf="osc.zoneInterventions">
+      <h4 class="text-secondary font-bold mb-2">{{ 'title.intervention_zones'|translate }}</h4>
+      <div class="flex items-center mb-2" *ngFor="let zone of osc.zoneInterventions">
+        <ng-icon name="hero-location-marker-solid" size="24" class="text-secondary"></ng-icon>
+        <span class="ml-1 text-sm">{{ zone.name }}</span>
+      </div>
+    </div>
+    <div class="py-4 border-b border-neutral-200" *ngIf="osc.categorieOdds">
+      <div class="flex items-center">
+        <h4 class="text-secondary font-bold mb-2">{{ 'title.sdgs'|translate }}</h4>
+        <button class="ml-auto text-primary" (click)="onToggleCategoriesDetails()">
+          <ng-icon [name]="showCategoriesDetails ? 'hero-chevron-up' : 'hero-chevron-down'" [strokeWidth]="3"></ng-icon>
+        </button>
+      </div>
+      <div class="flex flex-wrap" [ngClass]="{'flex-col': showCategoriesDetails}">
+        <div class="flex-col mb-2 items-start inline-flex" *ngFor="let category of osc.categorieOdds;">
+          <app-odd-category [category]="category" [unselectable]="false" [color]="colors[category.id_odd]"></app-odd-category>
+          <div *ngIf="showCategoriesDetails" class="mb-2">
+            {{ category.intitule }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="py-4 border-b border-neutral-200">
+      <h4 class="text-secondary font-bold mb-2">{{ 'title.similar_orgs'|translate }}</h4>
+    </div>
+  </div>
+</div>
