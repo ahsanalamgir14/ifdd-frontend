@@ -48,7 +48,7 @@
   </div>
 </div>
 
-<div class="fixed z-20 md:z-0 md:pt-20 top-0 bottom-0 left-0 right-0 md:right-auto md:translate-x-[400px] md:w-[400px] bg-white transition-transform" *ngIf="selectedOsc">
+<div class="fixed z-20 md:z-10 md:pt-20 top-0 bottom-0 left-0 right-0 md:right-auto md:translate-x-[400px] md:w-[400px] bg-white transition-transform" *ngIf="selectedOsc">
   <ng-scrollbar [autoHeightDisabled]="false">
     <app-osc-details [selectedOsc]="selectedOsc" (hide)="onCloseOscDetails()"></app-osc-details>
   </ng-scrollbar>

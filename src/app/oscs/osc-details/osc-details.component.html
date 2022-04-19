@@ -1,8 +1,8 @@
 <div *ngIf="osc">
   <div class="flex flex-col p-5 bg-neutral-100">
     <div class="flex items-center">
-      <div class="flex">
-        <img [src]="odd.logo_odd" [alt]="odd.name" *ngFor="let odd of odds" class="mr-3 rounded-md" width="36" height="36">
+      <div class="flex flex-wrap">
+        <img [src]="odd.logo_odd" [alt]="odd.name" *ngFor="let odd of odds" class="mr-3 rounded-md mb-1" width="36" height="36">
       </div>
       <button class="flex items-center ml-auto text-primary" (click)="onHide()">
         <ng-icon name="hero-x" strokeWidth="3" size="20"></ng-icon>
