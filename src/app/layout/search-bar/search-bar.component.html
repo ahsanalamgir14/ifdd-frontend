@@ -13,7 +13,7 @@
       <div class="flex flex-col bg-white rounded-lg overflow-y-auto shadow-lg min-w-full">
         <div *ngFor="let place of places; let i = index;" class="p-2 flex items-center cursor-pointer hover:bg-secondary-light" (click)="onSelect(place)" data-test-id="place">
           <div class="mr-3">
-            <img [src]="'assets/icons/list/' + getIconType(place.type) + '.svg'" [alt]="">
+            <!-- <img [src]="'assets/icons/list/' + getIconType(place.type) + '.svg'" [alt]=""> -->
           </div>
           <div>
             <p class="text-sm mb-0">{{ place.name }}</p>
