@@ -1,6 +1,8 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Coordinate } from 'ol/coordinate';
 import { finalize, Observable } from 'rxjs';
+import { MapService } from 'src/app/map/map.service';
 import { Category } from 'src/app/odds/category';
 import { Odd } from 'src/app/odds/odd';
 import { OddService } from 'src/app/odds/odd.service';
@@ -27,7 +29,8 @@ export class SidebarComponent implements OnDestroy, OnInit {
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private oddService: OddService,
-    private oscService: OscService
+    private oscService: OscService,
+    private mapService: MapService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -110,7 +113,17 @@ export class SidebarComponent implements OnDestroy, OnInit {
     oscs$.pipe(
       finalize(() => this.loading = false)
     )
-    .subscribe((oscs: Osc[]) => this.oscs = oscs);
+    .subscribe((oscs: Osc[]) => {
+      this.oscs = oscs;
+      this.mapService.removeMarkers();
+      this.oscs.forEach((osc: Osc) => {
+        if (osc.longitude && osc.latitude) {
+          const longitude = Number.parseFloat(osc.longitude);
+          const latitude = Number.parseFloat(osc.latitude);
+          this.mapService.addMarker([longitude, latitude], 'org');
+        }
+      })
+    });
   }
 
   private getOdds(): void {
