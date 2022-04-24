@@ -1,0 +1,21 @@
+<div class="flex flex-col items-center justify-center min-h-[calc(100vh-88px)]">
+  <form class="bg-white p-4 w-80 md:w-96 rounded-md shadow-lg" [formGroup]="form" (submit)="onSubmit()" autocomplete="off">
+    <h1 class="mb-3 text-3xl text-primary font-bold">{{ 'title.app'|translate }}</h1>
+    <h2 class="mb-5 text-xl text-primary font-bold">{{ 'title.login'|translate }}</h2>
+    <p class="mb-3 text-red-500" *ngIf="hasLoginError">{{ 'errors.invalid_credentials'|translate }}</p>
+    <p class="mb-3 text-red-500" *ngIf="hasError">{{ 'errors.an_error_occurred'|translate }}</p>
+    <div class="flex flex-col mb-4">
+      <label for="login-email">{{ 'label.email'|translate }}</label>
+      <input type="text" id="login-email" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-secondary focus:ring-opacity-50" name="email" formControlName="email">
+    </div>
+    <div class="flex flex-col mb-4">
+      <label for="login-password">{{ 'label.password'|translate }}</label>
+      <input type="password" id="login-password" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-secondary focus:ring-opacity-50" name="password" formControlName="password">
+    </div>
+    <div class="flex">
+      <a href="" class="text-primary text-xs">{{ 'link.forgot_password'|translate }}</a>
+      <button type="submit" class="px-4 py-2 ml-auto bg-primary text-white text-xs font-extrabold rounded-lg uppercase disabled:opacity-75" [disabled]="loading">{{
+        'button.login'|translate }}</button>
+    </div>
+  </form>
+</div>

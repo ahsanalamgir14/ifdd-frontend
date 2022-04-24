@@ -12,6 +12,7 @@ import { PageLayoutComponent } from './page-layout/page-layout.component';
 import { OddsModule } from '../odds/odds.module';
 import { OscsModule } from '../oscs/oscs.module';
 import { MapModule } from '../map/map.module';
+import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
 
 
 
@@ -21,7 +22,8 @@ import { MapModule } from '../map/map.module';
     NavbarComponent,
     SearchBarComponent,
     SidebarComponent,
-    PageLayoutComponent
+    PageLayoutComponent,
+    AuthLayoutComponent
   ],
   imports: [
     CommonModule,

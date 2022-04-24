@@ -48,10 +48,15 @@
       <button class="md:hidden block text-center text-secondary text-xs font-bold">{{ 'button.terms_of_use'|translate
         }}</button>
       <div class="hidden md:flex items-center ml-4">
-        <button class="px-4 py-2 bg-accent text-primary text-xs font-extrabold rounded-lg uppercase">{{
+        <button class="px-4 py-2 bg-accent text-primary text-xs font-extrabold rounded-lg uppercase" *ngIf="!isAuthenticated()">{{
           'button.register'|translate }}</button>
-        <button class="px-4 py-2 ml-4 bg-secondary-light text-primary text-xs font-extrabold rounded-lg uppercase">{{
-          'button.login'|translate }}</button>
+        <a [routerLink]="'/auth/login'" class="px-4 py-2 ml-4 bg-secondary-light text-primary text-xs font-extrabold rounded-lg uppercase" *ngIf="!isAuthenticated()">{{
+          'button.login'|translate }}</a>
+      </div>
+      <div class="hidden md:flex items-center ml-4" *ngIf="isAuthenticated()">
+        <button type="button" class="flex items-center text-primary" [attr.aria-label]="user?.name">
+          <ng-icon name="hero-user-solid" size="24"></ng-icon>
+        </button>
       </div>
     </div>
   </div>

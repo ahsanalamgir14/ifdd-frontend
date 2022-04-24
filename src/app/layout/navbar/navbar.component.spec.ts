@@ -3,7 +3,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { Subject } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { User } from 'src/app/users/user';
 import { SearchBarStubComponent } from '../testing';
 
 import { NavbarComponent } from './navbar.component';
@@ -18,9 +21,13 @@ describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
   let router: Router;
-
+  let authServiceSpy: jasmine.SpyObj<AuthService>;
 
   beforeEach(async () => {
+    const authServiceMock = {
+      user$: new Subject<User>(),
+      isAuthenticated: jasmine.createSpy('isAuthenticated')
+    }
     await TestBed.configureTestingModule({
       declarations: [
         NavbarComponent,
@@ -34,6 +41,12 @@ describe('NavbarComponent', () => {
           path: 'a-propos',
           component: AboutStubComponent
         }])
+      ],
+      providers: [
+        {
+          provide: AuthService,
+          useValue: authServiceMock
+        }
       ]
     })
     .compileComponents();
@@ -44,6 +57,7 @@ describe('NavbarComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     router = TestBed.inject(Router);
+    authServiceSpy = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
   });
 
   it('should create', () => {

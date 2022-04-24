@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
+import { User } from 'src/app/users/user';
 import { MenuItem } from './menu-item';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   menuItems: MenuItem[] = [
     {
       link: '/',
@@ -38,9 +40,20 @@ export class NavbarComponent {
     }
   ];
   sidebarVisible = false;
+  user?: User;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private auth: AuthService) {
     this.subscribeToRouteEvents();
+  }
+
+  ngOnInit(): void {
+    this.auth.user$.subscribe(user => {
+      this.user = user;
+    });
+  }
+
+  isAuthenticated(): boolean {
+    return this.auth.isAuthenticated();
   }
 
   subscribeToRouteEvents(): void {

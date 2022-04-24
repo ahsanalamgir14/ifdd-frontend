@@ -12,6 +12,7 @@ import { PlacesModule } from './places/places.module';
 import { HttpBaseUrlInterceptor } from './core/http/http-base-url.interceptor';
 import { HttpBaseHeadersInterceptor } from './core/http/http-base-headers.interceptor';
 import { OddsModule } from './odds/odds.module';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -39,6 +40,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     OddsModule,
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpBaseHeadersInterceptor,

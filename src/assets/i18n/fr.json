@@ -1,24 +1,36 @@
 {
-	"alt": {
-		"logo_ifdd": "Logo IFDD",
-		"logo_oif": "Logo OIF",
-		"logo_sdg": "Logo SDG"
-	},
 	"title": {
+		"app": "IFDD",
+		"login": "Connectez-vous pour continuer",
 		"civil_organization_map": "Carte des Organizations de la Société Civile",
 		"filter_by_objectives": "Filtrer par objectifs de développement durable",
 		"contact": "Contact",
 		"presentation": "Présentation",
-		"organization": "Organisation de la Société Civile",
 		"intervention_zones": "Zones d'interventions",
 		"sdgs": "Objectifs de développement durable",
 		"similar_orgs": "Organisations similaires"
 	},
+	"errors": {
+		"invalid_credentials": "Adresse email ou mot de passe invalide.",
+		"an_error_occurred": "Une erreur s'est produite lors du traitement de votre requête."
+	},
+	"label": {
+		"email": "Adresse email",
+		"password": "Mot de passe"
+	},
+	"link": {
+		"forgot_password": "Mot de passe oublié?",
+		"website": "Site Web",
+		"mail": "Mail",
+		"phone": "Appeler",
+		"share": "Partager",
+		"save": "Enregistrer"
+	},
 	"button": {
-		"terms_of_use": "Conditions d'utilisation",
-		"register": "Inscription",
 		"login": "Connexion",
 		"terms_of_user": "Conditions d'utilisation",
+		"terms_of_use": "Conditions d'utilisation",
+		"register": "Inscription",
 		"reinitialize": "Réinitialiser",
 		"display_oscs": "Afficher {{oscsCount}} organisations",
 		"update_filters": "Modifier les filtres",
@@ -38,14 +50,12 @@
 		"objectives": "Objectifs",
 		"target": "Cible {{target}}"
 	},
+	"alt": {
+		"logo_ifdd": "Logo IFDD",
+		"logo_oif": "Logo OIF",
+		"logo_sdg": "Logo SDG"
+	},
 	"placeholder": {
 		"global_search": "Recherchez un établissement, un lieu..."
-	},
-	"link": {
-		"website": "Site Web",
-		"mail": "Mail",
-		"phone": "Appeler",
-		"share": "Partager",
-		"save": "Enregistrer"
 	}
 }
