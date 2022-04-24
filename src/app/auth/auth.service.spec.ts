@@ -96,5 +96,23 @@ describe('AuthService', () => {
 
     req.flush(response);
     httpTestingController.verify();
-  })
+  });
+
+  it('should register a user', () => {
+    const testData = {
+      data: {
+        token: 'token',
+      }
+    };
+
+    service.register('Tester', 'test@example.com', 'password').subscribe((token: string) => {
+      expect(token).toBe('token');
+    });
+
+    const req = httpTestingController.expectOne('/auth/register');
+    expect(req.request.method).toEqual('POST');
+
+    req.flush(testData);
+    httpTestingController.verify();
+  });
 });

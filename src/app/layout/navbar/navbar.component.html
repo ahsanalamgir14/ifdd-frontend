@@ -48,8 +48,8 @@
       <button class="md:hidden block text-center text-secondary text-xs font-bold">{{ 'button.terms_of_use'|translate
         }}</button>
       <div class="hidden md:flex items-center ml-4">
-        <button class="px-4 py-2 bg-accent text-primary text-xs font-extrabold rounded-lg uppercase" *ngIf="!isAuthenticated()">{{
-          'button.register'|translate }}</button>
+        <a [routerLink]="'/auth/register'" class="px-4 py-2 bg-accent text-primary text-xs font-extrabold rounded-lg uppercase" *ngIf="!isAuthenticated()">{{
+          'button.register'|translate }}</a>
         <a [routerLink]="'/auth/login'" class="px-4 py-2 ml-4 bg-secondary-light text-primary text-xs font-extrabold rounded-lg uppercase" *ngIf="!isAuthenticated()">{{
           'button.login'|translate }}</a>
       </div>

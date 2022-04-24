@@ -20,8 +20,26 @@ export class AuthService {
     private userService: UserService
   ) { }
 
+  /**
+   * Authenticates the user with the given email and password.
+   *
+   * @param email
+   * @param password
+   * @returns Observable<string>
+   */
   authenticate(email: string, password: string): Observable<string> {
     return this.http.post<string>(`${this.url}/login`, {email, password}).pipe(
+      map((response: any) => response?.data?.token)
+    );
+  }
+
+  /**
+   * Register a new user.
+   *
+   * @returns Observable<User>
+   */
+  register(name: string, email: string, password: string): Observable<string> {
+    return this.http.post<string>(`${this.url}/register`, {name, email, password}).pipe(
       map((response: any) => response?.data?.token)
     );
   }

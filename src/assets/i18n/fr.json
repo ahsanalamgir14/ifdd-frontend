@@ -2,6 +2,7 @@
 	"title": {
 		"app": "IFDD",
 		"login": "Connectez-vous pour continuer",
+		"register": "Inscription",
 		"civil_organization_map": "Carte des Organizations de la Société Civile",
 		"filter_by_objectives": "Filtrer par objectifs de développement durable",
 		"contact": "Contact",
@@ -12,11 +13,14 @@
 	},
 	"errors": {
 		"invalid_credentials": "Adresse email ou mot de passe invalide.",
-		"an_error_occurred": "Une erreur s'est produite lors du traitement de votre requête."
+		"an_error_occurred": "Une erreur s'est produite lors du traitement de votre requête.",
+		"passwords_dont_match": "Les mots de passe ne correspondent pas."
 	},
 	"label": {
 		"email": "Adresse email",
-		"password": "Mot de passe"
+		"password": "Mot de passe",
+		"name": "Nom",
+		"confirm_password": "Confirmez le mot de passe"
 	},
 	"link": {
 		"forgot_password": "Mot de passe oublié?",
@@ -28,9 +32,9 @@
 	},
 	"button": {
 		"login": "Connexion",
+		"register": "Inscription",
 		"terms_of_user": "Conditions d'utilisation",
 		"terms_of_use": "Conditions d'utilisation",
-		"register": "Inscription",
 		"reinitialize": "Réinitialiser",
 		"display_oscs": "Afficher {{oscsCount}} organisations",
 		"update_filters": "Modifier les filtres",

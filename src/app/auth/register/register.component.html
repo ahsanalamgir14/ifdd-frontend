@@ -1,0 +1,31 @@
+<div class="flex flex-col items-center justify-center min-h-[calc(100vh-88px)]">
+  <form class="bg-white p-4 w-80 md:w-96 rounded-md shadow-lg" [formGroup]="form" (submit)="onSubmit()" autocomplete="off" data-test-id="register-form">
+    <h1 class="mb-3 text-3xl text-primary font-bold">{{ 'title.app'|translate }}</h1>
+    <h2 class="mb-5 text-xl text-primary font-bold">{{ 'title.register'|translate }}</h2>
+    <p class="mb-3 text-red-500" *ngIf="errorMessage">{{ errorMessage }}</p>
+    <div class="flex flex-col mb-4">
+      <label for="register-email">{{ 'label.name'|translate }}</label>
+      <input type="text" id="register-name" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-secondary focus:ring-opacity-50" name="name" formControlName="name">
+    </div>
+    <div class="flex flex-col mb-4">
+      <label for="register-email">{{ 'label.email'|translate }}</label>
+      <ng-container *ngIf="errors && errors.email">
+        <p class="text-red-500 text-sm" *ngFor="let error of errors.email">{{ error }}</p>
+      </ng-container>
+      <input type="text" id="register-email" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-secondary focus:ring-opacity-50" name="email" formControlName="email">
+    </div>
+    <div class="flex flex-col mb-4">
+      <label for="register-password1">{{ 'label.password'|translate }}</label>
+      <input type="password" id="register-password1" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-secondary focus:ring-opacity-50" name="password1" formControlName="password1">
+    </div>
+    <div class="flex flex-col mb-4">
+      <label for="register-password2">{{ 'label.confirm_password'|translate }}</label>
+      <p class="text-red-500 text-sm" *ngIf="form.errors?.['passwordsMatch']  && form.get('password1')?.valid && form.get('password2')?.touched">{{ 'errors.passwords_dont_match'|translate }}</p>
+      <input type="password" id="register-password2" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-secondary focus:ring-opacity-50" name="password2" formControlName="password2">
+    </div>
+    <div class="flex">
+      <button type="submit" class="px-4 py-2 ml-auto bg-primary text-white text-xs font-extrabold rounded-lg uppercase disabled:opacity-75" [disabled]="loading || !form.valid">{{
+        'button.register'|translate }}</button>
+    </div>
+  </form>
+</div>
