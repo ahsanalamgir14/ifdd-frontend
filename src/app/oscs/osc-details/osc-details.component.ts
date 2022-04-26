@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { finalize } from 'rxjs';
 import { Category } from 'src/app/odds/category';
 import { Odd } from 'src/app/odds/odd';
@@ -22,7 +22,7 @@ export class OscDetailsComponent {
   colors: any = {};
   showCategoriesDetails: boolean = false;
 
-  constructor(private oscService: OscService, oddService: OddService) {
+  constructor(private changeDetector: ChangeDetectorRef, private oscService: OscService, oddService: OddService) {
     this.colors = oddService.getColors();
   }
 
@@ -35,6 +35,7 @@ export class OscDetailsComponent {
       .subscribe((osc: Osc) => {
         this.osc = osc;
         this.getOdds();
+        this.changeDetector.detectChanges();
       })
     }
   }
@@ -48,6 +49,7 @@ export class OscDetailsComponent {
   }
 
   private getOdds(): void {
+    this.odds = [];
     this.osc?.categorieOdds.forEach((category: Category) => {
       if (this.odds.find(odd => odd.id === category.odd.id) === undefined) {
         this.odds.push(category.odd);

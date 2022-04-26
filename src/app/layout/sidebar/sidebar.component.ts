@@ -26,7 +26,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
   loading = false;
 
   constructor(
-    changeDetectorRef: ChangeDetectorRef,
+    private changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private oddService: OddService,
     private oscService: OscService,
@@ -39,6 +39,11 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.getOdds();
+    this.mapService.selected.subscribe((osc: Osc) => {
+      this.selectedOsc = null;
+      this.onSelectOsc(osc);
+      this.changeDetectorRef.detectChanges();
+    });
   }
 
   ngOnDestroy(): void {
@@ -51,11 +56,11 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   selectedOscsCount(): number {
     if (this.selectedOdd) {
-      return this.selectedOdd.number_categorie;
+      return this.selectedOdd.count_osc;
     }
 
     let count = 0;
-    this.odds.forEach(odd => count += odd.number_categorie);
+    this.odds.forEach(odd => count += odd.count_osc);
 
     return count;
   }
@@ -120,7 +125,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
         if (osc.longitude && osc.latitude) {
           const longitude = Number.parseFloat(osc.longitude);
           const latitude = Number.parseFloat(osc.latitude);
-          this.mapService.addMarker([longitude, latitude], 'org');
+          this.mapService.addMarker([longitude, latitude], osc);
         }
       })
     });

@@ -22,7 +22,7 @@ export class OddService {
               response.data.id,
               response.data.name,
               response.data.number,
-              response.data.number_categorie,
+              response.data.count_osc,
               response.data.logo_odd,
               response.data.color
             );
@@ -55,7 +55,7 @@ export class OddService {
                 item.id,
                 item.name,
                 item.number,
-                item.number_categorie,
+                item.count_osc,
                 item.logo_odd,
                 item.color
               );

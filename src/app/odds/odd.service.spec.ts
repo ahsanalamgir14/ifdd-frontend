@@ -24,7 +24,7 @@ describe('OddService', () => {
         "id": 1,
         "name": "PAS DE PAUVRETE",
         "number": "1",
-        "number_categorie": 7,
+        "count_osc": 7,
         "logo_odd": "https://service.geo.sm/var/www/odd/odd1.png",
         "color": "#ea1b2c",
         "categorie_odd": [
@@ -46,7 +46,7 @@ describe('OddService', () => {
     service.get(1).subscribe((odd: Odd|null) => {
       expect(odd?.id).toEqual(1);
       expect(odd?.name).toEqual('PAS DE PAUVRETE');
-      expect(odd?.number_categorie).toEqual(7);
+      expect(odd?.count_osc).toEqual(7);
       expect(odd?.logo_odd).toEqual('https://service.geo.sm/var/www/odd/odd1.png');
       expect(odd?.color).toEqual('#ea1b2c');
       expect(odd?.categories.length).toEqual(2);
@@ -65,7 +65,7 @@ describe('OddService', () => {
           "id": 1,
           "name": "PAS DE PAUVRETE",
           "number": "1",
-          "number_categorie": 7,
+          "count_osc": 7,
           "logo_odd": "https://service.geo.sm/var/www/odd/odd1.png",
           "color": "#ea1b2c"
         },
@@ -73,7 +73,7 @@ describe('OddService', () => {
           "id": 2,
             "name": "FAIM \"ZERO\"",
             "number": "2",
-            "number_categorie": 8,
+            "count_osc": 8,
             "logo_odd": "https://service.geo.sm/var/www/odd/odd2.png",
             "color": "#d3a029"
         }
@@ -84,7 +84,7 @@ describe('OddService', () => {
       expect(odds.length).toEqual(2);
       expect(odds[0].id).toEqual(1);
       expect(odds[0].name).toEqual('PAS DE PAUVRETE');
-      expect(odds[0].number_categorie).toEqual(7);
+      expect(odds[0].count_osc).toEqual(7);
       expect(odds[0].logo_odd).toEqual('https://service.geo.sm/var/www/odd/odd1.png');
       expect(odds[0].color).toEqual('#ea1b2c');
     });

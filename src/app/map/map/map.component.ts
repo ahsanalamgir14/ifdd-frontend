@@ -1,18 +1,23 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, NgZone, Output } from '@angular/core';
-import { Feature, Map, View } from 'ol';
+import { AfterViewInit, Component, EventEmitter, Input, NgZone, Output } from '@angular/core';
+import { Feature, Map, MapBrowserEvent, View } from 'ol';
 import { Coordinate } from 'ol/coordinate';
 import { ScaleLine, defaults as DefaultControls} from 'ol/control';
 import { Extent } from 'ol/extent';
 import TileLayer from 'ol/layer/Tile';
 import { Projection } from 'ol/proj';
 import OSM from 'ol/source/OSM';
-import Source from 'ol/source/Source';
-import VectorSource from 'ol/source/Vector';
-import VectorLayer from 'ol/layer/Vector';
-import Style from 'ol/style/Style';
-import Icon from 'ol/style/Icon';
-import { Point } from 'ol/geom';
 import { MapService } from '../map.service';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import Cluster from 'ol/source/Cluster';
+import Icon from 'ol/style/Icon';
+import {
+  Style,
+  Circle as CircleStyle,
+  Fill,
+  Stroke,
+  Text
+} from 'ol/style';
 
 @Component({
   selector: 'app-map',
@@ -30,7 +35,6 @@ export class MapComponent implements AfterViewInit {
 
   constructor(
     private zone: NgZone,
-    private cd: ChangeDetectorRef,
     private mapService: MapService
   ) { }
 
@@ -52,7 +56,7 @@ export class MapComponent implements AfterViewInit {
         new TileLayer({
           source: new OSM({})
         }),
-        this.mapService.getVectorLayer()
+        this.mapService.getMarkerLayer(),
       ],
       target: 'map',
       view: this.view,
@@ -60,14 +64,26 @@ export class MapComponent implements AfterViewInit {
         new ScaleLine({}),
       ]),
     });
-    const modifier = this.mapService.getModifier();
-    const target = document.getElementById('map');
-    if (target) {
-      modifier.getOverlay().getSource().on(['addfeature', 'removefeature'], (event: any) => {
-        target.style.cursor = event.type === 'addfeature' ? 'pointer' : '';
-      });
-    }
 
-    this.map.addInteraction(modifier);
+    this.map.on('click', (event: any) => {
+      const features = this.map?.getFeaturesAtPixel(event.pixel);
+      if (features && features.length > 0) {
+        const feature = features[0] as Feature;
+        this.mapService.select(feature);
+      }
+    });
+
+    this.map.on("pointermove", (evt) => {
+      if (this.map) {
+        var hit = this.map.forEachFeatureAtPixel(evt.pixel, (feature, layer) => {
+          return true;
+        });
+        if (hit) {
+            this.map.getTargetElement().style.cursor = 'pointer';
+        } else {
+            this.map.getTargetElement().style.cursor = '';
+        }
+      }
+  });
   }
 }

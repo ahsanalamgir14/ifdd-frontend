@@ -57,7 +57,7 @@ export class OddComponent implements OnInit {
     }
   }
 
-  getCategories(): void {
+  getCategories(emit: boolean = false): void {
     this.loading = true;
     this.oddService.get(this.odd.id)
       .pipe(
@@ -69,6 +69,9 @@ export class OddComponent implements OnInit {
             this.categories = odd.categories;
           }
           this.initializeForm();
+          if (emit) {
+            this.categoriesSelection.emit(this.getSelectedCategories());
+          }
         }
       });
   }
@@ -140,6 +143,12 @@ export class OddComponent implements OnInit {
   onOverlayKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
       this.toggleCategories();
+    }
+  }
+
+  onSelected(): void {
+    if (!this.categories.length) {
+      this.getCategories(true);
     }
   }
 }
