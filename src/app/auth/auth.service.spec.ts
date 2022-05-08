@@ -120,4 +120,18 @@ describe('AuthService', () => {
     req.flush(testData);
     httpTestingController.verify();
   });
+
+  it('should send the reset password link', () => {
+    const testData = {
+      data: ''
+    };
+
+    service.sendResetPassword('test@example.com').subscribe(() => {});
+
+    const req = httpTestingController.expectOne('/auth/password/forgot');
+    expect(req.request.method).toEqual('POST');
+
+    req.flush(testData);
+    httpTestingController.verify();
+  });
 });

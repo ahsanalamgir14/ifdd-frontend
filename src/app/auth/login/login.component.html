@@ -13,8 +13,8 @@
       <input type="password" id="login-password" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-secondary focus:ring-opacity-50" name="password" formControlName="password">
     </div>
     <div class="flex">
-      <a href="" class="text-primary text-xs">{{ 'link.forgot_password'|translate }}</a>
-      <button type="submit" class="px-4 py-2 ml-auto bg-primary text-white text-xs font-extrabold rounded-lg uppercase disabled:opacity-75" [disabled]="loading">{{
+      <a routerLink="/auth/password/forgot" class="text-primary text-xs">{{ 'link.forgot_password'|translate }}</a>
+      <button type="submit" class="px-4 py-2 ml-auto bg-primary text-white text-xs font-extrabold rounded-lg uppercase disabled:bg-secondary disabled:cursor-not-allowed" [disabled]="loading">{{
         'button.login'|translate }}</button>
     </div>
   </form>

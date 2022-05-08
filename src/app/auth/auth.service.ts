@@ -108,4 +108,11 @@ export class AuthService {
   getUser(): Observable<User> {
     return this.userService.getMe();
   }
+
+  /**
+   * Sends reset password link.
+   */
+  sendResetPassword(email: string): Observable<string> {
+    return this.http.post<string>(`${this.url}/password/forgot`, { email })
+  }
 }
