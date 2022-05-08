@@ -19,6 +19,7 @@ export class MapComponent implements AfterViewInit {
   @Input() center: Coordinate = [17.7578122, 11.5024338];
   @Input() zoom: number = 4;
   @Output() mapReady: EventEmitter<Map> = new EventEmitter<Map>();
+  @Output() mapHidden: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() add: EventEmitter<Coordinate> = new EventEmitter<Coordinate>();
   view?: View;
   projection: Projection|null = null;
@@ -27,7 +28,7 @@ export class MapComponent implements AfterViewInit {
   mobileQuery: MediaQueryList;
 
   constructor(
-    private changeDetectorRef: ChangeDetectorRef,
+    changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private mapService: MapService
   ) {
@@ -90,6 +91,10 @@ export class MapComponent implements AfterViewInit {
             this.map.getTargetElement().style.cursor = '';
         }
       }
-  });
+    });
+  }
+
+  hideMap(): void {
+    this.mapService.hide();
   }
 }

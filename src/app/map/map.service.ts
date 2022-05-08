@@ -18,8 +18,10 @@ export class MapService {
   private markerSource: VectorSource;
   private markerLayer: VectorLayer<VectorSource>;
   private markerOscMap: Map<string, Osc> = new Map();
+  private showMobileMap: boolean = false;
   selected: Subject<Osc> = new Subject();
   refreshed: Subject<boolean> = new Subject<boolean>();
+  hidden: Subject<boolean> = new Subject<boolean>();
 
   constructor() {
     this.markerSource = new VectorSource();
@@ -99,5 +101,13 @@ export class MapService {
       duration: 250,
       center: coordinate
     });
+  }
+
+  hide(): void {
+    this.hidden.next(true);
+  }
+
+  show(): void {
+    this.hidden.next(false);
   }
 }

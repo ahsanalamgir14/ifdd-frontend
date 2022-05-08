@@ -1,5 +1,5 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { fromLonLat } from 'ol/proj';
 import { finalize, Observable } from 'rxjs';
 import { MapService } from 'src/app/map/map.service';
@@ -44,6 +44,13 @@ export class SidebarComponent implements OnDestroy, OnInit {
       this.onSelectOsc(osc);
       this.changeDetectorRef.detectChanges();
     });
+
+    this.mapService.hidden.subscribe((hidden: boolean) => {
+      this.toggle();
+      if (hidden && this.oscs.length !== 0) {
+        this.showOscs = true;
+      }
+    })
   }
 
   ngOnDestroy(): void {
@@ -135,6 +142,11 @@ export class SidebarComponent implements OnDestroy, OnInit {
         }
       })
     });
+  }
+
+  showMap(): void {
+    this.showOscs = false;
+    this.toggle();
   }
 
   private getOdds(): void {
