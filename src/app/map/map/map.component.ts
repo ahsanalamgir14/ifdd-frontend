@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, EventEmitter, Input, NgZone, Output } from '@angular/core';
-import { Feature, Map, MapBrowserEvent, View } from 'ol';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Feature, Map, View } from 'ol';
 import { Coordinate } from 'ol/coordinate';
 import { ScaleLine, defaults as DefaultControls} from 'ol/control';
 import { Extent } from 'ol/extent';
@@ -7,43 +7,48 @@ import TileLayer from 'ol/layer/Tile';
 import { Projection } from 'ol/proj';
 import OSM from 'ol/source/OSM';
 import { MapService } from '../map.service';
-import VectorLayer from 'ol/layer/Vector';
-import VectorSource from 'ol/source/Vector';
-import Cluster from 'ol/source/Cluster';
-import Icon from 'ol/style/Icon';
-import {
-  Style,
-  Circle as CircleStyle,
-  Fill,
-  Stroke,
-  Text
-} from 'ol/style';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  templateUrl: './map.component.html'
 })
 export class MapComponent implements AfterViewInit {
+  private _mobileQueryListener: () => void;
   @Input() center: Coordinate = [17.7578122, 11.5024338];
   @Input() zoom: number = 4;
-  @Output() mapReady = new EventEmitter<Map>();
+  @Output() mapReady: EventEmitter<Map> = new EventEmitter<Map>();
+  @Output() mapHidden: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() add: EventEmitter<Coordinate> = new EventEmitter<Coordinate>();
   view?: View;
   projection: Projection|null = null;
   extent: Extent = [-7.2421878, -13.4975662, 42.7578122, 36.5024338];
   map?: Map;
+  mobileQuery: MediaQueryList;
 
   constructor(
-    private zone: NgZone,
-    private mapService: MapService
-  ) { }
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
+    private mapService: MapService,
+    private auth: AuthService
+  ) {
+    this.mobileQuery = media.matchMedia('(max-width: 768px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addEventListener('change', this._mobileQueryListener);
+  }
 
   ngAfterViewInit(): void {
     if (! this.map) {
-      this.zone.runOutsideAngular(() => this.initMap())
+      this.initMap();
     }
 
-    setTimeout(()=>this.mapReady.emit(this.map));
+    setTimeout(() => {
+      this.mapReady.emit(this.map);
+      if (this.map) {
+        this.mapService.setMap(this.map);
+      }
+    });
   }
 
   private initMap(): void {
@@ -70,6 +75,9 @@ export class MapComponent implements AfterViewInit {
       if (features && features.length > 0) {
         const feature = features[0] as Feature;
         this.mapService.select(feature);
+      } else if (!this.mobileQuery.matches && this.auth.isAuthenticated()) {
+        this.add.emit(event.coordinate);
+        this.mapService.refresh();
       }
     });
 
@@ -84,6 +92,14 @@ export class MapComponent implements AfterViewInit {
             this.map.getTargetElement().style.cursor = '';
         }
       }
-  });
+    });
+  }
+
+  hideMap(): void {
+    this.mapService.hide();
+  }
+
+  hasMarkers(): boolean {
+    return this.mapService.hasMarkers();
   }
 }

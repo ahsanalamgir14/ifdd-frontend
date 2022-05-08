@@ -59,7 +59,9 @@ describe('AuthService', () => {
 
     expect(service.isAuthenticated()).toBeTruthy();
 
-    service.logout();
+    service.logout().subscribe(() => {
+      service.clearSession();
+    });
 
     const req = httpTestingController.expectOne('/auth/logout');
     expect(req.request.method).toEqual('GET');
@@ -88,7 +90,10 @@ describe('AuthService', () => {
     };
 
     service.initSession();
-    service.logout();
+    service.logout().subscribe(() => {
+      service.clearSession();
+      expect(service.isAuthenticated()).toBeFalsy();
+    });
     const req = httpTestingController.expectOne('/auth/logout');
 
     expect(req.request.method).toEqual('GET');
@@ -110,6 +115,39 @@ describe('AuthService', () => {
     });
 
     const req = httpTestingController.expectOne('/auth/register');
+    expect(req.request.method).toEqual('POST');
+
+    req.flush(testData);
+    httpTestingController.verify();
+  });
+
+  it('should send the reset password link', () => {
+    const testData = {
+      data: ''
+    };
+
+    service.sendResetPassword('test@example.com').subscribe(() => {});
+
+    const req = httpTestingController.expectOne('/auth/password/forgot');
+    expect(req.request.method).toEqual('POST');
+
+    req.flush(testData);
+    httpTestingController.verify();
+  });
+
+  it('should send the password of a user', () => {
+    const testData = {
+      data: ''
+    };
+
+    service.resetPassword({
+      email: 'test@test.com',
+      token: 'token',
+      password: 'test',
+      password_confirmation: 'test'
+    }).subscribe(() => {});
+
+    const req = httpTestingController.expectOne('/auth/password/reset');
     expect(req.request.method).toEqual('POST');
 
     req.flush(testData);

@@ -80,10 +80,15 @@ export class AuthService {
   /**
    * Logs out the current user.
    */
-  logout(): void {
-    this.http.get(`${this.url}/logout`).subscribe(() => {
-      this.storage.clear();
-    });
+  logout(): Observable<void> {
+    return this.http.get<void>(`${this.url}/logout`);
+  }
+
+  /**
+   * Clears the session of the user.
+   */
+  clearSession(): void {
+    this.storage.clear();
   }
 
   /**
@@ -102,5 +107,19 @@ export class AuthService {
    */
   getUser(): Observable<User> {
     return this.userService.getMe();
+  }
+
+  /**
+   * Sends reset password link.
+   */
+  sendResetPassword(email: string): Observable<string> {
+    return this.http.post<string>(`${this.url}/password/forgot`, { email })
+  }
+
+  /**
+   * Reset password.
+   */
+  resetPassword(data: any): Observable<string> {
+    return this.http.post<string>(`${this.url}/password/reset`, data);
   }
 }

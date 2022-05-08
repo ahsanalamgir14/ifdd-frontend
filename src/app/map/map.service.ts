@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Feature } from 'ol';
+import { Feature, Map as OlMap } from 'ol';
 import { Coordinate } from 'ol/coordinate';
 import { Point } from 'ol/geom';
 import VectorLayer from 'ol/layer/Vector';
@@ -7,19 +7,20 @@ import { fromLonLat } from 'ol/proj';
 import VectorSource from 'ol/source/Vector';
 import Icon from 'ol/style/Icon';
 import Style from 'ol/style/Style';
-import {Modify} from 'ol/interaction';
 import { Osc } from '../oscs/osc';
 import { Subject } from 'rxjs';
-import { FeatureLike } from 'ol/Feature';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapService {
+  private map!: OlMap;
   private markerSource: VectorSource;
   private markerLayer: VectorLayer<VectorSource>;
   private markerOscMap: Map<string, Osc> = new Map();
   selected: Subject<Osc> = new Subject();
+  refreshed: Subject<boolean> = new Subject<boolean>();
+  hidden: Subject<boolean> = new Subject<boolean>();
 
   constructor() {
     this.markerSource = new VectorSource();
@@ -53,6 +54,10 @@ export class MapService {
     this.markerSource.clear();
   }
 
+  setMap(map: OlMap) {
+    this.map = map;
+  }
+
   private getMarkerStyle(type: string) {
     const markerStyle: Style = new Style({
       image: new Icon({
@@ -83,5 +88,29 @@ export class MapService {
         this.selected.next(osc);
       }
     }
+  }
+
+  refresh() {
+    this.refreshed.next(true);
+  }
+
+  zoomToMarker(coordinate: Coordinate) {
+    this.map.getView().animate({
+      zoom: (this.map.getView().getZoom() || 0) + 3,
+      duration: 250,
+      center: coordinate
+    });
+  }
+
+  hide(): void {
+    this.hidden.next(true);
+  }
+
+  show(): void {
+    this.hidden.next(false);
+  }
+
+  hasMarkers(): boolean {
+    return this.markerSource.getFeatures().length > 0;
   }
 }

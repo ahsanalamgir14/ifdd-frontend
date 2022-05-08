@@ -1,0 +1,198 @@
+<div class="fixed top-0 right-0 bottom-0 left-0 overflow-y-auto">
+  <div class="flex flex-col relative mt-24 pt-7 px-24 bg-white max-w-5xl mx-auto min-w-[940px] rounded-lg">
+    <button class="flex items-center justify-center absolute -right-16 top-0 w-10 h-10 rounded-md bg-white text-primary z-10" (click)="onCancel()">
+      <ng-icon name="hero-x" size="24"></ng-icon>
+    </button>
+    <h3 class="mb-5 text-2xl text-primary text-center font-bold">{{ data.title }}</h3>
+    <app-stepper [steps]="steps" [selected]="selectedStep"></app-stepper>
+    <div class="my-5 p-3 bg-secondary-light text-primary">
+      <p class="flex items-center text-xs font-bold">
+        <ng-icon name="hero-information-circle-solid" size="16"></ng-icon>
+        <span class="ml-3">La cartographie n’est disponible que pour le Togo et le Bénin pour le moment… Merci de votre compréhension !</span>
+      </p>
+    </div>
+    <form [formGroup]="form" (submit)="onSubmit()" autocomplete="off">
+      <div class="grid grid-cols-2 gap-10" *ngIf="selectedStep.position === 1">
+        <div>
+          <h4 class="mb-4 text-xl text-primary">{{ 'title.information'|translate }}</h4>
+          <div class="flex flex-col mb-3">
+            <label for="oscName" class="text-sm text-gray-500 font-semibold">{{ 'label.org_name'|translate }}</label>
+            <input type="text" name="name" id="oscName" formControlName="name" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
+            <small class="text-red-500 text-xs" *ngIf="hasError('name', 'required')">
+              {{ 'error.osc_name_is_required'|translate }}
+            </small>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col mb-3">
+              <label for="oscAbbreviation" class="text-sm text-gray-500 font-semibold">{{ 'label.abbreviation'|translate }}</label>
+              <input type="text" name="abbreviation" id="oscAbbreviation" formControlName="abbreviation" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
+              <small class="text-red-500 text-xs" *ngIf="hasError('abbreviation', 'required')">
+                {{ 'error.osc_abbreviation_is_required'|translate }}
+              </small>
+            </div>
+            <div class="flex flex-col mb-3">
+              <label for="oscNumber" class="text-sm text-gray-500 font-semibold">{{ 'label.osc_number'|translate }}</label>
+              <input type="text" name="numero_osc" id="oscNumber" formControlName="numero_osc" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
+              <small class="text-red-500 text-xs" *ngIf="hasError('numero_osc', 'required')">
+                {{ 'error.osc_number_is_required'|translate }}
+              </small>
+            </div>
+          </div>
+          <div class="flex flex-col mb-3">
+            <label for="oscCountry" class="text-sm text-gray-500 font-semibold">{{ 'label.country'|translate }}</label>
+            <select name="pays" id="oscCountry" formControlName="pays" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" (ngModelChange)="onCountrySelected($event)">
+              <option [value]="country.name" *ngFor="let country of countries">{{ country.name }}</option>
+            </select>
+            <small class="text-red-500 text-xs" *ngIf="hasError('pays', 'required')">
+              {{ 'error.osc_country_is_required'|translate }}
+            </small>
+          </div>
+          <div class="flex flex-col mb-3">
+            <label for="oscFoundationDate" class="text-sm text-gray-500 font-semibold">{{ 'label.foundation_date'|translate }}</label>
+            <input type="date" name="date_fondation" id="oscFoundationDate" formControlName="date_fondation" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
+            <small class="text-red-500 text-xs" *ngIf="hasError('date_fondation', 'required')">
+              {{ 'error.osc_foundation_date_is_required'|translate }}
+            </small>
+          </div>
+          <div class="flex flex-col mb-3">
+            <label for="oscDescription" class="text-sm text-gray-500 font-semibold">{{ 'label.description'|translate }}</label>
+            <textarea name="description" id="oscDescription" rows="5" formControlName="description" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"></textarea>
+          </div>
+        </div>
+        <div>
+          <h4 class="mb-4 text-xl text-primary">{{ 'title.contact'|translate }}</h4>
+          <div class="flex flex-col mb-3">
+            <label for="oscContactPerson" class="text-sm text-gray-500 font-semibold">{{ 'label.contact_person'|translate }}</label>
+            <input type="text" name="personne_contact" id="oscContactPerson" formControlName="personne_contact" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
+            <small class="text-red-500 text-xs" *ngIf="hasError('personne_contact', 'required')">
+              {{ 'error.osc_contact_person_is_required'|translate }}
+            </small>
+          </div>
+          <div class="flex flex-col mb-3">
+            <label for="oscTelephone" class="text-sm text-gray-500 font-semibold">{{ 'label.telephone'|translate }}</label>
+            <div class="grid grid-cols-6 gap-0 mt-1">
+              <div class="col-span-2">
+                <select name="country_code" id="oscCountryCode" class="block w-full rounded-l-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" formControlName="dialCode">
+                  <option [value]="country.dialCode" *ngFor="let country of countries">{{ country.code}} {{ country.dialCode }}</option>
+                </select>
+              </div>
+              <div class="col-span-4">
+                <input type="text" name="telephone" id="oscTelephone" formControlName="telephone" class="block w-full rounded-r-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
+              </div>
+            </div>
+            <small class="text-red-500 text-xs" *ngIf="hasError('telephone', 'required')">
+              {{ 'error.osc_telephone_is_required'|translate }}
+            </small>
+          </div>
+          <div class="flex flex-col mb-3">
+            <label for="oscEmail" class="text-sm text-gray-500 font-semibold">{{ 'label.osc_email'|translate }}</label>
+            <input type="email" name="email_osc" id="oscEmail" formControlName="email_osc" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
+            <small class="text-red-500 text-xs" *ngIf="hasError('email_osc', 'required')">
+              {{ 'error.osc_email_is_required'|translate }}
+            </small>
+            <small class="text-red-500 text-xs" *ngIf="hasError('email_osc', 'email')">
+              {{ 'error.osc_email_is_invalid'|translate }}
+            </small>
+          </div>
+          <div class="flex flex-col mb-3">
+            <label for="oscWebsite" class="text-sm text-gray-500 font-semibold">{{ 'label.osc_website'|translate }}</label>
+            <input type="text" name="site_web" id="oscWebsite" formControlName="site_web" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
+          </div>
+          <div class="flex flex-col mb-3" *ngFor="let network of usedSocialNetworks">
+            <label [for]="'osc' + network" class="text-sm text-gray-500 font-semibold">{{ 'label.social_networks'|translate }}</label>
+            <div class="grid grid-cols-12 gap-0 mt-1">
+              <div class="col-span-1">
+                <div class="bg-gray-200 border-transparent rounded-l-md h-full flex items-center justify-center px-1">
+                  <img [src]="'/assets/logos/' + network + '.png'" [alt]="network" width="32">
+                </div>
+              </div>
+              <div class="col-span-10">
+                <input type="text" [name]="'osc' + network + 'link'" [id]="'osc' + network + 'link'" [formControlName]="network" class="block w-full bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
+              </div>
+              <div class="col-span-1 flex items-center justify-center bg-gray-200 rounded-r-md">
+                <button class="flex items-center justify-center rounded-r-md" (click)="removeSocialNetwork(network)">
+                  <ng-icon name="hero-x" size="16" strokeWidth="2"></ng-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+          <button class="text-primary font-bold flex items-center" (click)="addSocialNetwork()" *ngIf="availableSocialNetworks.length !== 0">
+            <ng-icon name="hero-plus" class="mr-2" strokeWidth="2"></ng-icon> {{ 'text.add_social_network'|translate }}
+          </button>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-10" *ngIf="selectedStep.position === 2">
+        <div>
+          <h4 class="mb-4 text-xl text-primary">{{ 'title.find_location_to_add'|translate }}</h4>
+          <div class="relative">
+            <app-new-search-bar class="absolute left-3 right-3 w-72 top-4 z-20" (selected)="onPlaceSelected($event)"></app-new-search-bar>
+            <div id="location-selector" class="w-80 h-80 rounded-lg overflow-hidden"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex flex-col mb-3">
+            <label for="oscHeadquarters" class="mb-3 text-sm text-gray-500 font-semibold">{{ 'label.siege'|translate }}</label>
+            <div class="flex w-full" *ngIf="form.get('siege')?.value">
+              <div class="flex-1 mr-auto">
+                <input type="text" name="siege" id="oscHeadquarters" formControlName="siege" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
+                <input type="text" name="siege_alt" formControlName="siege_alt" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" [placeholder]="'placeholder.customize_the_name'|translate">
+              </div>
+              <button type="button" class="w-5 h-5 ml-3 bg-primary text-white rounded-full" (click)="removeHeadquarters()">
+                <ng-icon name="hero-x" strokeWidth="2" size="16"></ng-icon>
+              </button>
+            </div>
+            <small class="text-red-500 text-xs" *ngIf="hasError('siege', 'required')">
+              {{ 'error.osc_headquarters_is_required'|translate }}
+            </small>
+            <div *ngIf="!form.get('siege')?.value" class="flex items-center">
+              <button type="button" class="flex items-center mr-2 bg-primary px-3 py-2 text-white rounded-md" [disabled]="!selectedLocation" (click)="setHeadquarters()">
+                <ng-icon name="hero-plus"></ng-icon>
+              </button>
+              <span>{{ 'label.add_location_as_headquarters'|translate }}</span>
+            </div>
+          </div>
+          <div class="flex flex-col my-3">
+            <label for="oscInterventionZones" class="mb-3 text-sm text-gray-500 font-semibold">{{ 'label.intervention_zones'|translate }}</label>
+            <div class="flex w-full mb-2" *ngFor="let zone of interventionZones; let i = index;">
+              <div class="flex-1 mr-auto">
+                <input type="text" [name]="'interventionZone' + i" [formControl]="getFormArrayControl('interventionZones', i)" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0">
+                <input type="text" [name]="'interventionZoneAlt' + i" [formControl]="getFormArrayControl('interventionZonesAlt', i)" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" [placeholder]="'placeholder.customize_the_name'|translate">
+              </div>
+              <button type="button" class="w-5 h-5 ml-3 bg-primary text-white rounded-full" (click)="removeInterventionZone(zone, i)">
+                <ng-icon name="hero-x" strokeWidth="2" size="16"></ng-icon>
+              </button>
+            </div>
+            <div class="flex items-center">
+              <button type="button" class="flex items-center mr-2 bg-primary px-3 py-2 text-white rounded-md" [disabled]="!selectedLocation" (click)="addInterventionZone()">
+                <ng-icon name="hero-plus"></ng-icon>
+              </button>
+              <span>{{ 'label.add_location_as_intervention_zone'|translate }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectedStep.position === 3">
+        <h4 class="mb-4 text-xl text-primary">{{ 'title.odd'|translate }}</h4>
+        <app-loading-lines *ngIf="loading"></app-loading-lines>
+        <div class="grid grid-cols-2 gap-10">
+          <div *ngFor="let item of odds" class="last:pb-10">
+            <app-odd [odd]="item" [lite]="false" [forceSelected]="true" (categoriesSelection)="onCategoriesSelection($event, item)" [categoriesSelected]="hasCategoriesSelected(item)"></app-odd>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectedStep.position === 4">
+        <h4 class="mb-4 text-xl text-primary">{{ 'title.describe_actions_for_each_target'|translate }}</h4>
+        <div class="flex flex-col mb-3" *ngFor="let category of categories; let i = index;">
+          <label [for]="'category-' + category.id" class="text-sm text-gray-500 font-semibold">{{ 'text.target_with_number'|translate:{number: category.category_number, target: category.intitule} }}</label>
+          <textarea [name]="'category-' + category.id" [id]="'category-' + category.id" rows="3" [formControl]="getFormArrayControl('categories', i)" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"></textarea>
+        </div>
+      </div>
+      <div class="flex py-4">
+        <button type="button" class="py-2 px-3 mb-1 mr-auto bg-neutral-200 text-primary text-xs font-bold rounded-lg uppercase" (click)="onCancel()">{{ 'button.cancel'|translate }}</button>
+        <button type="button" class="py-2 px-3 mb-1 mr-3 bg-primary text-white text-xs font-bold rounded-lg uppercase" *ngIf="selectedStep.position !== 1" (click)="onPrevious()">{{ 'button.previous'|translate }}</button>
+        <button type="button" class="py-2 px-3 mb-1 bg-primary text-white text-xs font-bold rounded-lg uppercase disabled:bg-secondary disabled:cursor-not-allowed" *ngIf="selectedStep.position !== steps.length" (click)="onNext()">{{ 'button.next'|translate }}</button>
+        <button type="submit" class="py-2 px-3 mb-1 bg-primary text-white text-xs font-bold rounded-lg uppercase disabled:bg-secondary disabled:cursor-not-allowed" *ngIf="selectedStep.position === steps.length" [disabled]="!form.valid">{{ 'button.validate'|translate }}</button>
+      </div>
+    </form>
+  </div>
+</div>

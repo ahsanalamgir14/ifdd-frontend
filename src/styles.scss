@@ -19,3 +19,13 @@
   border-radius: 20px;       /* roundness of the scroll thumb */
   border: 3px solid white;  /* creates padding around scroll thumb */
 }
+
+.ng-touched.ng-invalid {
+  border-color: theme('colors.red.500');
+}
+
+.ol-zoom {
+  @media screen and (max-width: 768px) {
+    top: 5rem;
+  }
+}

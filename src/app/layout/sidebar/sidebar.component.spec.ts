@@ -29,7 +29,7 @@ describe('SidebarComponent', () => {
 
   beforeEach(async () => {
     const oddServiceMock = jasmine.createSpyObj('OddService', ['getAll']);
-    const oscServiceMock = jasmine.createSpyObj('OscService', ['getAll']);
+    const oscServiceMock = jasmine.createSpyObj('OscService', ['getAll', 'count']);
 
     await TestBed.configureTestingModule({
       declarations: [
@@ -63,6 +63,7 @@ describe('SidebarComponent', () => {
     oscServiceSpy = TestBed.inject(OscService) as jasmine.SpyObj<OscService>;
     oddServiceSpy.getAll.and.returnValue(of(odds));
     oscServiceSpy.getAll.and.returnValue(of(oscs));
+    oscServiceSpy.count.and.returnValue(of(2));
     fixture.detectChanges();
   });
 

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DiscoverComponent } from './discover/discover.component';
 import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
 import { BaseLayoutComponent } from './layout/base-layout/base-layout.component';
 import { PageLayoutComponent } from './layout/page-layout/page-layout.component';
@@ -8,7 +9,12 @@ const routes: Routes = [
   {
     path: '',
     component: BaseLayoutComponent,
-    children: []
+    children: [
+      {
+        path: '',
+        component: DiscoverComponent
+      }
+    ]
   },
   {
     path: '',

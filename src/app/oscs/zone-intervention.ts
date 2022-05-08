@@ -1,6 +1,6 @@
 export class ZoneIntervention {
-  public id: number;
-  public osc_id: number;
+  public id?: number;
+  public osc_id?: number;
   public name: string;
   public longitude: string;
   public latitude: string;

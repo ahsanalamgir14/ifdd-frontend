@@ -1,6 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { Coordinate } from 'ol/coordinate';
+import { fromLonLat } from 'ol/proj';
 import { finalize, Observable } from 'rxjs';
 import { MapService } from 'src/app/map/map.service';
 import { Category } from 'src/app/odds/category';
@@ -24,6 +24,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
   oscs: Osc[] = [];
   showOscs: boolean = false;
   loading = false;
+  oscsCount: number = 0;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -44,6 +45,13 @@ export class SidebarComponent implements OnDestroy, OnInit {
       this.onSelectOsc(osc);
       this.changeDetectorRef.detectChanges();
     });
+
+    this.mapService.hidden.subscribe((hidden: boolean) => {
+      this.toggle();
+      if (hidden && this.oscs.length !== 0) {
+        this.showOscs = true;
+      }
+    })
   }
 
   ngOnDestroy(): void {
@@ -59,14 +67,12 @@ export class SidebarComponent implements OnDestroy, OnInit {
       return this.selectedOdd.count_osc;
     }
 
-    let count = 0;
-    this.odds.forEach(odd => count += odd.count_osc);
-
-    return count;
+    return this.oscsCount;
   }
 
   reinitialize(): void {
     this.selectedOdd = null;
+    this.selectedCategories = [];
   }
 
   isOpen(): boolean {
@@ -106,6 +112,12 @@ export class SidebarComponent implements OnDestroy, OnInit {
     this.selectedOsc = null;
   }
 
+  private countOscs(): void {
+    this.oscService.count().subscribe((count: number) => {
+      this.oscsCount = count;
+    })
+  }
+
   private getOscs(): void {
     this.loading = true;
     let oscs$: Observable<Osc[]>;
@@ -121,14 +133,46 @@ export class SidebarComponent implements OnDestroy, OnInit {
     .subscribe((oscs: Osc[]) => {
       this.oscs = oscs;
       this.mapService.removeMarkers();
-      this.oscs.forEach((osc: Osc) => {
+      this.oscs.forEach((osc: Osc, index: number) => {
         if (osc.longitude && osc.latitude) {
           const longitude = Number.parseFloat(osc.longitude);
           const latitude = Number.parseFloat(osc.latitude);
-          this.mapService.addMarker([longitude, latitude], osc);
+          const coordinates = [longitude, latitude]
+          this.mapService.addMarker(coordinates, osc);
+
+          if (index === 0) {
+            // Zoom to the first marker
+            this.mapService.zoomToMarker(fromLonLat(coordinates));
+          }
         }
-      })
+      });
     });
+  }
+
+  showMap(): void {
+    this.showOscs = false;
+    this.toggle();
+  }
+
+  getCssClasses(): string {
+    let classes = '';
+
+    // Have to test each case to prevent the default ngClass behavior:
+    // Removing classes that don't match the condition
+
+    if (!this.isOpen()) {
+      classes = 'top-12 z-10';
+    }
+
+    if (this.isOpen() && !this.showOscs) {
+      classes = 'top-0 z-20';
+    }
+
+    if (this.isOpen() && this.showOscs) {
+      classes = 'top-0 bottom-0 bg-secondary z-10';
+    }
+
+    return classes;
   }
 
   private getOdds(): void {
@@ -139,6 +183,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
       )
       .subscribe(data => {
         this.odds = data;
+        this.countOscs();
       });
   }
 }

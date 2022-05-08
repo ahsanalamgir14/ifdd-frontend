@@ -1,0 +1,9 @@
+<div class="flex max-w-md mx-auto py-8">
+  <div class="flex items-center flex-1" *ngFor="let step of steps" [ngClass]="{'flex-1': !isLast(step)}">
+    <div class="flex flex-col items-center relative" [ngClass]="{'text-primary': isActive(step), 'text-secondary': !isActive(step)}">
+      <div class="rounded-full transition duration-500 ease-in-out h-4 w-4" [ngClass]="{'border border-secondary': !isActive(step), 'bg-primary': isActive(step), 'bg-secondary': isPast(step)}"></div>
+      <div class="absolute top-0 text-center text-xs mt-4 font-medium">{{ step.title }}</div>
+    </div>
+    <div class="flex-auto border-t-2 transition duration-500 ease-in-out" [ngClass]="{'border-secondary': !isPast(step), 'border-primary': isPast(step)}"></div>
+  </div>
+</div>
