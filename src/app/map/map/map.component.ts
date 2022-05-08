@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Feature, Map, View } from 'ol';
 import { Coordinate } from 'ol/coordinate';
 import { ScaleLine, defaults as DefaultControls} from 'ol/control';
@@ -7,6 +7,7 @@ import TileLayer from 'ol/layer/Tile';
 import { Projection } from 'ol/proj';
 import OSM from 'ol/source/OSM';
 import { MapService } from '../map.service';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-map',
@@ -14,6 +15,7 @@ import { MapService } from '../map.service';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements AfterViewInit {
+  private _mobileQueryListener: () => void;
   @Input() center: Coordinate = [17.7578122, 11.5024338];
   @Input() zoom: number = 4;
   @Output() mapReady: EventEmitter<Map> = new EventEmitter<Map>();
@@ -22,8 +24,17 @@ export class MapComponent implements AfterViewInit {
   projection: Projection|null = null;
   extent: Extent = [-7.2421878, -13.4975662, 42.7578122, 36.5024338];
   map?: Map;
+  mobileQuery: MediaQueryList;
 
-  constructor(private mapService: MapService) { }
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
+    private mapService: MapService
+  ) {
+    this.mobileQuery = media.matchMedia('(max-width: 768px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addEventListener('change', this._mobileQueryListener);
+  }
 
   ngAfterViewInit(): void {
     if (! this.map) {
@@ -62,7 +73,7 @@ export class MapComponent implements AfterViewInit {
       if (features && features.length > 0) {
         const feature = features[0] as Feature;
         this.mapService.select(feature);
-      } else {
+      } else if (!this.mobileQuery.matches) {
         this.add.emit(event.coordinate);
         this.mapService.refresh();
       }
