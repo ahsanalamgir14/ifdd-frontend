@@ -40,7 +40,6 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.getOdds();
-    this.countOscs();
     this.mapService.selected.subscribe((osc: Osc) => {
       this.selectedOsc = null;
       this.onSelectOsc(osc);
@@ -145,7 +144,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
             this.mapService.zoomToMarker(fromLonLat(coordinates));
           }
         }
-      })
+      });
     });
   }
 
@@ -162,6 +161,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
       )
       .subscribe(data => {
         this.odds = data;
+        this.countOscs();
       });
   }
 }

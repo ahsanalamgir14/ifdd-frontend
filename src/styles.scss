@@ -23,3 +23,9 @@
 .ng-touched.ng-invalid {
   border-color: theme('colors.red.500');
 }
+
+.ol-zoom {
+  @media screen and (max-width: 768px) {
+    top: 5rem;
+  }
+}
