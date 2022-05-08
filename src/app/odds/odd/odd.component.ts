@@ -42,7 +42,7 @@ export class OddComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.lite || this.forceSelected) {
+    if (!this.mobileQuery.matches && (this.lite || this.forceSelected)) {
       this.logoSize = 64;
     }
   }
