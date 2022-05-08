@@ -134,4 +134,23 @@ describe('AuthService', () => {
     req.flush(testData);
     httpTestingController.verify();
   });
+
+  it('should send the password of a user', () => {
+    const testData = {
+      data: ''
+    };
+
+    service.resetPassword({
+      email: 'test@test.com',
+      token: 'token',
+      password: 'test',
+      password_confirmation: 'test'
+    }).subscribe(() => {});
+
+    const req = httpTestingController.expectOne('/auth/password/reset');
+    expect(req.request.method).toEqual('POST');
+
+    req.flush(testData);
+    httpTestingController.verify();
+  });
 });

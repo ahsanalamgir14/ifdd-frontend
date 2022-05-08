@@ -115,4 +115,11 @@ export class AuthService {
   sendResetPassword(email: string): Observable<string> {
     return this.http.post<string>(`${this.url}/password/forgot`, { email })
   }
+
+  /**
+   * Reset password.
+   */
+  resetPassword(data: any): Observable<string> {
+    return this.http.post<string>(`${this.url}/password/reset`, data);
+  }
 }
