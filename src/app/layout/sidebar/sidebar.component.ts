@@ -24,6 +24,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
   oscs: Osc[] = [];
   showOscs: boolean = false;
   loading = false;
+  oscsCount: number = 0;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -39,6 +40,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.getOdds();
+    this.countOscs();
     this.mapService.selected.subscribe((osc: Osc) => {
       this.selectedOsc = null;
       this.onSelectOsc(osc);
@@ -66,10 +68,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
       return this.selectedOdd.count_osc;
     }
 
-    let count = 0;
-    this.odds.forEach(odd => count += odd.count_osc);
-
-    return count;
+    return this.oscsCount;
   }
 
   reinitialize(): void {
@@ -111,6 +110,12 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   onCloseOscDetails(): void {
     this.selectedOsc = null;
+  }
+
+  private countOscs(): void {
+    this.oscService.count().subscribe((count: number) => {
+      this.oscsCount = count;
+    })
   }
 
   private getOscs(): void {

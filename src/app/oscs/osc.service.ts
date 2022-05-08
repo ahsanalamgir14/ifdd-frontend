@@ -40,4 +40,10 @@ export class OscService {
       map((response: any) => response.data.map((data: any) => new Osc(data)))
     );
   }
+
+  count(): Observable<number> {
+    return this.http.get<number>(`/count/osc`).pipe(
+      map((response: any) => response.data)
+    );
+  }
 }
