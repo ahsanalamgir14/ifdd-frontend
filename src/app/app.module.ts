@@ -13,6 +13,8 @@ import { HttpBaseUrlInterceptor } from './core/http/http-base-url.interceptor';
 import { HttpBaseHeadersInterceptor } from './core/http/http-base-headers.interceptor';
 import { OddsModule } from './odds/odds.module';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { DiscoverComponent } from './discover/discover.component';
+import { MapModule } from './map/map.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -20,7 +22,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DiscoverComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SharedModule,
     PlacesModule,
     OddsModule,
+    MapModule,
   ],
   providers: [
     {

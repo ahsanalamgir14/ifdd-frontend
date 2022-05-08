@@ -22,10 +22,8 @@ export class SidebarStubComponent {}
 describe('BaseLayoutComponent', () => {
   let component: BaseLayoutComponent;
   let fixture: ComponentFixture<BaseLayoutComponent>;
-  let dialogService: jasmine.SpyObj<DialogService>;
 
   beforeEach(async () => {
-    const mockDialogService = jasmine.createSpyObj('DialogService', ['open']);
     await TestBed.configureTestingModule({
       declarations: [
         BaseLayoutComponent,
@@ -36,12 +34,6 @@ describe('BaseLayoutComponent', () => {
       imports: [
         RouterTestingModule,
         TranslateModule.forRoot(),
-      ],
-      providers: [
-        {
-          provide: DialogService,
-          useValue: mockDialogService
-        }
       ]
     })
     .compileComponents();
@@ -50,7 +42,6 @@ describe('BaseLayoutComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BaseLayoutComponent);
     component = fixture.componentInstance;
-    dialogService = TestBed.inject(DialogService) as jasmine.SpyObj<DialogService>;
     fixture.detectChanges();
   });
 
