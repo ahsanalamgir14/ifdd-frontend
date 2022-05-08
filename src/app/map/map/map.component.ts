@@ -30,7 +30,12 @@ export class MapComponent implements AfterViewInit {
       this.initMap();
     }
 
-    setTimeout(()=>this.mapReady.emit(this.map));
+    setTimeout(() => {
+      this.mapReady.emit(this.map);
+      if (this.map) {
+        this.mapService.setMap(this.map);
+      }
+    });
   }
 
   private initMap(): void {

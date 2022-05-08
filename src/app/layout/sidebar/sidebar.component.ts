@@ -1,6 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { Coordinate } from 'ol/coordinate';
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { fromLonLat } from 'ol/proj';
 import { finalize, Observable } from 'rxjs';
 import { MapService } from 'src/app/map/map.service';
 import { Category } from 'src/app/odds/category';
@@ -121,11 +121,17 @@ export class SidebarComponent implements OnDestroy, OnInit {
     .subscribe((oscs: Osc[]) => {
       this.oscs = oscs;
       this.mapService.removeMarkers();
-      this.oscs.forEach((osc: Osc) => {
+      this.oscs.forEach((osc: Osc, index: number) => {
         if (osc.longitude && osc.latitude) {
           const longitude = Number.parseFloat(osc.longitude);
           const latitude = Number.parseFloat(osc.latitude);
-          this.mapService.addMarker([longitude, latitude], osc);
+          const coordinates = [longitude, latitude]
+          this.mapService.addMarker(coordinates, osc);
+
+          if (index === 0) {
+            // Zoom to the first marker
+            this.mapService.zoomToMarker(fromLonLat(coordinates));
+          }
         }
       })
     });
