@@ -12,8 +12,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  templateUrl: './map.component.html'
 })
 export class MapComponent implements AfterViewInit {
   private _mobileQueryListener: () => void;
@@ -98,5 +97,9 @@ export class MapComponent implements AfterViewInit {
 
   hideMap(): void {
     this.mapService.hide();
+  }
+
+  hasMarkers(): boolean {
+    return this.mapService.hasMarkers();
   }
 }

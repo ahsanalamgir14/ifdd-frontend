@@ -18,7 +18,6 @@ export class MapService {
   private markerSource: VectorSource;
   private markerLayer: VectorLayer<VectorSource>;
   private markerOscMap: Map<string, Osc> = new Map();
-  private showMobileMap: boolean = false;
   selected: Subject<Osc> = new Subject();
   refreshed: Subject<boolean> = new Subject<boolean>();
   hidden: Subject<boolean> = new Subject<boolean>();
@@ -109,5 +108,9 @@ export class MapService {
 
   show(): void {
     this.hidden.next(false);
+  }
+
+  hasMarkers(): boolean {
+    return this.markerSource.getFeatures().length > 0;
   }
 }
