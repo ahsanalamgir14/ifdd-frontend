@@ -15,8 +15,8 @@
   <div class="block md:hidden fixed top-0 left-0 right-0 bottom-0 bg-black opacity-20" *ngIf="sidebarVisible"
     (click)="closeSidebar()"></div>
   <div
-    class="md:relative fixed md:translate-x-0 top-0 bottom-0 left-0 flex flex-col md:flex-row flex-1 w-60 md:w-auto md:h-20 bg-white shadow-lg md:px-5 transition-transform"
-    [ngClass]="{'-translate-x-60': !sidebarVisible, 'translate-x-0': sidebarVisible}">
+    class="md:relative -translate-x-60 fixed md:translate-x-0 top-0 bottom-0 left-0 flex flex-col md:flex-row flex-1 w-60 md:w-auto md:h-20 bg-white shadow-lg md:px-5 transition-transform duration-300"
+    [ngClass]="{'translate-x-0': sidebarVisible}">
     <div
       class="flex flex-col md:flex-row items-center pl-4 md:p-0 after:hidden after:md:block after:h-3/4 after:mx-3 after:w-0.5 after:bg-slate-200">
       <div class="flex">
