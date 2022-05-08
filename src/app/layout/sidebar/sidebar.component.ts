@@ -72,6 +72,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   reinitialize(): void {
     this.selectedOdd = null;
+    this.selectedCategories = [];
   }
 
   isOpen(): boolean {
