@@ -59,7 +59,9 @@ describe('AuthService', () => {
 
     expect(service.isAuthenticated()).toBeTruthy();
 
-    service.logout();
+    service.logout().subscribe(() => {
+      service.clearSession();
+    });
 
     const req = httpTestingController.expectOne('/auth/logout');
     expect(req.request.method).toEqual('GET');
@@ -88,7 +90,10 @@ describe('AuthService', () => {
     };
 
     service.initSession();
-    service.logout();
+    service.logout().subscribe(() => {
+      service.clearSession();
+      expect(service.isAuthenticated()).toBeFalsy();
+    });
     const req = httpTestingController.expectOne('/auth/logout');
 
     expect(req.request.method).toEqual('GET');

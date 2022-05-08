@@ -24,12 +24,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingLinesComponent } from './loading-lines/loading-lines.component';
 import { DialogModule } from './dialog/dialog.module';
 import { StepperComponent } from './stepper/stepper.component';
+import { MenuComponent } from './menu/menu/menu.component';
+import { MenuTriggerForDirective } from './menu/menu-trigger-for.directive';
 
 
 @NgModule({
   declarations: [
     LoadingLinesComponent,
-    StepperComponent
+    MenuComponent,
+    MenuTriggerForDirective,
+    StepperComponent,
   ],
   exports: [
     CommonModule,
@@ -39,6 +43,8 @@ import { StepperComponent } from './stepper/stepper.component';
     TranslateModule,
     OverlayModule,
     NgScrollbarModule,
+    MenuComponent,
+    MenuTriggerForDirective,
     DialogModule,
     LoadingLinesComponent,
     StepperComponent

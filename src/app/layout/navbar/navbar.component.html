@@ -4,9 +4,13 @@
       <ng-icon name="hero-menu" size="24"></ng-icon>
     </button>
     <app-search-bar [isFull]="false" class="flex-1 flex items-center"></app-search-bar>
-    <button class="flex items-center px-3 text-secondary border-l border-black border-opacity-10">
+    <button class="flex items-center px-3 text-secondary border-l border-black border-opacity-10" [appMenuTriggerFor]="userMenuMobile" xPosition="after">
       <ng-icon name="hero-user-solid" size="24"></ng-icon>
     </button>
+    <app-menu #userMenuMobile>
+      <button class="py-2 px-4 text-left hover:bg-slate-100" (click)="logout()" *ngIf="isAuthenticated()">{{ 'button.logout'|translate }}</button>
+      <a routerLink="/auth/login" class="py-2 px-4 text-left hover:bg-slate-100" *ngIf="!isAuthenticated()">{{ 'button.login'|translate }}</a>
+    </app-menu>
   </div>
   <div class="block md:hidden fixed top-0 left-0 right-0 bottom-0 bg-black opacity-20" *ngIf="sidebarVisible"
     (click)="closeSidebar()"></div>
@@ -54,9 +58,12 @@
           'button.login'|translate }}</a>
       </div>
       <div class="hidden md:flex items-center ml-4" *ngIf="isAuthenticated()">
-        <button type="button" class="flex items-center text-primary" [attr.aria-label]="user?.name">
+        <button type="button" class="flex items-center text-primary" [appMenuTriggerFor]="userMenu" xPosition="after" [attr.aria-label]="user?.name">
           <ng-icon name="hero-user-solid" size="24"></ng-icon>
         </button>
+        <app-menu #userMenu>
+          <button class="py-2 px-4 text-left hover:bg-slate-100" (click)="logout()">{{ 'button.logout'|translate }}</button>
+        </app-menu>
       </div>
     </div>
   </div>

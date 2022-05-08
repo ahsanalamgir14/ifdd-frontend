@@ -73,4 +73,11 @@ export class NavbarComponent implements OnInit {
   closeSidebar(): void {
     this.sidebarVisible = false;
   }
+
+  logout(): void {
+    this.auth.logout().subscribe(() => {
+      this.auth.clearSession();
+      window.location.href = '/';
+    });
+  }
 }

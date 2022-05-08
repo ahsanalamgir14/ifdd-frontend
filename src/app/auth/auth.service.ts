@@ -80,10 +80,15 @@ export class AuthService {
   /**
    * Logs out the current user.
    */
-  logout(): void {
-    this.http.get(`${this.url}/logout`).subscribe(() => {
-      this.storage.clear();
-    });
+  logout(): Observable<void> {
+    return this.http.get<void>(`${this.url}/logout`);
+  }
+
+  /**
+   * Clears the session of the user.
+   */
+  clearSession(): void {
+    this.storage.clear();
   }
 
   /**

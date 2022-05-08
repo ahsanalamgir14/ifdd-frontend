@@ -8,6 +8,7 @@ import { Projection } from 'ol/proj';
 import OSM from 'ol/source/OSM';
 import { MapService } from '../map.service';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-map',
@@ -30,7 +31,8 @@ export class MapComponent implements AfterViewInit {
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private mapService: MapService
+    private mapService: MapService,
+    private auth: AuthService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -74,7 +76,7 @@ export class MapComponent implements AfterViewInit {
       if (features && features.length > 0) {
         const feature = features[0] as Feature;
         this.mapService.select(feature);
-      } else if (!this.mobileQuery.matches) {
+      } else if (!this.mobileQuery.matches && this.auth.isAuthenticated()) {
         this.add.emit(event.coordinate);
         this.mapService.refresh();
       }
