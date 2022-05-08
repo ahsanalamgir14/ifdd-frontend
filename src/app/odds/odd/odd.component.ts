@@ -15,6 +15,8 @@ export class OddComponent implements OnInit {
   private _mobileQueryListener: () => void;
   @Input() odd!: Odd;
   @Input() selected = false;
+  @Input() forceSelected = false;
+  @Input() categoriesSelected = false;
   @Input() lite = false;
   @Output() categoriesSelection: EventEmitter<Category[]> = new EventEmitter<Category[]>();
   mobileQuery: MediaQueryList;
@@ -40,7 +42,7 @@ export class OddComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.lite) {
+    if (this.lite || this.forceSelected) {
       this.logoSize = 64;
     }
   }
@@ -98,8 +100,12 @@ export class OddComponent implements OnInit {
   }
 
   getSelectPlaceholder(): string {
+    const selectedCategories: Category[] = this.getSelectedCategories();
+    if (this.forceSelected && selectedCategories.length === 0) {
+      return this.i18n.instant('text.all_goal_categories', {number: this.odd.id});
+    }
+
     if (!this.allSelected()) {
-      const selectedCategories: Category[] = this.getSelectedCategories();
       const selectedTexts: string[] = [];
       selectedCategories.forEach((category: Category) => {
         selectedTexts.push(this.i18n.instant('text.target', {target: category.category_number}));
@@ -117,6 +123,7 @@ export class OddComponent implements OnInit {
 
   initializeForm(): void {
     const checkboxArray: FormArray = this.form.get('categories') as FormArray;
+    checkboxArray.clear();
     this.categories.forEach((category: Category) => {
       checkboxArray.push(new FormControl(true));
     })

@@ -9,7 +9,14 @@
 		"presentation": "Présentation",
 		"intervention_zones": "Zones d'interventions",
 		"sdgs": "Objectifs de développement durable",
-		"similar_orgs": "Organisations similaires"
+		"similar_orgs": "Organisations similaires",
+		"information": "Informations",
+		"find_location_to_add": "Chercher une localisation sur la carte pour l'ajouter",
+		"odd": "Objectifs de Développement Durable",
+		"describe_actions_for_each_target": "Description des actions menées pour chaque cible sélectionnée",
+		"localization": "Localisation",
+		"objectives": "Objectifs",
+		"details": "Détails"
 	},
 	"errors": {
 		"invalid_credentials": "Adresse email ou mot de passe invalide.",
@@ -20,7 +27,22 @@
 		"email": "Adresse email",
 		"password": "Mot de passe",
 		"name": "Nom",
-		"confirm_password": "Confirmez le mot de passe"
+		"confirm_password": "Confirmez le mot de passe",
+		"org_name": "Nom de l'organisation",
+		"abbreviation": "Abréviation",
+		"osc_number": "Numéro de l'organisation",
+		"country": "Pays",
+		"foundation_date": "Date de fondation",
+		"description": "Briève description",
+		"contact_person": "Personne de contact",
+		"telephone": "Numéro de téléphone de l'organisation",
+		"osc_email": "Adresse électronique de l'organisation",
+		"osc_website": "Site web de l'organisation",
+		"social_networks": "Réseaux sociaux (optionnel)",
+		"siege": "Siège",
+		"add_location_as_headquarters": "Ajouter cette location au siège",
+		"intervention_zones": "Zones d'interventions",
+		"add_location_as_intervention_zone": "Ajouter une zone d'intervention"
 	},
 	"link": {
 		"forgot_password": "Mot de passe oublié?",
@@ -40,7 +62,11 @@
 		"update_filters": "Modifier les filtres",
 		"filter_by_relevance": "Trier par pertinence",
 		"details": "Détails sur l'objectif",
-		"search_in_map": "Recherche sur la carte"
+		"search_in_map": "Recherche sur la carte",
+		"cancel": "Annuler",
+		"previous": "Précédent",
+		"next": "Suivant",
+		"validate": "Valider"
 	},
 	"text": {
 		"copyright": "© 2022 Carte des Organisations de la Société Civile",
@@ -49,6 +75,8 @@
 		"organizations": "Organisations",
 		"organization": "Organisation",
 		"all_goal_categories": "Toutes les cibles de l'objectif {{number}}",
+		"add_social_network": "Ajouter un réseau social",
+		"target_with_number": "Cible {{number}} {{target}}",
 		"countries": "Pays",
 		"accompanied": "Accompagnés",
 		"objectives": "Objectifs",
@@ -60,6 +88,20 @@
 		"logo_sdg": "Logo SDG"
 	},
 	"placeholder": {
-		"global_search": "Recherchez un établissement, un lieu..."
+		"global_search": "Recherchez un établissement, un lieu...",
+		"customize_the_name": "Personnaliser le nom",
+		"place_search": "Recherchez un lieu"
+	},
+	"error": {
+		"osc_name_is_required": "Le nom de l'OSC est requis.",
+		"osc_abbreviation_is_required": "L’abréviation de l'OSC est requise.",
+		"osc_number_is_required": "Le numéro de l'OSC est requis.",
+		"osc_country_is_required": "Le pays de l'OSC est requis.",
+		"osc_foundation_date_is_required": "La date de fondation de l'OSC est requise.",
+		"osc_contact_person_is_required": "La personne de contact de l'OSC est requise.",
+		"osc_telephone_is_required": "Le numéro de téléphone de l'OSC est requis.",
+		"osc_email_is_required": "L'adresse électronique de l'OSC est requise.",
+		"osc_email_is_invalid": "L'adresse électronique de l'OSC est invalide.",
+		"osc_headquarters_is_required": "Le siège de l'OSC est requis."
 	}
 }

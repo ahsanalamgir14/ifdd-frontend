@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { MapStubComponent } from 'src/app/map/testing';
+import { DialogService } from 'src/app/shared/dialog/dialog.service';
 
 import { BaseLayoutComponent } from './base-layout.component';
 
@@ -20,8 +22,10 @@ export class SidebarStubComponent {}
 describe('BaseLayoutComponent', () => {
   let component: BaseLayoutComponent;
   let fixture: ComponentFixture<BaseLayoutComponent>;
+  let dialogService: jasmine.SpyObj<DialogService>;
 
   beforeEach(async () => {
+    const mockDialogService = jasmine.createSpyObj('DialogService', ['open']);
     await TestBed.configureTestingModule({
       declarations: [
         BaseLayoutComponent,
@@ -29,7 +33,16 @@ describe('BaseLayoutComponent', () => {
         SidebarStubComponent,
         MapStubComponent
       ],
-      imports: [ RouterTestingModule ]
+      imports: [
+        RouterTestingModule,
+        TranslateModule.forRoot(),
+      ],
+      providers: [
+        {
+          provide: DialogService,
+          useValue: mockDialogService
+        }
+      ]
     })
     .compileComponents();
   });
@@ -37,6 +50,7 @@ describe('BaseLayoutComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BaseLayoutComponent);
     component = fixture.componentInstance;
+    dialogService = TestBed.inject(DialogService) as jasmine.SpyObj<DialogService>;
     fixture.detectChanges();
   });
 

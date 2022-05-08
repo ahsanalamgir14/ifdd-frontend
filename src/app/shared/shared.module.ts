@@ -4,13 +4,16 @@ import { CommonModule } from '@angular/common';
 import { NgIconsModule } from '@ng-icons/core';
 import {
   HeroArrowRight,
+  HeroCheck,
   HeroChevronDown,
   HeroChevronUp,
   HeroGlobeAlt,
+  HeroInformationCircleSolid,
   HeroLocationMarkerSolid,
   HeroMailSolid,
   HeroMenu,
   HeroPhoneSolid,
+  HeroPlus,
   HeroSearch,
   HeroUserSolid,
   HeroX
@@ -19,11 +22,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingLinesComponent } from './loading-lines/loading-lines.component';
+import { DialogModule } from './dialog/dialog.module';
+import { StepperComponent } from './stepper/stepper.component';
 
 
 @NgModule({
   declarations: [
-    LoadingLinesComponent
+    LoadingLinesComponent,
+    StepperComponent
   ],
   exports: [
     CommonModule,
@@ -33,7 +39,9 @@ import { LoadingLinesComponent } from './loading-lines/loading-lines.component';
     TranslateModule,
     OverlayModule,
     NgScrollbarModule,
+    DialogModule,
     LoadingLinesComponent,
+    StepperComponent
   ],
   imports: [
     OverlayModule,
@@ -42,19 +50,23 @@ import { LoadingLinesComponent } from './loading-lines/loading-lines.component';
     ReactiveFormsModule,
     NgIconsModule.withIcons({
       HeroArrowRight,
+      HeroCheck,
       HeroChevronDown,
       HeroChevronUp,
       HeroGlobeAlt,
+      HeroInformationCircleSolid,
       HeroLocationMarkerSolid,
       HeroMailSolid,
       HeroMenu,
       HeroPhoneSolid,
+      HeroPlus,
       HeroSearch,
       HeroUserSolid,
       HeroX
     }),
     TranslateModule,
-    NgScrollbarModule
+    NgScrollbarModule,
+    DialogModule
   ]
 })
 export class SharedModule { }

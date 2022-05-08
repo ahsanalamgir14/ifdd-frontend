@@ -20,6 +20,7 @@ export class MapService {
   private markerLayer: VectorLayer<VectorSource>;
   private markerOscMap: Map<string, Osc> = new Map();
   selected: Subject<Osc> = new Subject();
+  refreshed: Subject<boolean> = new Subject<boolean>();
 
   constructor() {
     this.markerSource = new VectorSource();
@@ -83,5 +84,9 @@ export class MapService {
         this.selected.next(osc);
       }
     }
+  }
+
+  refresh() {
+    this.refreshed.next(true);
   }
 }
