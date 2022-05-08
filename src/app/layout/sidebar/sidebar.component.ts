@@ -153,6 +153,27 @@ export class SidebarComponent implements OnDestroy, OnInit {
     this.toggle();
   }
 
+  getCssClasses(): string {
+    let classes = '';
+
+    // Have to test each case to prevent the default ngClass behavior:
+    // Removing classes that don't match the condition
+
+    if (!this.isOpen()) {
+      classes = 'top-12 z-10';
+    }
+
+    if (this.isOpen() && !this.showOscs) {
+      classes = 'top-0 z-20';
+    }
+
+    if (this.isOpen() && this.showOscs) {
+      classes = 'top-0 bottom-0 bg-secondary z-10';
+    }
+
+    return classes;
+  }
+
   private getOdds(): void {
     this.loading = true;
     this.oddService.getAll()
