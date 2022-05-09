@@ -74,6 +74,8 @@ export class SidebarComponent implements OnDestroy, OnInit {
   reinitialize(): void {
     this.selectedOdd = null;
     this.selectedCategories = [];
+    this.mapService.removeMarkers();
+    this.mapService.removeZoom();
   }
 
   isOpen(): boolean {
