@@ -8,6 +8,7 @@ import { Odd } from 'src/app/odds/odd';
 import { OddService } from 'src/app/odds/odd.service';
 import { Osc } from 'src/app/oscs/osc';
 import { OscService } from 'src/app/oscs/osc.service';
+import { MapLocation } from 'src/app/places/map-location';
 
 @Component({
   selector: 'app-sidebar',
@@ -110,6 +111,14 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   onCloseOscDetails(): void {
     this.selectedOsc = null;
+  }
+
+  onPlaceSelected(place: MapLocation|null): void {
+    if (place) {
+      this.mapService.zoomToMarker(fromLonLat([place.longitude, place.latitude]));
+    } else {
+      this.mapService.removeZoom();
+    }
   }
 
   private countOscs(): void {
