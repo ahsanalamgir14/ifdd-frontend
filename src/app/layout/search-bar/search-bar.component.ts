@@ -1,7 +1,7 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { debounceTime, distinctUntilChanged, finalize, Observable, Subject, switchMap } from 'rxjs';
-import { Place } from 'src/app/places/place';
+import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
+import { MapLocation } from 'src/app/places/map-location';
 import { PlaceService } from 'src/app/places/place.service';
 
 @Component({
@@ -13,9 +13,9 @@ export class SearchBarComponent implements OnInit {
   private searchText$ = new Subject<string>();
   @Input() isFull: boolean = true;
   @Input() isRounded: boolean = true;
-  @Output() selected: EventEmitter<Place|null> = new EventEmitter<Place|null>()
+  @Output() selected: EventEmitter<MapLocation|null> = new EventEmitter<MapLocation|null>()
   mobileQuery: MediaQueryList;
-  places: Place[] = [];
+  places: MapLocation[] = [];
   showPlaces: boolean = false;
   loading: boolean = false;
   iconTypesMapping: any = {
@@ -42,9 +42,9 @@ export class SearchBarComponent implements OnInit {
         debounceTime(500),
         distinctUntilChanged(),
         switchMap((name: any) => {
-          return this.placeService.getPlaces(name);
+          return this.placeService.searchPlaces(name);
         }),
-      ).subscribe((places: Place[]) => {
+      ).subscribe((places: MapLocation[]) => {
         this.places = places;
       })
   }
@@ -62,8 +62,8 @@ export class SearchBarComponent implements OnInit {
     return this.iconTypesMapping[type];
   }
 
-  onSelect(place: Place): void {
-    this.place = `${place.name} (${place.type})`;
+  onSelect(place: MapLocation): void {
+    this.place = `${place.name}`;
     this.showPlaces = false;
     this.selected.emit(place);
   }

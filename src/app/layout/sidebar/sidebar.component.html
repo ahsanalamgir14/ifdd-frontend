@@ -1,5 +1,5 @@
 <div class="fixed md:pt-20 pl-0 md:pl-5 pr-0 md:pr-5 md:top-0 md:bottom-0 left-0 right-0 md:right-auto md:w-[400px] md:bg-secondary md:z-0 overflow-y-auto" [ngClass]="getCssClasses()">
-  <app-search-bar class="hidden md:block mt-5" [isRounded]="!showOscs"></app-search-bar>
+  <app-search-bar class="hidden md:block mt-5" [isRounded]="!showOscs" (selected)="onPlaceSelected($event)"></app-search-bar>
   <div *ngIf="!showOscs" class="relative flex flex-col md:mt-3 bg-white rounded-lg shadow-lg" [ngClass]="{'pb-14': isOpen(), 'mt-2 mx-3': !isOpen()}">
     <h2 class="flex items-center justify-center md:pt-4 md:pb-5 text-xs md:text-sm text-secondary text-center md:text-left font-semibold" [ngClass]="{'pb-4 pt-4 px-7': isOpen(), 'pb-2 pt-2 px-4': !isOpen()}">
       {{ 'title.filter_by_objectives'|translate }}
@@ -54,7 +54,7 @@
 </div>
 
 <div class="fixed z-20 md:z-10 md:pt-20 top-0 bottom-0 left-0 right-0 md:right-auto md:translate-x-[400px] md:w-[400px] bg-white transition-transform" *ngIf="selectedOsc">
-  <ng-scrollbar [autoHeightDisabled]="false">
-    <app-osc-details [selectedOsc]="selectedOsc" (hide)="onCloseOscDetails()"></app-osc-details>
+  <ng-scrollbar [autoHeightDisabled]="false" #scrollRef>
+    <app-osc-details [selectedOsc]="selectedOsc" (hide)="onCloseOscDetails()" (changed)="scrollRef.scrollTo({top: 0})"></app-osc-details>
   </ng-scrollbar>
 </div>

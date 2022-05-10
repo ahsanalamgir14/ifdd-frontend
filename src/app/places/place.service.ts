@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Coordinate } from 'ol/coordinate';
 import { map, Observable } from 'rxjs';
 import { Country } from './country';
 import { MapLocation } from './map-location';
@@ -12,24 +13,6 @@ export class PlaceService {
   private url = 'https://nominatim.openstreetmap.org/';
 
   constructor(private http: HttpClient) {}
-
-  getPlaces(name: string): Observable<Place[]> {
-    let params = new HttpParams();
-    params = params.set('q', name);
-    params = params.set('format', 'json');
-    params = params.set('limit', 10);
-    return this.http.get<Place[]>(this.url, { params: params })
-      .pipe(
-        map((data: any) => {
-          const results: Place[] = [];
-          data.forEach((item: any) => {
-            results.push(new Place(item.display_name, item.type));
-          });
-
-          return results;
-        })
-      );
-  }
 
   getCountries(): Observable<Country[]> {
     return this.http.get<Country[]>('assets/data/data.json').pipe(
@@ -60,5 +43,21 @@ export class PlaceService {
           return results;
         })
       );
+  }
+
+  reverse(coordinates: Coordinate): Observable<MapLocation|null> {
+    let params = new HttpParams();
+    params = params.set('lat', coordinates[1].toString());
+    params = params.set('lon', coordinates[0].toString());
+    params = params.set('format', 'geojson');
+    return this.http.get<MapLocation|null>(`${this.url}/reverse`, { params: params }).pipe(
+      map((data: any) => {
+        if (data.features.length > 0) {
+          return new MapLocation(data.features[0].properties.display_name, data.features[0].geometry.coordinates[0], data.features[0].geometry.coordinates[1], data.features[0].bbox);
+        }
+
+        return null;
+      })
+    )
   }
 }

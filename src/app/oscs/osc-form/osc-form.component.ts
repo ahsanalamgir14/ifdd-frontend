@@ -6,7 +6,7 @@ import { Coordinate } from 'ol/coordinate';
 import { Control} from 'ol/control';
 import { applyTransform, Extent } from 'ol/extent';
 import TileLayer from 'ol/layer/Tile';
-import { fromLonLat, getTransform, Projection } from 'ol/proj';
+import { fromLonLat, getTransform, Projection, toLonLat } from 'ol/proj';
 import OSM from 'ol/source/OSM';
 import { Country } from 'src/app/places/country';
 import { MapLocation } from 'src/app/places/map-location';
@@ -124,9 +124,9 @@ export class OscFormComponent implements OnInit {
   onSubmit(): void {
     const value = this.form.getRawValue();
 
-    value.zone_interventions = [];
+    value.zone_intervention = [];
     this.interventionZones.forEach((zone: MapLocation, index: number) => {
-      value.zone_interventions.push({
+      value.zone_intervention.push({
         name: this.form.get('interventionZonesAlt')?.value[index] || zone.name,
         longitude: zone.longitude,
         latitude: zone.latitude
@@ -156,10 +156,9 @@ export class OscFormComponent implements OnInit {
       next: (osc: Osc) => this.dialogRef.close(osc),
       error: (error: any) => {
         this.errors = error?.error?.data;
-        console.log(this.errors)
         Object.keys(this.errors).forEach((key: string) => {
           const formControl = this.form.get(key);
-          if (formControl && this.errors[key].contains('required')) {
+          if (formControl && Object.keys(this.errors).find((key: string) => key === 'required')) {
              formControl.setErrors({'required': true});
              formControl.markAllAsTouched();
           }
@@ -224,8 +223,8 @@ export class OscFormComponent implements OnInit {
     });
     this.view = new View({
       projection: 'EPSG:900913',
-      center: this.data.coordinate,
-      zoom: 4,
+      center: this.center,
+      zoom: 1,
     });
     this.map = new OlMap({
       layers: [
@@ -240,19 +239,27 @@ export class OscFormComponent implements OnInit {
     });
 
     this.map.on('click', (event: any) => {
-      const features = this.map?.getFeaturesAtPixel(event.pixel);
-      if (features && features.length > 0) {
-        const feature = features[0] as Feature;
-      } else {
+      const coordinates = this.map?.getCoordinateFromPixel(event.pixel);
+      if (coordinates) {
+        this.placeService.reverse(toLonLat(coordinates)).subscribe((location: MapLocation|null) => {
+          this.onPlaceSelected(location);
+          this.removeHeadquarters();
+          this.setHeadquarters();
+        });
       }
     });
   }
 
   onPlaceSelected(place: MapLocation|null) {
     this.selectedLocation = place;
-    if (this.map && this.selectedLocation) {
-      const extent: any = applyTransform(this.selectedLocation.bbox, getTransform("EPSG:4326", "EPSG:3857"));
-      this.map.getView().fit(extent, {padding: [170, 50, 30, 150]});
+    if (this.map) {
+      if (this.selectedLocation) {
+        const extent: any = applyTransform(this.selectedLocation.bbox, getTransform("EPSG:4326", "EPSG:3857"));
+        this.map.getView().fit(extent);
+        this.map.getView().setZoom(8);
+      } else {
+        this.map.getView().setZoom(1);
+      }
     }
   }
 

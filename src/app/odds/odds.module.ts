@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 import { OddCategoryComponent } from './odd-category/odd-category.component';
 import { ActiveOddsComponent } from './active-odds/active-odds.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -22,7 +23,8 @@ import { ActiveOddsComponent } from './active-odds/active-odds.component';
   imports: [
     CommonModule,
     SharedModule,
-    TranslateModule
+    TranslateModule,
+    RouterModule
   ]
 })
 export class OddsModule { }

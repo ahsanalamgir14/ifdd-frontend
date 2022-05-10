@@ -80,16 +80,29 @@
       <div [innerText]="osc.description" class="text-sm"></div>
     </div>
     <div class="py-4 border-b border-neutral-200" *ngIf="osc.zoneInterventions">
-      <h4 class="text-secondary font-bold mb-2">{{ 'title.intervention_zones'|translate }}</h4>
-      <div class="flex items-center mb-2" *ngFor="let zone of osc.zoneInterventions">
-        <ng-icon name="hero-location-marker-solid" size="24" class="text-secondary"></ng-icon>
-        <span class="ml-1 text-sm">{{ zone.name }}</span>
+      <div class="flex items-center">
+        <h4 class="text-secondary font-bold mb-2 flex-1" [ngClass]="{'hover:cursor-pointer': osc.zoneInterventions.length > 4}" (click)="onToggleInterventionZones()">{{ 'title.intervention_zones'|translate }}</h4>
+        <button class="text-primary" (click)="onToggleInterventionZones()" *ngIf="osc.zoneInterventions.length > 4">
+          <ng-icon [name]="showAllInterventionZones ? 'hero-chevron-up' : 'hero-chevron-down'" [strokeWidth]="3"></ng-icon>
+        </button>
       </div>
+      <ng-container *ngIf="showAllInterventionZones">
+        <div class="flex items-center mb-2" *ngFor="let zone of osc.zoneInterventions">
+          <ng-icon name="hero-location-marker-solid" size="24" class="text-secondary"></ng-icon>
+          <span class="ml-1 text-sm">{{ zone.name }}</span>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!showAllInterventionZones">
+        <div class="flex items-center mb-2" *ngFor="let zone of osc.zoneInterventions.slice(0, 4)">
+          <ng-icon name="hero-location-marker-solid" size="24" class="text-secondary"></ng-icon>
+          <span class="ml-1 text-sm">{{ zone.name }}</span>
+        </div>
+      </ng-container>
     </div>
     <div class="py-4 border-b border-neutral-200" *ngIf="osc.categorieOdds">
       <div class="flex items-center">
-        <h4 class="text-secondary font-bold mb-2">{{ 'title.sdgs'|translate }}</h4>
-        <button class="ml-auto text-primary" (click)="onToggleCategoriesDetails()">
+        <h4 class="flex-1 text-secondary font-bold mb-2 hover:cursor-pointer" (click)="onToggleCategoriesDetails()">{{ 'title.sdgs'|translate }}</h4>
+        <button class="text-primary" (click)="onToggleCategoriesDetails()">
           <ng-icon [name]="showCategoriesDetails ? 'hero-chevron-up' : 'hero-chevron-down'" [strokeWidth]="3"></ng-icon>
         </button>
       </div>
@@ -104,6 +117,7 @@
     </div>
     <div class="py-4 border-b border-neutral-200">
       <h4 class="text-secondary font-bold mb-2">{{ 'title.similar_orgs'|translate }}</h4>
+      <app-osc *ngFor="let similar of similarOscs" [osc]="similar" (click)="selectedOsc = similar"></app-osc>
     </div>
   </div>
 </div>

@@ -3,7 +3,7 @@
     <button class="flex items-center px-3 text-secondary" (click)="openSidebar()">
       <ng-icon name="hero-menu" size="24"></ng-icon>
     </button>
-    <app-search-bar [isFull]="false" class="flex-1 flex items-center"></app-search-bar>
+    <app-search-bar [isFull]="false" class="flex-1 flex items-center" (selected)="onPlaceSelected($event)"></app-search-bar>
     <button class="flex items-center px-3 text-secondary border-l border-black border-opacity-10" [appMenuTriggerFor]="userMenuMobile" xPosition="after">
       <ng-icon name="hero-user-solid" size="24"></ng-icon>
     </button>
@@ -38,12 +38,12 @@
       <h1 class="hidden md:flex items-center w-44 text-sm text-neutral-700">{{ 'title.civil_organization_map'|translate
         }}</h1>
       <nav class="flex flex-col md:flex-row">
-        <a [routerLink]="item.link" *ngFor="let item of menuItems"
+        <a [routerLink]="item.link" *ngFor="let item of menuItems" (click)="closeSidebar()"
           class="flex items-center mb-3 md:mb-0 text-xs xl:text-[13px] font-extrabold pl-1 pr-3 md:px-4 py-0.5 md:py-0 uppercase hover:bg-primary hover:text-white focus:bg-primary focus:text-white bg-white rounded-lg md:rounded-none"
-          [ngClass]="{'text-primary md:bg-primary md:text-white': item.active, 'text-primary md:text-secondary': !item.active}">
+          [ngClass]="{'text-primary md:bg-primary md:text-white': item.active, 'text-primary md:text-secondary': !item.active}" [attr.aria-label]="item.label">
           <img [src]="item.image" [alt]="item.label" *ngIf="!item.active" width="44" height="44">
           <img [src]="item.activeImage" [alt]="item.label" *ngIf="item.active" width="44" height="44">
-          <span>{{ item.label }}</span>
+          <span class="inline-flex md:hidden xl:inline-flex">{{ item.label }}</span>
           <span class="inline-flex md:hidden ml-auto">
             <ng-icon name="hero-arrow-right" strokeWidth="3" size="18" class="text-accent"></ng-icon>
           </span>
@@ -58,7 +58,11 @@
           'button.login'|translate }}</a>
       </div>
       <div class="hidden md:flex items-center ml-4" *ngIf="isAuthenticated()">
-        <button type="button" class="flex items-center text-primary" [appMenuTriggerFor]="userMenu" xPosition="after" [attr.aria-label]="user?.name">
+        <button type="button" class="md:flex items-center mr-5 hidden text-primary hover:text-secondary focus:text-secondary font-bold uppercase" (click)="onAdd()" [attr.arial-label]="'button.add_osc'|translate">
+          <ng-icon name="hero-plus" size="16" strokeWidth="3"></ng-icon>
+          <span class="ml-1 inline-flex md:hidden xl:inline-flex">{{ 'button.add_osc'|translate }}</span>
+        </button>
+        <button type="button" class="flex items-center text-primary hover:text-secondary focus:text-secondary" [appMenuTriggerFor]="userMenu" xPosition="after" [attr.aria-label]="user?.name">
           <ng-icon name="hero-user-solid" size="24"></ng-icon>
         </button>
         <app-menu #userMenu>

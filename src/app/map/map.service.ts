@@ -95,11 +95,21 @@ export class MapService {
   }
 
   zoomToMarker(coordinate: Coordinate) {
-    this.map.getView().animate({
-      zoom: (this.map.getView().getZoom() || 0) + 3,
-      duration: 250,
+    const zoom = this.map.getView().getZoom();
+    const animation: any = {
+      duration: 800,
       center: coordinate
-    });
+    };
+
+    if (zoom && zoom < 10) {
+      animation.zoom = 10;
+    }
+
+    this.map.getView().animate(animation);
+  }
+
+  removeZoom(): void {
+    this.map?.getView()?.setZoom(1);
   }
 
   hide(): void {

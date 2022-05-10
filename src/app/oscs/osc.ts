@@ -49,7 +49,7 @@ export class Osc {
       if (data.categorie_odds) {
         this.categorieOdds = data.categorie_odds.map((category: any) => {
           this.oddIds.add(category.id_odd);
-          return new Category(
+          const cat = new Category(
             category.id,
             category.category_number,
             category.intitule,
@@ -63,6 +63,8 @@ export class Osc {
               category.odd.color
             )
           );
+          cat.description = category.pivot?.description;
+          return cat;
         });
       }
 

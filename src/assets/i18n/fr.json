@@ -93,6 +93,7 @@
 		"terms_of_user": "Conditions d'utilisation",
 		"logout": "Déconnexion",
 		"terms_of_use": "Conditions d'utilisation",
+		"add_osc": "Créer une OSC",
 		"reinitialize": "Réinitialiser",
 		"display_oscs": "Afficher {{oscsCount}} organisations",
 		"update_filters": "Modifier les filtres",

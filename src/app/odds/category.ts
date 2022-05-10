@@ -6,6 +6,7 @@ export class Category {
   public intitule: string;
   public id_odd: number;
   public odd: Odd;
+  public description?: string;
 
   constructor(
     id: number,

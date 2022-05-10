@@ -2,6 +2,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { MapLocation } from 'src/app/places/map-location';
 import { Place } from 'src/app/places/place';
 import { PlaceService } from 'src/app/places/place.service';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -14,7 +15,7 @@ describe('SearchBarComponent', () => {
   let placeServiceSpy: jasmine.SpyObj<PlaceService>;
 
   beforeEach(async () => {
-    const placeServiceMock = jasmine.createSpyObj('PlaceService', ['getPlaces']);
+    const placeServiceMock = jasmine.createSpyObj('PlaceService', ['searchPlaces']);
     const mobileQueryMock = {
 
     }
@@ -32,7 +33,7 @@ describe('SearchBarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchBarComponent);
     component = fixture.componentInstance;
-    placeServiceSpy = TestBed.get(PlaceService) as jasmine.SpyObj<PlaceService>;
+    placeServiceSpy = TestBed.inject(PlaceService) as jasmine.SpyObj<PlaceService>;
     fixture.detectChanges();
   });
 
@@ -42,10 +43,10 @@ describe('SearchBarComponent', () => {
 
   it('should search places', fakeAsync(() => {
     const places = [
-      new Place('Cotonou, Benin', 'ville'),
-      new Place('Cotonou, Benin', 'region')
+      new MapLocation('Cotonou, Benin (ville)', 1.1, 1.1, [1, 0, 0, 1]),
+      new MapLocation('Yaounde, Cameroon', 1.1, 1.1, [1, 0, 0, 1]),
     ];
-    placeServiceSpy.getPlaces.and.returnValue(of(places));
+    placeServiceSpy.searchPlaces.and.returnValue(of(places));
     const searchInput = fixture.debugElement.query(By.css('input[name="name"]'));
     searchInput.nativeElement.value = 'Cotonou';
     searchInput.nativeElement.dispatchEvent(new Event('keyup'));
@@ -57,10 +58,10 @@ describe('SearchBarComponent', () => {
 
   it('should select a place', fakeAsync(() => {
     const places = [
-      new Place('Cotonou, Benin', 'ville'),
-      new Place('Cotonou, Benin', 'region')
+      new MapLocation('Cotonou, Benin (ville)', 1.1, 1.1, [1, 0, 0, 1]),
+      new MapLocation('Yaounde, Cameroon', 1.1, 1.1, [1, 0, 0, 1]),
     ];
-    placeServiceSpy.getPlaces.and.returnValue(of(places));
+    placeServiceSpy.searchPlaces.and.returnValue(of(places));
     const searchInput = fixture.debugElement.query(By.css('input[name="name"]'));
     searchInput.nativeElement.value = 'Cotonou';
     searchInput.nativeElement.dispatchEvent(new Event('keyup'));
@@ -77,10 +78,10 @@ describe('SearchBarComponent', () => {
 
   it('should select a place and clear it', fakeAsync(() => {
     const places = [
-      new Place('Cotonou, Benin', 'ville'),
-      new Place('Cotonou, Benin', 'region')
+      new MapLocation('Cotonou, Benin (ville)', 1.1, 1.1, [1, 0, 0, 1]),
+      new MapLocation('Yaounde, Cameroon', 1.1, 1.1, [1, 0, 0, 1]),
     ];
-    placeServiceSpy.getPlaces.and.returnValue(of(places));
+    placeServiceSpy.searchPlaces.and.returnValue(of(places));
     const searchInput = fixture.debugElement.query(By.css('input[name="name"]'));
     searchInput.nativeElement.value = 'Cotonou';
     searchInput.nativeElement.dispatchEvent(new Event('keyup'));

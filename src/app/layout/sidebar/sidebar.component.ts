@@ -1,5 +1,5 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { fromLonLat } from 'ol/proj';
 import { finalize, Observable } from 'rxjs';
 import { MapService } from 'src/app/map/map.service';
@@ -8,12 +8,14 @@ import { Odd } from 'src/app/odds/odd';
 import { OddService } from 'src/app/odds/odd.service';
 import { Osc } from 'src/app/oscs/osc';
 import { OscService } from 'src/app/oscs/osc.service';
+import { MapLocation } from 'src/app/places/map-location';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent implements OnDestroy, OnInit {
+  @Input() oddNumber: string =  '';
   private _mobileQueryListener: () => void;
   private _open = false;
   mobileQuery: MediaQueryList;
@@ -73,6 +75,8 @@ export class SidebarComponent implements OnDestroy, OnInit {
   reinitialize(): void {
     this.selectedOdd = null;
     this.selectedCategories = [];
+    this.mapService.removeMarkers();
+    this.mapService.removeZoom();
   }
 
   isOpen(): boolean {
@@ -110,6 +114,14 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   onCloseOscDetails(): void {
     this.selectedOsc = null;
+  }
+
+  onPlaceSelected(place: MapLocation|null): void {
+    if (place) {
+      this.mapService.zoomToMarker(fromLonLat([place.longitude, place.latitude]));
+    } else {
+      this.mapService.removeZoom();
+    }
   }
 
   private countOscs(): void {
@@ -183,7 +195,24 @@ export class SidebarComponent implements OnDestroy, OnInit {
       )
       .subscribe(data => {
         this.odds = data;
+        if (this.oddNumber) {
+          this.selectOdd();
+        }
         this.countOscs();
       });
+  }
+
+  private selectOdd(): void {
+    const existingOdd = this.odds.find((odd: Odd) => odd.number === this.oddNumber);
+
+    if (existingOdd) {
+      this.onSelectOdd(existingOdd);
+      this.oddService.get(existingOdd.id).subscribe((odd: Odd|null) => {
+        if (odd) {
+          this.selectedCategories = odd.categories;
+          this.onShowOscs();
+        }
+      })
+    }
   }
 }

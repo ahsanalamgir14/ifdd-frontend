@@ -17,10 +17,9 @@ import { AuthService } from 'src/app/auth/auth.service';
 export class MapComponent implements AfterViewInit {
   private _mobileQueryListener: () => void;
   @Input() center: Coordinate = [17.7578122, 11.5024338];
-  @Input() zoom: number = 4;
+  @Input() zoom: number = 1;
   @Output() mapReady: EventEmitter<Map> = new EventEmitter<Map>();
   @Output() mapHidden: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() add: EventEmitter<Coordinate> = new EventEmitter<Coordinate>();
   view?: View;
   projection: Projection|null = null;
   extent: Extent = [-7.2421878, -13.4975662, 42.7578122, 36.5024338];
@@ -75,9 +74,6 @@ export class MapComponent implements AfterViewInit {
       if (features && features.length > 0) {
         const feature = features[0] as Feature;
         this.mapService.select(feature);
-      } else if (!this.mobileQuery.matches && this.auth.isAuthenticated()) {
-        this.add.emit(event.coordinate);
-        this.mapService.refresh();
       }
     });
 
