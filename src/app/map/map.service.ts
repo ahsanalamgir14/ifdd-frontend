@@ -109,7 +109,7 @@ export class MapService {
   }
 
   removeZoom(): void {
-    this.map.getView().setZoom(1);
+    this.map?.getView()?.setZoom(1);
   }
 
   hide(): void {

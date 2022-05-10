@@ -6,7 +6,7 @@ import { Coordinate } from 'ol/coordinate';
 import { Control} from 'ol/control';
 import { applyTransform, Extent } from 'ol/extent';
 import TileLayer from 'ol/layer/Tile';
-import { fromLonLat, getTransform, Projection } from 'ol/proj';
+import { fromLonLat, getTransform, Projection, toLonLat } from 'ol/proj';
 import OSM from 'ol/source/OSM';
 import { Country } from 'src/app/places/country';
 import { MapLocation } from 'src/app/places/map-location';
@@ -240,10 +240,13 @@ export class OscFormComponent implements OnInit {
     });
 
     this.map.on('click', (event: any) => {
-      const features = this.map?.getFeaturesAtPixel(event.pixel);
-      if (features && features.length > 0) {
-        const feature = features[0] as Feature;
-      } else {
+      const coordinates = this.map?.getCoordinateFromPixel(event.pixel);
+      if (coordinates) {
+        this.placeService.reverse(toLonLat(coordinates)).subscribe((location: MapLocation|null) => {
+          this.onPlaceSelected(location);
+          this.removeHeadquarters();
+          this.setHeadquarters();
+        });
       }
     });
   }
@@ -253,7 +256,8 @@ export class OscFormComponent implements OnInit {
     if (this.map) {
       if (this.selectedLocation) {
         const extent: any = applyTransform(this.selectedLocation.bbox, getTransform("EPSG:4326", "EPSG:3857"));
-        this.map.getView().fit(extent, {padding: [170, 50, 30, 150]});
+        this.map.getView().fit(extent);
+        this.map.getView().setZoom(8);
       } else {
         this.map.getView().setZoom(1);
       }
