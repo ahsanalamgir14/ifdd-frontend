@@ -15,6 +15,7 @@ export class MenuTriggerForDirective implements OnDestroy {
   @Input('appMenuTriggerFor') menuPanel!: MenuPanel;
   @Input() xPosition: MenuPositionX = 'before';
   @Input() yPosition: MenuPositionY = 'below';
+  @Input() allow: boolean = true;
 
   constructor(
     private elementRef: ElementRef,
@@ -28,6 +29,10 @@ export class MenuTriggerForDirective implements OnDestroy {
   }
 
   openMenu(): void {
+    if (!this.allow) {
+      return;
+    }
+
     this.isMenuOpen = true;
     this.overlayRef = this.overlay.create({
       hasBackdrop: true,
