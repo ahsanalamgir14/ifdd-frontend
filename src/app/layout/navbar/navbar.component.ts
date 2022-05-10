@@ -75,7 +75,7 @@ export class NavbarComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         this.menuItems.forEach(item => {
           if (item.link === '/') {
-            item.active = event.url.startsWith('/?odd=');
+            item.active = event.url.startsWith('/?odd=') || item.link === event.url;
           } else {
             item.active = item.link === event.url;
           }
