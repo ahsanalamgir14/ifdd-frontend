@@ -5,6 +5,7 @@ import { Odd } from 'src/app/odds/odd';
 import { OddService } from 'src/app/odds/odd.service';
 import { Osc } from '../osc';
 import { OscService } from '../osc.service';
+import { ZoneIntervention } from '../zone-intervention';
 
 @Component({
   selector: 'app-osc-details',
@@ -21,6 +22,7 @@ export class OscDetailsComponent {
   loading: boolean = false;
   colors: any = {};
   showCategoriesDetails: boolean = false;
+  showAllInterventionZones: boolean = false;
 
   constructor(private changeDetector: ChangeDetectorRef, private oscService: OscService, oddService: OddService) {
     this.colors = oddService.getColors();
@@ -46,6 +48,10 @@ export class OscDetailsComponent {
 
   onToggleCategoriesDetails(): void {
     this.showCategoriesDetails = !this.showCategoriesDetails;
+  }
+
+  onToggleInterventionZones(): void {
+    this.showAllInterventionZones = !this.showAllInterventionZones;
   }
 
   private getOdds(): void {
