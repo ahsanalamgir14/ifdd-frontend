@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { Coordinate } from 'ol/coordinate';
 import { AuthService } from 'src/app/auth/auth.service';
+import { OscFormComponent } from 'src/app/oscs/osc-form/osc-form.component';
+import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { User } from 'src/app/users/user';
 import { MenuItem } from './menu-item';
 
@@ -42,7 +46,13 @@ export class NavbarComponent implements OnInit {
   sidebarVisible = false;
   user?: User;
 
-  constructor(private router: Router, private auth: AuthService) {
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    private router: Router,
+    private i18n: TranslateService,
+    private auth: AuthService,
+    private dialogService: DialogService,
+  ) {
     this.subscribeToRouteEvents();
   }
 
@@ -79,5 +89,14 @@ export class NavbarComponent implements OnInit {
       this.auth.clearSession();
       window.location.href = '/';
     });
+  }
+
+  onAdd(): void {
+    this.dialogService.open(OscFormComponent, {
+      data: {
+        title: this.i18n.instant('title.register')
+      }
+    }).afterClosed().subscribe(result => {});
+    this.changeDetector.detectChanges();
   }
 }

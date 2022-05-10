@@ -224,8 +224,8 @@ export class OscFormComponent implements OnInit {
     });
     this.view = new View({
       projection: 'EPSG:900913',
-      center: this.data.coordinate,
-      zoom: 4,
+      center: this.center,
+      zoom: 1,
     });
     this.map = new OlMap({
       layers: [
@@ -250,9 +250,13 @@ export class OscFormComponent implements OnInit {
 
   onPlaceSelected(place: MapLocation|null) {
     this.selectedLocation = place;
-    if (this.map && this.selectedLocation) {
-      const extent: any = applyTransform(this.selectedLocation.bbox, getTransform("EPSG:4326", "EPSG:3857"));
-      this.map.getView().fit(extent, {padding: [170, 50, 30, 150]});
+    if (this.map) {
+      if (this.selectedLocation) {
+        const extent: any = applyTransform(this.selectedLocation.bbox, getTransform("EPSG:4326", "EPSG:3857"));
+        this.map.getView().fit(extent, {padding: [170, 50, 30, 150]});
+      } else {
+        this.map.getView().setZoom(1);
+      }
     }
   }
 
