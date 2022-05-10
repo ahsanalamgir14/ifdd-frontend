@@ -70,7 +70,11 @@ export class NavbarComponent implements OnInit {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         this.menuItems.forEach(item => {
-          item.active = item.link === event.url;
+          if (item.link === '/') {
+            item.active = event.url.startsWith('/?odd=');
+          } else {
+            item.active = item.link === event.url;
+          }
         });
       }
     });
