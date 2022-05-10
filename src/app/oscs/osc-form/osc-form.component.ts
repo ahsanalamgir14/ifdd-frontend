@@ -156,7 +156,6 @@ export class OscFormComponent implements OnInit {
       next: (osc: Osc) => this.dialogRef.close(osc),
       error: (error: any) => {
         this.errors = error?.error?.data;
-        console.log(this.errors)
         Object.keys(this.errors).forEach((key: string) => {
           const formControl = this.form.get(key);
           if (formControl && this.errors[key].contains('required')) {

@@ -210,7 +210,6 @@ export class SidebarComponent implements OnDestroy, OnInit {
       this.oddService.get(existingOdd.id).subscribe((odd: Odd|null) => {
         if (odd) {
           this.selectedCategories = odd.categories;
-          console.log(this.selectedCategories);
           this.onShowOscs();
         }
       })
