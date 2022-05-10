@@ -124,9 +124,9 @@ export class OscFormComponent implements OnInit {
   onSubmit(): void {
     const value = this.form.getRawValue();
 
-    value.zone_interventions = [];
+    value.zone_intervention = [];
     this.interventionZones.forEach((zone: MapLocation, index: number) => {
-      value.zone_interventions.push({
+      value.zone_intervention.push({
         name: this.form.get('interventionZonesAlt')?.value[index] || zone.name,
         longitude: zone.longitude,
         latitude: zone.latitude
@@ -158,7 +158,7 @@ export class OscFormComponent implements OnInit {
         this.errors = error?.error?.data;
         Object.keys(this.errors).forEach((key: string) => {
           const formControl = this.form.get(key);
-          if (formControl && this.errors[key].contains('required')) {
+          if (formControl && Object.keys(this.errors).find((key: string) => key === 'required')) {
              formControl.setErrors({'required': true});
              formControl.markAllAsTouched();
           }

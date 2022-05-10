@@ -191,7 +191,7 @@
         <button type="button" class="py-2 px-3 mb-1 mr-auto bg-neutral-200 text-primary text-xs font-bold rounded-lg uppercase" (click)="onCancel()">{{ 'button.cancel'|translate }}</button>
         <button type="button" class="py-2 px-3 mb-1 mr-3 bg-primary text-white text-xs font-bold rounded-lg uppercase" *ngIf="selectedStep.position !== 1" (click)="onPrevious()">{{ 'button.previous'|translate }}</button>
         <button type="button" class="py-2 px-3 mb-1 bg-primary text-white text-xs font-bold rounded-lg uppercase disabled:bg-secondary disabled:cursor-not-allowed" *ngIf="selectedStep.position !== steps.length" (click)="onNext()">{{ 'button.next'|translate }}</button>
-        <button type="submit" class="py-2 px-3 mb-1 bg-primary text-white text-xs font-bold rounded-lg uppercase disabled:bg-secondary disabled:cursor-not-allowed" *ngIf="selectedStep.position === steps.length" [disabled]="!form.valid">{{ 'button.validate'|translate }}</button>
+        <button type="submit" class="py-2 px-3 mb-1 bg-primary text-white text-xs font-bold rounded-lg uppercase disabled:bg-secondary disabled:cursor-not-allowed" *ngIf="selectedStep.position === steps.length" [disabled]="loading ||!form.valid">{{ 'button.validate'|translate }}</button>
       </div>
     </form>
   </div>
