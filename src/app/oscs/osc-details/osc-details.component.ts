@@ -17,10 +17,12 @@ export class OscDetailsComponent {
     this.getOsc();
   };
   @Output() hide: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() changed: EventEmitter<boolean> = new EventEmitter<boolean>();
   osc?: Osc;
   odds: Odd[] = [];
   loading: boolean = false;
   colors: any = {};
+  similarOscs: Osc[] = [];
   showCategoriesDetails: boolean = false;
   showAllInterventionZones: boolean = false;
 
@@ -37,7 +39,9 @@ export class OscDetailsComponent {
       .subscribe((osc: Osc) => {
         this.osc = osc;
         this.getOdds();
+        this.getSimilarOscs();
         this.changeDetector.detectChanges();
+        this.changed.emit(true);
       })
     }
   }
@@ -61,5 +65,15 @@ export class OscDetailsComponent {
         this.odds.push(category.odd);
       }
     });
+  }
+
+  private getSimilarOscs(): void {
+    if (this.osc && this.osc.categorieOdds) {
+      this.oscService.search(this.osc.categorieOdds).pipe(
+        finalize(() => this.loading = false)
+      ).subscribe((oscs: Osc[]) => {
+        this.similarOscs = oscs.filter((osc: Osc) => osc.id !== this.osc?.id);
+      });
+    }
   }
 }

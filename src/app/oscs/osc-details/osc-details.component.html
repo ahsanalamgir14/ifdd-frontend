@@ -117,6 +117,7 @@
     </div>
     <div class="py-4 border-b border-neutral-200">
       <h4 class="text-secondary font-bold mb-2">{{ 'title.similar_orgs'|translate }}</h4>
+      <app-osc *ngFor="let similar of similarOscs" [osc]="similar" (click)="selectedOsc = similar"></app-osc>
     </div>
   </div>
 </div>
