@@ -17,7 +17,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 export class MapComponent implements AfterViewInit {
   private _mobileQueryListener: () => void;
   @Input() center: Coordinate = [17.7578122, 11.5024338];
-  @Input() zoom: number = 4;
+  @Input() zoom: number = 1;
   @Output() mapReady: EventEmitter<Map> = new EventEmitter<Map>();
   @Output() mapHidden: EventEmitter<boolean> = new EventEmitter<boolean>();
   view?: View;

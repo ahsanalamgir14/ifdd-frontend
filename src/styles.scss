@@ -24,6 +24,18 @@
   border-color: theme('colors.red.500');
 }
 
+.ol-control button,
+.ol-scale-line {
+  background-color: #70af85;
+}
+
+.ol-control button {
+  &:hover,
+  &:focus {
+    background-color: #255033;
+  }
+}
+
 .ol-zoom {
   @media screen and (max-width: 768px) {
     top: 5rem;
