@@ -97,7 +97,7 @@ export class MapService {
   zoomToMarker(coordinate: Coordinate) {
     const zoom = this.map.getView().getZoom();
     const animation: any = {
-      duration: 250,
+      duration: 800,
       center: coordinate
     };
 

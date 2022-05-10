@@ -13,8 +13,8 @@
       </p>
     </div>
     <div *ngIf="lite && selected" class="flex flex-col items-end">
-      <button class="p-2 mb-1 bg-primary text-white text-xs font-bold rounded-lg uppercase">{{ 'button.details'|translate }}</button>
-      <button class="p-2 ml-auto bg-accent text-primary text-xs font-bold rounded-lg uppercase">{{ 'button.search_in_map'|translate }}</button>
+      <!-- <button class="p-2 mb-1 bg-primary text-white text-xs font-bold rounded-lg uppercase">{{ 'button.details'|translate }}</button> -->
+      <a [routerLink]="'/'" [queryParams]="{odd: odd.number}" class="p-2 ml-auto bg-accent text-primary text-xs font-bold rounded-lg uppercase">{{ 'button.search_in_map'|translate }}</a>
     </div>
   </div>
   <ng-template [ngTemplateOutlet]="template" *ngIf="selected && !lite"></ng-template>

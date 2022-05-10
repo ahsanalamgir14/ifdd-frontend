@@ -1,5 +1,5 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { fromLonLat } from 'ol/proj';
 import { finalize, Observable } from 'rxjs';
 import { MapService } from 'src/app/map/map.service';
@@ -15,6 +15,7 @@ import { MapLocation } from 'src/app/places/map-location';
   templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent implements OnDestroy, OnInit {
+  @Input() oddNumber: string =  '';
   private _mobileQueryListener: () => void;
   private _open = false;
   mobileQuery: MediaQueryList;
@@ -194,7 +195,25 @@ export class SidebarComponent implements OnDestroy, OnInit {
       )
       .subscribe(data => {
         this.odds = data;
+        if (this.oddNumber) {
+          this.selectOdd();
+        }
         this.countOscs();
       });
+  }
+
+  private selectOdd(): void {
+    const existingOdd = this.odds.find((odd: Odd) => odd.number === this.oddNumber);
+
+    if (existingOdd) {
+      this.onSelectOdd(existingOdd);
+      this.oddService.get(existingOdd.id).subscribe((odd: Odd|null) => {
+        if (odd) {
+          this.selectedCategories = odd.categories;
+          console.log(this.selectedCategories);
+          this.onShowOscs();
+        }
+      })
+    }
   }
 }
