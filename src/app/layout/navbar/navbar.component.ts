@@ -2,8 +2,11 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Coordinate } from 'ol/coordinate';
+import { fromLonLat } from 'ol/proj';
 import { AuthService } from 'src/app/auth/auth.service';
+import { MapService } from 'src/app/map/map.service';
 import { OscFormComponent } from 'src/app/oscs/osc-form/osc-form.component';
+import { MapLocation } from 'src/app/places/map-location';
 import { DialogService } from 'src/app/shared/dialog/dialog.service';
 import { User } from 'src/app/users/user';
 import { MenuItem } from './menu-item';
@@ -52,6 +55,7 @@ export class NavbarComponent implements OnInit {
     private i18n: TranslateService,
     private auth: AuthService,
     private dialogService: DialogService,
+    private mapService: MapService
   ) {
     this.subscribeToRouteEvents();
   }
@@ -102,5 +106,13 @@ export class NavbarComponent implements OnInit {
       }
     }).afterClosed().subscribe(result => {});
     this.changeDetector.detectChanges();
+  }
+
+  onPlaceSelected(place: MapLocation|null): void {
+    if (place) {
+      this.mapService.zoomToMarker(fromLonLat([place.longitude, place.latitude]));
+    } else {
+      this.mapService.removeZoom();
+    }
   }
 }

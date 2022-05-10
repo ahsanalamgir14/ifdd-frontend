@@ -3,7 +3,7 @@
     <button class="flex items-center px-3 text-secondary" (click)="openSidebar()">
       <ng-icon name="hero-menu" size="24"></ng-icon>
     </button>
-    <app-search-bar [isFull]="false" class="flex-1 flex items-center"></app-search-bar>
+    <app-search-bar [isFull]="false" class="flex-1 flex items-center" (selected)="onPlaceSelected($event)"></app-search-bar>
     <button class="flex items-center px-3 text-secondary border-l border-black border-opacity-10" [appMenuTriggerFor]="userMenuMobile" xPosition="after">
       <ng-icon name="hero-user-solid" size="24"></ng-icon>
     </button>
