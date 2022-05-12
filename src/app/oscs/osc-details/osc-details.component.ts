@@ -5,7 +5,6 @@ import { Odd } from 'src/app/odds/odd';
 import { OddService } from 'src/app/odds/odd.service';
 import { Osc } from '../osc';
 import { OscService } from '../osc.service';
-import { ZoneIntervention } from '../zone-intervention';
 
 @Component({
   selector: 'app-osc-details',
@@ -23,6 +22,7 @@ export class OscDetailsComponent {
   loading: boolean = false;
   colors: any = {};
   similarOscs: Osc[] = [];
+  similarOscsSlice: number = 3;
   showCategoriesDetails: boolean = false;
   showAllInterventionZones: boolean = false;
 
@@ -38,6 +38,7 @@ export class OscDetailsComponent {
       )
       .subscribe((osc: Osc) => {
         this.osc = osc;
+        this.similarOscsSlice = 3;
         this.getOdds();
         this.getSimilarOscs();
         this.changeDetector.detectChanges();
@@ -75,5 +76,16 @@ export class OscDetailsComponent {
         this.similarOscs = oscs.filter((osc: Osc) => osc.id !== this.osc?.id);
       });
     }
+  }
+
+  loadMoreOscs(): void {
+    console.log(this.similarOscs.length, this.similarOscsSlice)
+    if ((this.similarOscs.length - this.similarOscsSlice) >= 3) {
+      this.similarOscsSlice += 3;
+    } else {
+      this.similarOscsSlice = this.similarOscs.length;
+    }
+
+    this.changeDetector.detectChanges();
   }
 }

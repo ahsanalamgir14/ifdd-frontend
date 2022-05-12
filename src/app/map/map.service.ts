@@ -5,8 +5,15 @@ import { Point } from 'ol/geom';
 import VectorLayer from 'ol/layer/Vector';
 import { fromLonLat } from 'ol/proj';
 import VectorSource from 'ol/source/Vector';
+import ClusterSource from 'ol/source/cluster';
 import Icon from 'ol/style/Icon';
-import Style from 'ol/style/Style';
+import {
+  Circle as CircleStyle,
+  Fill,
+  Stroke,
+  Style,
+  Text,
+} from 'ol/style';
 import { Osc } from '../oscs/osc';
 import { Subject } from 'rxjs';
 
@@ -17,13 +24,44 @@ export class MapService {
   private map!: OlMap;
   private markerSource: VectorSource;
   private markerLayer: VectorLayer<VectorSource>;
+  private clusterSource: ClusterSource;
+  private clusterLayer: VectorLayer<VectorSource>;
   private markerOscMap: Map<string, Osc> = new Map();
   selected: Subject<Osc> = new Subject();
   refreshed: Subject<boolean> = new Subject<boolean>();
   hidden: Subject<boolean> = new Subject<boolean>();
 
   constructor() {
+    const styleCache: any = {};
     this.markerSource = new VectorSource();
+    this.clusterSource = new ClusterSource({
+      distance: 100,
+      minDistance: 40,
+      source: this.markerSource
+    });
+    this.clusterLayer = new VectorLayer({
+      source: this.clusterSource,
+      style: (feature) => {
+        const size = feature.get('features').length;
+        let style = styleCache[size];
+        if (!style) {
+          style = size > 1 ? new Style({
+            image: new Icon({
+              src: '/assets/icons/map/marker.png',
+            }),
+            text: new Text({
+              text: size.toString(),
+              fill: new Fill({
+                color: '#255033',
+              }),
+              font: 'bold 14px sans-serif',
+            }),
+          }) : null;
+          styleCache[size] = style;
+        }
+        return style;
+      }
+    });
     this.markerLayer = new VectorLayer({
       source: this.markerSource
     });
@@ -35,6 +73,10 @@ export class MapService {
 
   getMarkerSource(): VectorSource {
     return this.markerSource;
+  }
+
+  getClusterLayer(): VectorLayer<VectorSource> {
+    return this.clusterLayer;
   }
 
   addMarker(coordinate: Coordinate, osc: Osc): void {
@@ -52,6 +94,7 @@ export class MapService {
 
   removeMarkers(): void {
     this.markerSource.clear();
+    this.clusterSource.clear();
   }
 
   setMap(map: OlMap) {

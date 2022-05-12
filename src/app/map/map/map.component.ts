@@ -2,13 +2,14 @@ import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Outpu
 import { Feature, Map, View } from 'ol';
 import { Coordinate } from 'ol/coordinate';
 import { ScaleLine, defaults as DefaultControls} from 'ol/control';
-import { Extent } from 'ol/extent';
+import { boundingExtent, Extent } from 'ol/extent';
 import TileLayer from 'ol/layer/Tile';
 import { Projection } from 'ol/proj';
 import OSM from 'ol/source/OSM';
 import { MapService } from '../map.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ResetZoomControl } from '../reset-zoom-control';
 
 @Component({
   selector: 'app-map',
@@ -61,11 +62,13 @@ export class MapComponent implements AfterViewInit {
           source: new OSM({})
         }),
         this.mapService.getMarkerLayer(),
+        this.mapService.getClusterLayer()
       ],
       target: 'map',
       view: this.view,
       controls: DefaultControls().extend([
         new ScaleLine({}),
+        new ResetZoomControl({})
       ]),
     });
 
@@ -75,6 +78,19 @@ export class MapComponent implements AfterViewInit {
         const feature = features[0] as Feature;
         this.mapService.select(feature);
       }
+
+      this.mapService.getClusterLayer().getFeatures(event.pixel).then((clickedFeatures) => {
+        if (clickedFeatures.length) {
+          // Get clustered Coordinates
+          const features = clickedFeatures[0].get('features');
+          if (features.length > 1) {
+            const extent = boundingExtent(
+              features.map((r: any) => r.getGeometry().getCoordinates())
+            );
+            this.map?.getView().fit(extent, {duration: 1000, padding: [50, 50, 50, 50]});
+          }
+        }
+      });
     });
 
     this.map.on("pointermove", (evt) => {

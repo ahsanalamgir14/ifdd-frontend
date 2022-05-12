@@ -36,6 +36,20 @@
   }
 }
 
+.ol-reset-zoom-control {
+  position: absolute;
+  top: 65px;
+  left: 8px;
+
+  button {
+    background: url('/assets/icons/map/globe.png');
+    background-size: cover;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+  }
+}
+
 .ol-zoom {
   @media screen and (max-width: 768px) {
     top: 5rem;

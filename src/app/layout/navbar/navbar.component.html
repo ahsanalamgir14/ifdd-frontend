@@ -58,7 +58,7 @@
           'button.login'|translate }}</a>
       </div>
       <div class="hidden md:flex items-center ml-4" *ngIf="isAuthenticated()">
-        <button type="button" class="md:flex items-center mr-5 hidden text-primary hover:text-secondary focus:text-secondary font-bold uppercase" (click)="onAdd()" [attr.arial-label]="'button.add_osc'|translate">
+        <button type="button" class="md:flex items-center mr-5 hidden text-primary text-xs hover:text-secondary focus:text-secondary font-bold uppercase" (click)="onAdd()" [attr.arial-label]="'button.add_osc'|translate">
           <ng-icon name="hero-plus" size="16" strokeWidth="3"></ng-icon>
           <span class="ml-1 inline-flex md:hidden xl:inline-flex">{{ 'button.add_osc'|translate }}</span>
         </button>

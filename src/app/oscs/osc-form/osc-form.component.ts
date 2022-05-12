@@ -88,6 +88,10 @@ export class OscFormComponent implements OnInit {
     interventionZonesAlt: new FormArray([]),
     categories: new FormArray([])
   });
+  coordinatesForm: FormGroup = new FormGroup({
+    longitude: new FormControl('', [Validators.required]),
+    latitude: new FormControl('', [Validators.required])
+  });
   countries: Country[] = [];
   availableSocialNetworks: string[] = ['twitter', 'instagram', 'linkedin'];
   usedSocialNetworks: string[] = ['facebook'];
@@ -240,12 +244,9 @@ export class OscFormComponent implements OnInit {
 
     this.map.on('click', (event: any) => {
       const coordinates = this.map?.getCoordinateFromPixel(event.pixel);
+      console.log(coordinates);
       if (coordinates) {
-        this.placeService.reverse(toLonLat(coordinates)).subscribe((location: MapLocation|null) => {
-          this.onPlaceSelected(location);
-          this.removeHeadquarters();
-          this.setHeadquarters();
-        });
+        this.findPlaceByCoordinates(toLonLat(coordinates));
       }
     });
   }
@@ -379,6 +380,14 @@ export class OscFormComponent implements OnInit {
     }
   }
 
+  onFindHeadquartersByCoordinates(): void {
+    const value = this.coordinatesForm.value;
+    if (value.longitude && value.latitude) {
+      const coordinates = [value.longitude, value.latitude];
+      this.findPlaceByCoordinates(coordinates);
+    }
+  }
+
   hasError(field: string, error: string): boolean {
     const formControl = this.form.get(field);
     return formControl && formControl.errors && formControl.touched && formControl.errors[error];
@@ -393,5 +402,17 @@ export class OscFormComponent implements OnInit {
       this.categories.push(value);
       categoriesControls.push(new FormControl('', [Validators.required]))
     }
+  }
+
+  private findPlaceByCoordinates(coordinates: Coordinate): void {
+    this.loading = true;
+    this.placeService.reverse(coordinates).pipe(
+      finalize(() => this.loading = false)
+    )
+    .subscribe((location: MapLocation|null) => {
+      this.onPlaceSelected(location);
+      this.removeHeadquarters();
+      this.setHeadquarters();
+    });
   }
 }
