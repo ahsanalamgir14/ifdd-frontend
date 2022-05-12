@@ -35,7 +35,7 @@ export class MapService {
     const styleCache: any = {};
     this.markerSource = new VectorSource();
     this.clusterSource = new ClusterSource({
-      distance: 300,
+      distance: 80,
       source: this.markerSource
     });
     this.clusterLayer = new VectorLayer({
@@ -44,7 +44,7 @@ export class MapService {
         const size = feature.get('features').length;
         let style = styleCache[size];
         if (!style) {
-          style = size > 1 ? new Style({
+          style = new Style({
             image: new Icon({
               src: '/assets/icons/map/marker.png',
             }),
@@ -55,7 +55,7 @@ export class MapService {
               }),
               font: 'bold 14px sans-serif',
             }),
-          }) : null;
+          });
           styleCache[size] = style;
         }
         return style;
@@ -98,10 +98,10 @@ export class MapService {
 
   setMap(map: OlMap) {
     this.map = map;
-    this.markerLayer.setMaxResolution(this.map?.getView().getResolutionForZoom(9));
+    this.markerLayer.setMaxResolution(this.map?.getView().getResolutionForZoom(8));
     this.markerLayer.setMinResolution(this.map?.getView().getResolutionForZoom(20))
-    this.clusterLayer.setMinResolution(this.map?.getView().getResolutionForZoom(9));
-    this.clusterLayer.setMaxResolution(this.map?.getView().getResolutionForZoom(1));
+    this.clusterLayer.setMinResolution(this.map?.getView().getResolutionForZoom(8));
+    this.clusterLayer.setMaxResolution(this.map?.getView().getResolutionForZoom(0));
   }
 
   private getMarkerStyle(type: string) {

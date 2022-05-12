@@ -32,7 +32,7 @@
 		"organization": "Organisation",
 		"all_goal_categories": "Toutes les cibles de l'objectif {{number}}",
 		"add_social_network": "Ajouter un réseau social",
-		"find_headquarters_by_coordinates": "Vous pouvez aussi trouver le siège par ses coordonnées géographiques.",
+		"find_location_by_coordinates": "Vous pouvez aussi chercher un lieu par ses coordonnées géographiques.",
 		"target_with_number": "Cible {{number}} {{target}}",
 		"countries": "Pays",
 		"accompanied": "Accompagnés",
@@ -60,7 +60,8 @@
 		"longitude": "Longitude",
 		"latitude": "Latitude",
 		"intervention_zones": "Zones d'interventions",
-		"add_location_as_intervention_zone": "Ajouter une zone d'intervention"
+		"add_location_as_intervention_zone": "Ajouter une zone d'intervention",
+    "place_name": "Nom du lieu"
 	},
 	"error": {
 		"email_is_required": "L'adresse email est requise.",

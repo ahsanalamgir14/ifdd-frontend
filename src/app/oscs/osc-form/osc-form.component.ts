@@ -246,7 +246,7 @@ export class OscFormComponent implements OnInit {
       const coordinates = this.map?.getCoordinateFromPixel(event.pixel);
       console.log(coordinates);
       if (coordinates) {
-        this.findPlaceByCoordinates(toLonLat(coordinates));
+        this.findPlaceByCoordinates(toLonLat(coordinates), true);
       }
     });
   }
@@ -258,6 +258,10 @@ export class OscFormComponent implements OnInit {
         const extent: any = applyTransform(this.selectedLocation.bbox, getTransform("EPSG:4326", "EPSG:3857"));
         this.map.getView().fit(extent);
         this.map.getView().setZoom(8);
+        this.coordinatesForm.setValue({
+          longitude: this.selectedLocation.longitude,
+          latitude: this.selectedLocation.latitude
+        })
       } else {
         this.map.getView().setZoom(1);
       }
@@ -380,7 +384,7 @@ export class OscFormComponent implements OnInit {
     }
   }
 
-  onFindHeadquartersByCoordinates(): void {
+  onFindPlaceByCoordinates(): void {
     const value = this.coordinatesForm.value;
     if (value.longitude && value.latitude) {
       const coordinates = [value.longitude, value.latitude];
@@ -404,15 +408,17 @@ export class OscFormComponent implements OnInit {
     }
   }
 
-  private findPlaceByCoordinates(coordinates: Coordinate): void {
+  private findPlaceByCoordinates(coordinates: Coordinate, isHeadquarters: boolean = false): void {
     this.loading = true;
     this.placeService.reverse(coordinates).pipe(
       finalize(() => this.loading = false)
     )
     .subscribe((location: MapLocation|null) => {
       this.onPlaceSelected(location);
-      this.removeHeadquarters();
-      this.setHeadquarters();
+      if (isHeadquarters) {
+        this.removeHeadquarters();
+        this.setHeadquarters();
+      }
     });
   }
 }

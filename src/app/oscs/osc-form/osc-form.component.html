@@ -131,6 +131,27 @@
         </div>
         <div>
           <div class="flex flex-col mb-3">
+            <div class="mb-4" [formGroup]="coordinatesForm">
+              <p class="mb-3 italic">{{ 'text.find_location_by_coordinates'|translate }}</p>
+              <div class="grid grid-cols-12 gap-4">
+                <div class="col-span-5">
+                  <label for="locationLon" class="mb-1">{{ 'label.longitude'|translate }}</label>
+                  <input type="number" id="locationLon" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" formControlName="longitude">
+                </div>
+                <div class="col-span-5">
+                  <label for="locationLat" class="mb-1">{{ 'label.latitude'|translate }}</label>
+                  <input type="number" id="locationLat" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" formControlName="latitude">
+                </div>
+                <div class="col-span-2 flex items-end">
+                  <button type="button" class="bg-primary w-10 h-10 flex justify-center items-center text-white rounded-md disabled:bg-secondary disabled:cursor-not-allowed" (click)="onFindPlaceByCoordinates()" [disabled]="loading">
+                    <ng-icon name="hero-search"></ng-icon>
+                  </button>
+                </div>
+              </div>
+              <p *ngIf="selectedLocation" class="my-2">
+                <label>{{ 'label.place_name'|translate }}: </label> <strong>{{ selectedLocation.name }}</strong>
+              </p>
+            </div>
             <label for="oscHeadquarters" class="mb-3 text-sm text-gray-500 font-semibold">{{ 'label.siege'|translate }}</label>
             <div class="flex w-full" *ngIf="form.get('siege')?.value">
               <div class="flex-1 mr-auto">
@@ -149,24 +170,6 @@
                 <ng-icon name="hero-plus"></ng-icon>
               </button>
               <span>{{ 'label.add_location_as_headquarters'|translate }}</span>
-            </div>
-            <div *ngIf="!form.get('siege')?.value" class="my-4" [formGroup]="coordinatesForm">
-              <p class="mb-3 italic">{{ 'text.find_headquarters_by_coordinates'|translate }}</p>
-              <div class="grid grid-cols-12 gap-4">
-                <div class="col-span-5">
-                  <label for="headquartersLon" class="mb-1">{{ 'label.longitude'|translate }}</label>
-                  <input type="number" id="headquartersLon" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" formControlName="longitude">
-                </div>
-                <div class="col-span-5">
-                  <label for="headquartersLat" class="mb-1">{{ 'label.latitude'|translate }}</label>
-                  <input type="number" id="headquartersLat" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" formControlName="latitude">
-                </div>
-                <div class="col-span-2 flex items-end">
-                  <button type="button" class="bg-primary w-10 h-10 flex justify-center items-center text-white rounded-md disabled:bg-secondary disabled:cursor-not-allowed" (click)="onFindHeadquartersByCoordinates()" [disabled]="loading">
-                    <ng-icon name="hero-search"></ng-icon>
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
           <div class="flex flex-col my-3">
