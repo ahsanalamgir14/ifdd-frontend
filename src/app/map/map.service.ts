@@ -35,8 +35,7 @@ export class MapService {
     const styleCache: any = {};
     this.markerSource = new VectorSource();
     this.clusterSource = new ClusterSource({
-      distance: 100,
-      minDistance: 40,
+      distance: 300,
       source: this.markerSource
     });
     this.clusterLayer = new VectorLayer({
@@ -63,7 +62,7 @@ export class MapService {
       }
     });
     this.markerLayer = new VectorLayer({
-      source: this.markerSource
+      source: this.markerSource,
     });
   }
 
@@ -99,6 +98,10 @@ export class MapService {
 
   setMap(map: OlMap) {
     this.map = map;
+    this.markerLayer.setMaxResolution(this.map?.getView().getResolutionForZoom(9));
+    this.markerLayer.setMinResolution(this.map?.getView().getResolutionForZoom(20))
+    this.clusterLayer.setMinResolution(this.map?.getView().getResolutionForZoom(9));
+    this.clusterLayer.setMaxResolution(this.map?.getView().getResolutionForZoom(1));
   }
 
   private getMarkerStyle(type: string) {
