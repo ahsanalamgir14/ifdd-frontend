@@ -18,7 +18,8 @@
 		"describe_actions_for_each_target": "Description des actions menées pour chaque cible sélectionnée",
 		"localization": "Localisation",
 		"objectives": "Objectifs",
-		"details": "Détails"
+		"details": "Détails",
+    "click_to_see_description": "Cliquez pour voir la description"
 	},
 	"text": {
 		"enter_email_for_password_reset": "Entrez votre adresse email ci-dessous et nous vous enverrons un lien pour récupérer votre mot de passe.",

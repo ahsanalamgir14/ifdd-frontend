@@ -108,7 +108,7 @@
       </div>
       <div class="flex flex-wrap" [ngClass]="{'flex-col': showCategoriesDetails}">
         <div class="flex-col mb-2 items-start inline-flex" *ngFor="let category of osc.categorieOdds;">
-          <app-odd-category [category]="category" [unselectable]="false" [color]="colors[category.id_odd]"></app-odd-category>
+          <app-odd-category [category]="category" [unselectable]="false" [color]="colors[category.id_odd]" [title]="'title.click_to_see_description'|translate"></app-odd-category>
           <div *ngIf="showCategoriesDetails" class="mb-2">
             {{ category.intitule }}
           </div>
