@@ -5,7 +5,7 @@ import { Point } from 'ol/geom';
 import VectorLayer from 'ol/layer/Vector';
 import { fromLonLat } from 'ol/proj';
 import VectorSource from 'ol/source/Vector';
-import ClusterSource from 'ol/source/cluster';
+import ClusterSource from 'ol/source/Cluster';
 import Icon from 'ol/style/Icon';
 import {
   Fill,

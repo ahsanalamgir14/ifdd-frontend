@@ -2,6 +2,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { OscService } from 'src/app/oscs/osc.service';
 import { MapLocation } from 'src/app/places/map-location';
 import { Place } from 'src/app/places/place';
 import { PlaceService } from 'src/app/places/place.service';
@@ -13,18 +14,18 @@ describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
   let fixture: ComponentFixture<SearchBarComponent>;
   let placeServiceSpy: jasmine.SpyObj<PlaceService>;
+  let oscServiceSpy: jasmine.SpyObj<OscService>;
 
   beforeEach(async () => {
     const placeServiceMock = jasmine.createSpyObj('PlaceService', ['searchPlaces']);
-    const mobileQueryMock = {
-
-    }
+    const oscServiceMock = jasmine.createSpyObj('OscService', ['searchByName']);
 
     await TestBed.configureTestingModule({
       declarations: [ SearchBarComponent ],
       imports: [ SharedModule, TranslateModule.forRoot() ],
       providers: [
-        { provide: PlaceService, useValue: placeServiceMock }
+        { provide: PlaceService, useValue: placeServiceMock },
+        { provide: OscService, useValue: oscServiceMock }
       ]
     })
     .compileComponents();
@@ -34,6 +35,7 @@ describe('SearchBarComponent', () => {
     fixture = TestBed.createComponent(SearchBarComponent);
     component = fixture.componentInstance;
     placeServiceSpy = TestBed.inject(PlaceService) as jasmine.SpyObj<PlaceService>;
+    oscServiceSpy = TestBed.inject(OscService) as jasmine.SpyObj<OscService>;
     fixture.detectChanges();
   });
 
@@ -47,6 +49,7 @@ describe('SearchBarComponent', () => {
       new MapLocation('Yaounde, Cameroon', 1.1, 1.1, [1, 0, 0, 1]),
     ];
     placeServiceSpy.searchPlaces.and.returnValue(of(places));
+    oscServiceSpy.searchByName.and.returnValue(of([]));
     const searchInput = fixture.debugElement.query(By.css('input[name="name"]'));
     searchInput.nativeElement.value = 'Cotonou';
     searchInput.nativeElement.dispatchEvent(new Event('keyup'));
@@ -62,6 +65,7 @@ describe('SearchBarComponent', () => {
       new MapLocation('Yaounde, Cameroon', 1.1, 1.1, [1, 0, 0, 1]),
     ];
     placeServiceSpy.searchPlaces.and.returnValue(of(places));
+    oscServiceSpy.searchByName.and.returnValue(of([]));
     const searchInput = fixture.debugElement.query(By.css('input[name="name"]'));
     searchInput.nativeElement.value = 'Cotonou';
     searchInput.nativeElement.dispatchEvent(new Event('keyup'));
@@ -82,6 +86,7 @@ describe('SearchBarComponent', () => {
       new MapLocation('Yaounde, Cameroon', 1.1, 1.1, [1, 0, 0, 1]),
     ];
     placeServiceSpy.searchPlaces.and.returnValue(of(places));
+    oscServiceSpy.searchByName.and.returnValue(of([]));
     const searchInput = fixture.debugElement.query(By.css('input[name="name"]'));
     searchInput.nativeElement.value = 'Cotonou';
     searchInput.nativeElement.dispatchEvent(new Event('keyup'));
