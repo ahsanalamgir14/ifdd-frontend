@@ -244,7 +244,6 @@ export class OscFormComponent implements OnInit {
 
     this.map.on('click', (event: any) => {
       const coordinates = this.map?.getCoordinateFromPixel(event.pixel);
-      console.log(coordinates);
       if (coordinates) {
         this.findPlaceByCoordinates(toLonLat(coordinates), true);
       }

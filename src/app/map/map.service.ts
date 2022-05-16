@@ -164,7 +164,6 @@ export class MapService {
     });
     if (id) {
       const osc = this.markerOscMap.get(id.toString());
-      console.log(emit);
       if (osc) {
         if (emit) {
           this.selected.next(osc);
