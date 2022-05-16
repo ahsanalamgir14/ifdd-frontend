@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Category } from '../odds/category';
@@ -37,6 +37,15 @@ export class OscService {
       idsCategorieOdd: categoriesIds.join(',')
     }
     return this.http.post<Osc[]>(this.searchUrl, body).pipe(
+      map((response: any) => response.data.map((data: any) => new Osc(data)))
+    );
+  }
+
+  searchByName(name: string): Observable<Osc[]> {
+    let params: HttpParams = new HttpParams();
+    params = params.set('q', name);
+
+    return this.http.get<Osc[]>(`/searchosc`, { params }).pipe(
       map((response: any) => response.data.map((data: any) => new Osc(data)))
     );
   }

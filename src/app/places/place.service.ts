@@ -4,7 +4,12 @@ import { Coordinate } from 'ol/coordinate';
 import { map, Observable } from 'rxjs';
 import { Country } from './country';
 import { MapLocation } from './map-location';
-import { Place } from './place';
+
+const SUPPORTED_TYPES: string[] = [
+  'city',
+  'village',
+  'administrative'
+];
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +42,9 @@ export class PlaceService {
         map((data: any) => {
           const results: MapLocation[] = [];
           data.features.forEach((item: any) => {
-            results.push(new MapLocation(item.properties.display_name, item.geometry.coordinates[0], item.geometry.coordinates[1], item.bbox));
+            const location = new MapLocation(item.properties.display_name, item.geometry.coordinates[0], item.geometry.coordinates[1], item.bbox);
+            location.type = SUPPORTED_TYPES.includes(item.properties.type) ? item.properties.type : '';
+            results.push(location);
           });
 
           return results;

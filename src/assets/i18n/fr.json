@@ -126,5 +126,9 @@
 		"global_search": "Recherchez un établissement, un lieu...",
 		"customize_the_name": "Personnaliser le nom",
 		"place_search": "Recherchez un lieu"
-	}
+	},
+  "siege": "siège d'organisation",
+  "city": "ville",
+  "village": "village",
+  "administrative": "administratif"
 }

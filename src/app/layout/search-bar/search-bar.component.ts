@@ -1,6 +1,8 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, merge, mergeMap, Subject, switchMap } from 'rxjs';
+import { Osc } from 'src/app/oscs/osc';
+import { OscService } from 'src/app/oscs/osc.service';
 import { MapLocation } from 'src/app/places/map-location';
 import { PlaceService } from 'src/app/places/place.service';
 
@@ -27,9 +29,10 @@ export class SearchBarComponent implements OnInit {
   place:string = '';
 
   constructor(
-    private placeService: PlaceService,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
+    private placeService: PlaceService,
+    private oscService: OscService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -42,10 +45,22 @@ export class SearchBarComponent implements OnInit {
         debounceTime(500),
         distinctUntilChanged(),
         switchMap((name: any) => {
-          return this.placeService.searchPlaces(name);
+          this.places = [];
+          return merge(
+            this.placeService.searchPlaces(name),
+            this.oscService.searchByName(name).pipe(
+              map((oscs: Osc[]) => oscs.map((osc: any) => {
+                const location = new MapLocation(osc.name, osc.longitude, osc.latitude, []);
+                location.id = osc.id;
+                location.type = 'siege';
+
+                return location;
+              }))
+            )
+          );
         }),
       ).subscribe((places: MapLocation[]) => {
-        this.places = places;
+        this.places.push(...places);
       })
   }
 
@@ -58,8 +73,12 @@ export class SearchBarComponent implements OnInit {
     return (event.target as HTMLInputElement).value;
   }
 
-  getIconType(type: string): string {
-    return this.iconTypesMapping[type];
+  getIconType(place: MapLocation): string {
+    if (place.id) {
+      return 'star';
+    }
+
+    return 'pin';
   }
 
   onSelect(place: MapLocation): void {

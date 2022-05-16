@@ -127,11 +127,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
   }
 
   onPlaceSelected(place: MapLocation|null): void {
-    if (place) {
-      this.mapService.zoomToMarker(fromLonLat([place.longitude, place.latitude]));
-    } else {
-      this.mapService.removeZoom();
-    }
+    this.mapService.selectLocation(place);
   }
 
   private countOscs(): void {

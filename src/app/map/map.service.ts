@@ -14,6 +14,7 @@ import {
 } from 'ol/style';
 import { Osc } from '../oscs/osc';
 import { Subject } from 'rxjs';
+import { MapLocation } from '../places/map-location';
 
 @Injectable({
   providedIn: 'root'
@@ -127,7 +128,6 @@ export class MapService {
 
   selectById(id: number) {
     const feature = this.markerSource.getFeatureById(id)
-    const osc = this.markerOscMap.get(id.toString());
 
     if (feature) {
       this.select(feature, false);
@@ -215,5 +215,20 @@ export class MapService {
 
   hasResults(): boolean {
     return this._hasResults;
+  }
+
+  selectLocation(location: MapLocation|null): void {
+    if (location) {
+      if (location.id) {
+        const feature = this.markerSource.getFeatureById(location.id)
+
+        if (feature) {
+          this.select(feature, true);
+        }
+      }
+      this.zoomToMarker(fromLonLat([location.longitude, location.latitude]));
+    } else {
+      this.removeZoom();
+    }
   }
 }
