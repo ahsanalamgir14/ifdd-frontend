@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Collection, Feature, Map as OlMap, View } from 'ol';
 import { Coordinate } from 'ol/coordinate';
 import { Control} from 'ol/control';
-import { applyTransform, Extent } from 'ol/extent';
+import { applyTransform } from 'ol/extent';
 import TileLayer from 'ol/layer/Tile';
 import { fromLonLat, getTransform, Projection, toLonLat } from 'ol/proj';
 import OSM from 'ol/source/OSM';
@@ -23,7 +23,6 @@ import { Odd } from 'src/app/odds/odd';
 import { OddService } from 'src/app/odds/odd.service';
 import { finalize } from 'rxjs';
 import { Category } from 'src/app/odds/category';
-import { ZoneIntervention } from '../zone-intervention';
 import { OscService } from '../osc.service';
 import { Osc } from '../osc';
 
@@ -67,7 +66,6 @@ export class OscFormComponent implements OnInit {
   form = new FormGroup({
     name: new FormControl('', [Validators.required]),
     abbreviation: new FormControl('', [Validators.required]),
-    numero_osc: new FormControl('', [Validators.required]),
     pays: new FormControl('', [Validators.required]),
     date_fondation: new FormControl('', [Validators.required]),
     description: new FormControl('', []),
