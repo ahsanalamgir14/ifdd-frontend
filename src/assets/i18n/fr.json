@@ -24,6 +24,8 @@
 	"text": {
 		"enter_email_for_password_reset": "Entrez votre adresse email ci-dessous et nous vous enverrons un lien pour récupérer votre mot de passe.",
 		"forgot_password_link_sent": "Un lien a été envoyé à {{email}} pour réinitialiser votre mot de passe.",
+		"unregistered": "Pas encore inscrit ?",
+    "registered": "Déjà inscrit ?",
 		"invalid_reset_information": "Le lien de réinitialisation du mot de passe est invalid. Veuillez-demander un nouveau lien.",
 		"password_changed": "Votre mot de passe a été réinitialisé avec succès. Retournez à la page de connexion pour vous connecter.",
 		"copyright": "© 2022 Carte des Organisations de la Société Civile",
@@ -35,8 +37,8 @@
 		"add_social_network": "Ajouter un réseau social",
 		"find_location_by_coordinates": "Vous pouvez aussi chercher un lieu par ses coordonnées géographiques.",
 		"target_with_number": "Cible {{number}} {{target}}",
+		"character_remaining": "un caractère restant",
 		"characters_remaining": "{{number}} caractères restants",
-    "character_remaining": "un caractère restant",
 		"countries": "Pays",
 		"accompanied": "Accompagnés",
 		"objectives": "Objectifs",
@@ -84,6 +86,7 @@
 	"link": {
 		"login": "Connexion",
 		"forgot_password": "Mot de passe oublié?",
+		"back_to_home": "Retour à l'accueil",
 		"website": "Site Web",
 		"mail": "Mail",
 		"phone": "Appeler",
@@ -92,8 +95,8 @@
 	},
 	"button": {
 		"send_link": "Envoyer le lien",
-		"login": "Connexion",
 		"register": "Inscription",
+		"login": "Connexion",
 		"reset_password": "Réinitialiser mot de passe",
 		"terms_of_user": "Conditions d'utilisation",
 		"logout": "Déconnexion",
@@ -126,9 +129,5 @@
 		"global_search": "Recherchez un établissement, un lieu...",
 		"customize_the_name": "Personnaliser le nom",
 		"place_search": "Recherchez un lieu"
-	},
-  "siege": "siège d'organisation",
-  "city": "ville",
-  "village": "village",
-  "administrative": "administratif"
+	}
 }
