@@ -112,6 +112,13 @@ export class SidebarComponent implements OnDestroy, OnInit {
     this.selectedOsc = osc;
   }
 
+  onSelectOscFromSidebar(osc: Osc): void {
+    this.onSelectOsc(osc);
+    if (osc.id) {
+      this.mapService.selectById(osc.id);
+    }
+  }
+
   onCloseOscDetails(): void {
     this.selectedOsc = null;
   }

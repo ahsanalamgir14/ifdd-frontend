@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Feature, Map as OlMap } from 'ol';
 import { Coordinate } from 'ol/coordinate';
-import { Point } from 'ol/geom';
+import { Geometry, Point } from 'ol/geom';
 import VectorLayer from 'ol/layer/Vector';
 import { fromLonLat } from 'ol/proj';
 import VectorSource from 'ol/source/Vector';
@@ -126,24 +126,53 @@ export class MapService {
     return markerStyle;
   }
 
-  select(feature: Feature) {
+  selectById(id: number) {
+    const feature = this.markerSource.getFeatureById(id)
+    const osc = this.markerOscMap.get(id.toString());
+
+    if (feature) {
+      this.select(feature, false);
+    }
+  }
+
+  select(feature: Feature, emit: boolean = true) {
     const id = feature.getId();
     this.getMarkerSource().forEachFeature((feature: Feature) => {
+      const style = feature.getStyle() as Style;
+      const text = style.getText();
       let iconSrc = '/assets/icons/map/marker-star-active.png';
+      let backgroundFill = '#255033';
+      let fill = '#fff';
+
       if (feature.getId() !== id) {
         iconSrc = '/assets/icons/map/marker-star.png';
+        backgroundFill = '#fff';
+        fill = '#255033';
+        style.setZIndex(1);
+      } else {
+        style.setZIndex(2);
       }
-      const style = feature.getStyle() as Style;
+
+      text.setBackgroundFill(new Fill({ color: backgroundFill }));
+      text.setFill(new Fill({ color: fill }));
+
       if (style) {
-        style.setImage(new Icon({
-          src: iconSrc,
-        }));
+        style.setImage(new Icon({ src: iconSrc }));
       }
-    })
+
+      feature.setStyle(style);
+    });
     if (id) {
       const osc = this.markerOscMap.get(id.toString());
+      console.log(emit);
       if (osc) {
-        this.selected.next(osc);
+        if (emit) {
+          this.selected.next(osc);
+        } else {
+          if (osc?.longitude && osc.latitude) {
+            this.zoomToMarker(fromLonLat([Number.parseFloat(osc?.longitude), Number.parseFloat(osc?.latitude)]))
+          }
+        }
       }
     }
   }
