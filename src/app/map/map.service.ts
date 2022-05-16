@@ -84,7 +84,7 @@ export class MapService {
         name: osc.name,
         geometry: new Point(fromLonLat(coordinate)),
       });
-      iconFeature.setStyle(this.getMarkerStyle(''));
+      iconFeature.setStyle(this.getMarkerStyle('', osc.abbreviation));
       iconFeature.setId(osc.id);
       this.markerSource.addFeature(iconFeature);
       this.markerOscMap.set(osc.id.toString(), osc);
@@ -104,10 +104,22 @@ export class MapService {
     this.clusterLayer.setMaxResolution(this.map?.getView().getResolutionForZoom(0));
   }
 
-  private getMarkerStyle(type: string) {
+  private getMarkerStyle(type: string, name?: string) {
     const markerStyle: Style = new Style({
       image: new Icon({
         src: '/assets/icons/map/marker-star.png',
+      }),
+      text: new Text({
+        text: name,
+        fill: new Fill({
+          color: '#255033',
+        }),
+        font: 'bold 14px sans-serif',
+        offsetY: -30,
+        padding: [2, 5, 2, 5],
+        backgroundFill: new Fill({
+          color: '#fff'
+        })
       })
     });
 
@@ -121,12 +133,12 @@ export class MapService {
       if (feature.getId() !== id) {
         iconSrc = '/assets/icons/map/marker-star.png';
       }
-
-      feature.setStyle(new Style({
-        image: new Icon({
+      const style = feature.getStyle() as Style;
+      if (style) {
+        style.setImage(new Icon({
           src: iconSrc,
-        })
-      }));
+        }));
+      }
     })
     if (id) {
       const osc = this.markerOscMap.get(id.toString());
