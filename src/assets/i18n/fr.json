@@ -11,6 +11,7 @@
 		"presentation": "Présentation",
 		"intervention_zones": "Zones d'interventions",
 		"sdgs": "Objectifs de développement durable",
+		"click_to_see_description": "Cliquez pour voir la description",
 		"similar_orgs": "Organisations similaires",
 		"information": "Informations",
 		"find_location_to_add": "Chercher une localisation sur la carte pour l'ajouter",
@@ -18,8 +19,7 @@
 		"describe_actions_for_each_target": "Description des actions menées pour chaque cible sélectionnée",
 		"localization": "Localisation",
 		"objectives": "Objectifs",
-		"details": "Détails",
-    "click_to_see_description": "Cliquez pour voir la description"
+		"details": "Détails"
 	},
 	"text": {
 		"enter_email_for_password_reset": "Entrez votre adresse email ci-dessous et nous vous enverrons un lien pour récupérer votre mot de passe.",
@@ -35,6 +35,8 @@
 		"add_social_network": "Ajouter un réseau social",
 		"find_location_by_coordinates": "Vous pouvez aussi chercher un lieu par ses coordonnées géographiques.",
 		"target_with_number": "Cible {{number}} {{target}}",
+		"characters_remaining": "{{number}} caractères restants",
+    "character_remaining": "un caractère restant",
 		"countries": "Pays",
 		"accompanied": "Accompagnés",
 		"objectives": "Objectifs",
@@ -47,7 +49,6 @@
 		"confirm_password": "Confirmez le mot de passe",
 		"org_name": "Nom de l'organisation",
 		"abbreviation": "Abréviation",
-		"osc_number": "Numéro de l'organisation",
 		"country": "Pays",
 		"foundation_date": "Date de fondation",
 		"description": "Briève description",
@@ -56,13 +57,13 @@
 		"osc_email": "Adresse électronique de l'organisation",
 		"osc_website": "Site web de l'organisation",
 		"social_networks": "Réseaux sociaux (optionnel)",
-		"siege": "Siège",
-		"add_location_as_headquarters": "Ajouter cette location au siège",
 		"longitude": "Longitude",
 		"latitude": "Latitude",
+		"place_name": "Nom du lieu",
+		"siege": "Siège",
+		"add_location_as_headquarters": "Ajouter cette location au siège",
 		"intervention_zones": "Zones d'interventions",
-		"add_location_as_intervention_zone": "Ajouter une zone d'intervention",
-    "place_name": "Nom du lieu"
+		"add_location_as_intervention_zone": "Ajouter une zone d'intervention"
 	},
 	"error": {
 		"email_is_required": "L'adresse email est requise.",
@@ -72,7 +73,6 @@
 		"passwords_dont_match": "Les deux mots de passe ne correspondent pas.",
 		"osc_name_is_required": "Le nom de l'OSC est requis.",
 		"osc_abbreviation_is_required": "L’abréviation de l'OSC est requise.",
-		"osc_number_is_required": "Le numéro de l'OSC est requis.",
 		"osc_country_is_required": "Le pays de l'OSC est requis.",
 		"osc_foundation_date_is_required": "La date de fondation de l'OSC est requise.",
 		"osc_contact_person_is_required": "La personne de contact de l'OSC est requise.",

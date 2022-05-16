@@ -198,7 +198,8 @@
         <h4 class="mb-4 text-xl text-primary">{{ 'title.describe_actions_for_each_target'|translate }}</h4>
         <div class="flex flex-col mb-3" *ngFor="let category of categories; let i = index;">
           <label [for]="'category-' + category.id" class="text-sm text-gray-500 font-semibold">{{ 'text.target_with_number'|translate:{number: category.category_number, target: category.intitule} }}</label>
-          <textarea [name]="'category-' + category.id" [id]="'category-' + category.id" rows="3" [formControl]="getFormArrayControl('categories', i)" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"></textarea>
+          <textarea [name]="'category-' + category.id" [id]="'category-' + category.id" rows="3" [formControl]="getFormArrayControl('categories', i)" class="mt-1 block w-full rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" maxlength="200"></textarea>
+          <small class="text-right font-medium text-secondary">{{ getFormArrayControl('categories', i).value?.length === 199 ? ('text.character_remaining'|translate ) : ('text.characters_remaining'|translate:{number: 200 - getFormArrayControl('categories', i).value?.length}) }}</small>
         </div>
       </div>
       <div class="flex py-4">
