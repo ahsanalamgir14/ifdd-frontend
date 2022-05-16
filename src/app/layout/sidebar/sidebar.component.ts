@@ -78,6 +78,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
     this.mapService.removeMarkers();
     this.mapService.removeZoom();
     this.getOscs();
+    this.mapService.setHasResults(false);
   }
 
   isOpen(): boolean {
@@ -95,6 +96,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
   onShowOscs(): void {
     this.showOscs = true;
     this.getOscs();
+    this.mapService.setHasResults(true);
   }
 
   hideOscs(): void {

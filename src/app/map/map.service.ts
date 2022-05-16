@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Feature, Map as OlMap } from 'ol';
 import { Coordinate } from 'ol/coordinate';
-import { Geometry, Point } from 'ol/geom';
+import { Point } from 'ol/geom';
 import VectorLayer from 'ol/layer/Vector';
 import { fromLonLat } from 'ol/proj';
 import VectorSource from 'ol/source/Vector';
 import ClusterSource from 'ol/source/cluster';
 import Icon from 'ol/style/Icon';
 import {
-  Circle as CircleStyle,
   Fill,
-  Stroke,
   Style,
   Text,
 } from 'ol/style';
@@ -27,6 +25,7 @@ export class MapService {
   private clusterSource: ClusterSource;
   private clusterLayer: VectorLayer<VectorSource>;
   private markerOscMap: Map<string, Osc> = new Map();
+  private _hasResults: boolean = false;
   selected: Subject<Osc> = new Subject();
   refreshed: Subject<boolean> = new Subject<boolean>();
   hidden: Subject<boolean> = new Subject<boolean>();
@@ -208,5 +207,13 @@ export class MapService {
 
   hasMarkers(): boolean {
     return this.markerSource.getFeatures().length > 0;
+  }
+
+  setHasResults(hasResult: boolean): void {
+    this._hasResults = hasResult;
+  }
+
+  hasResults(): boolean {
+    return this._hasResults;
   }
 }
