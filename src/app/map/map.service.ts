@@ -79,7 +79,7 @@ export class MapService {
   }
 
   addMarker(coordinate: Coordinate, osc: Osc): void {
-    if (osc && osc.id) {
+    if (osc && osc.id && !this.markerOscMap.has(osc.id.toString())) {
       const iconFeature = new Feature({
         name: osc.name,
         geometry: new Point(fromLonLat(coordinate)),
@@ -94,6 +94,7 @@ export class MapService {
   removeMarkers(): void {
     this.markerSource.clear();
     this.clusterSource.clear();
+    this.markerOscMap.clear();
   }
 
   setMap(map: OlMap) {

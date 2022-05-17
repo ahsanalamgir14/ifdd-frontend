@@ -53,6 +53,7 @@ export class SearchBarComponent implements OnInit {
                 const location = new MapLocation(osc.name, osc.longitude, osc.latitude, []);
                 location.id = osc.id;
                 location.type = 'siege';
+                location.osc = osc;
 
                 return location;
               }))

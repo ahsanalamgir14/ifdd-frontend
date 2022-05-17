@@ -134,6 +134,14 @@ export class SidebarComponent implements OnDestroy, OnInit {
   }
 
   onPlaceSelected(place: MapLocation|null): void {
+    if (place?.osc) {
+      if (place.osc.longitude && place.osc.latitude) {
+        const longitude = Number.parseFloat(place.osc.longitude);
+        const latitude = Number.parseFloat(place.osc.latitude);
+        const coordinates = [longitude, latitude]
+        this.mapService.addMarker(coordinates, place.osc);
+      }
+    }
     this.mapService.selectLocation(place);
   }
 

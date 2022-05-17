@@ -77,7 +77,11 @@ export class OscDetailsComponent {
 
   selectOsc(osc: Osc): void {
     this.selectedOsc = osc;
-    if(osc.id) {
+    if (osc.longitude && osc.latitude && osc.id) {
+      const longitude = Number.parseFloat(osc.longitude);
+      const latitude = Number.parseFloat(osc.latitude);
+      const coordinates = [longitude, latitude]
+      this.mapService.addMarker(coordinates, osc);
       this.mapService.selectById(osc.id);
     }
   }
