@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { finalize } from 'rxjs';
+import { MapService } from 'src/app/map/map.service';
 import { Category } from 'src/app/odds/category';
 import { Odd } from 'src/app/odds/odd';
 import { OddService } from 'src/app/odds/odd.service';
@@ -26,7 +27,12 @@ export class OscDetailsComponent {
   showCategoriesDetails: boolean = false;
   showAllInterventionZones: boolean = false;
 
-  constructor(private changeDetector: ChangeDetectorRef, private oscService: OscService, oddService: OddService) {
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    private oscService: OscService,
+    private mapService: MapService,
+    oddService: OddService
+  ) {
     this.colors = oddService.getColors();
   }
 
@@ -59,6 +65,23 @@ export class OscDetailsComponent {
     this.showAllInterventionZones = !this.showAllInterventionZones;
   }
 
+  loadMoreOscs(): void {
+    if ((this.similarOscs.length - this.similarOscsSlice) >= 3) {
+      this.similarOscsSlice += 3;
+    } else {
+      this.similarOscsSlice = this.similarOscs.length;
+    }
+
+    this.changeDetector.detectChanges();
+  }
+
+  selectOsc(osc: Osc): void {
+    this.selectedOsc = osc;
+    if(osc.id) {
+      this.mapService.selectById(osc.id);
+    }
+  }
+
   private getOdds(): void {
     this.odds = [];
     this.osc?.categorieOdds.forEach((category: Category) => {
@@ -76,15 +99,5 @@ export class OscDetailsComponent {
         this.similarOscs = oscs.filter((osc: Osc) => osc.id !== this.osc?.id);
       });
     }
-  }
-
-  loadMoreOscs(): void {
-    if ((this.similarOscs.length - this.similarOscsSlice) >= 3) {
-      this.similarOscsSlice += 3;
-    } else {
-      this.similarOscsSlice = this.similarOscs.length;
-    }
-
-    this.changeDetector.detectChanges();
   }
 }
