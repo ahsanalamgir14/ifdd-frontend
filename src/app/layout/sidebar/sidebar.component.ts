@@ -41,6 +41,10 @@ export class SidebarComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
+    if (this.oddNumber) {
+      this._open = true;
+      this.showOscs = true;
+    }
     this.getOdds();
     this.mapService.selected.subscribe((osc: Osc) => {
       this.selectedOsc = null;
@@ -49,8 +53,8 @@ export class SidebarComponent implements OnDestroy, OnInit {
     });
 
     this.mapService.hidden.subscribe((hidden: boolean) => {
-      this.toggle();
-      if (hidden && this.oscs.length !== 0) {
+      if (hidden) {
+        this._open = true;
         this.showOscs = true;
       }
     })
@@ -74,6 +78,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   reinitialize(): void {
     this.selectedOdd = null;
+    this.selectedOsc = null;
     this.selectedCategories = [];
     this.mapService.removeMarkers();
     this.mapService.removeZoom();
@@ -136,7 +141,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
     })
   }
 
-  private getOscs(): void {
+  private getOscs(zoom: boolean = true): void {
     this.loading = true;
     let oscs$: Observable<Osc[]>;
     if (this.selectedCategories.length > 0) {
@@ -158,7 +163,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
           const coordinates = [longitude, latitude]
           this.mapService.addMarker(coordinates, osc);
 
-          if (index === 0) {
+          if (index === 0 && zoom) {
             // Zoom to the first marker
             this.mapService.zoomToMarker(fromLonLat(coordinates));
           }
@@ -169,7 +174,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   showMap(): void {
     this.showOscs = false;
-    this.toggle();
+    this._open = false;
   }
 
   getCssClasses(): string {
@@ -203,6 +208,8 @@ export class SidebarComponent implements OnDestroy, OnInit {
         this.odds = data;
         if (this.oddNumber) {
           this.selectOdd();
+        } else {
+          this.getOscs(false);
         }
         this.countOscs();
       });
