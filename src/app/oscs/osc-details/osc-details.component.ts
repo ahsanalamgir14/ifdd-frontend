@@ -79,7 +79,6 @@ export class OscDetailsComponent {
   }
 
   loadMoreOscs(): void {
-    console.log(this.similarOscs.length, this.similarOscsSlice)
     if ((this.similarOscs.length - this.similarOscsSlice) >= 3) {
       this.similarOscsSlice += 3;
     } else {

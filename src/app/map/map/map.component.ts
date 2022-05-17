@@ -8,7 +8,6 @@ import { Projection } from 'ol/proj';
 import OSM from 'ol/source/OSM';
 import { MapService } from '../map.service';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { AuthService } from 'src/app/auth/auth.service';
 import { ResetZoomControl } from '../reset-zoom-control';
 
 @Component({
@@ -30,8 +29,7 @@ export class MapComponent implements AfterViewInit {
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private mapService: MapService,
-    private auth: AuthService
+    private mapService: MapService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -112,6 +110,6 @@ export class MapComponent implements AfterViewInit {
   }
 
   hasMarkers(): boolean {
-    return this.mapService.hasMarkers();
+    return this.mapService.hasResults();
   }
 }

@@ -74,6 +74,10 @@
         <ng-icon name="hero-globe-alt" size="24" class="text-secondary"></ng-icon>
         <a [href]="osc.linkedin" class="ml-1 text-sm underline" target="blank">{{ osc.linkedin }}</a>
       </div>
+      <div class="flex items-center mb-2 text-primary" *ngIf="osc.siege">
+        <img src="/assets/icons/map/pin-star.svg" alt="" width="22" height="22">
+        <span class="ml-1 text-sm">{{ osc.siege }}</span>
+      </div>
     </div>
     <div class="py-4 border-b border-neutral-200">
       <h4 class="text-secondary font-bold mb-2">{{ 'title.presentation'|translate }}</h4>
@@ -108,7 +112,7 @@
       </div>
       <div class="flex flex-wrap" [ngClass]="{'flex-col': showCategoriesDetails}">
         <div class="flex-col mb-2 items-start inline-flex" *ngFor="let category of osc.categorieOdds;">
-          <app-odd-category [category]="category" [unselectable]="false" [color]="colors[category.id_odd]"></app-odd-category>
+          <app-odd-category [category]="category" [unselectable]="false" [color]="colors[category.id_odd]" [title]="'title.click_to_see_description'|translate"></app-odd-category>
           <div *ngIf="showCategoriesDetails" class="mb-2">
             {{ category.intitule }}
           </div>

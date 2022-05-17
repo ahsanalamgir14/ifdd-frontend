@@ -41,6 +41,10 @@ export class SidebarComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
+    if (this.oddNumber) {
+      this._open = true;
+      this.showOscs = true;
+    }
     this.getOdds();
     this.mapService.selected.subscribe((osc: Osc) => {
       this.selectedOsc = null;
@@ -49,8 +53,8 @@ export class SidebarComponent implements OnDestroy, OnInit {
     });
 
     this.mapService.hidden.subscribe((hidden: boolean) => {
-      this.toggle();
-      if (hidden && this.oscs.length !== 0) {
+      if (hidden) {
+        this._open = true;
         this.showOscs = true;
       }
     })
@@ -74,9 +78,12 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   reinitialize(): void {
     this.selectedOdd = null;
+    this.selectedOsc = null;
     this.selectedCategories = [];
     this.mapService.removeMarkers();
     this.mapService.removeZoom();
+    this.getOscs();
+    this.mapService.setHasResults(false);
   }
 
   isOpen(): boolean {
@@ -94,6 +101,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
   onShowOscs(): void {
     this.showOscs = true;
     this.getOscs();
+    this.mapService.setHasResults(true);
   }
 
   hideOscs(): void {
@@ -112,16 +120,19 @@ export class SidebarComponent implements OnDestroy, OnInit {
     this.selectedOsc = osc;
   }
 
+  onSelectOscFromSidebar(osc: Osc): void {
+    this.onSelectOsc(osc);
+    if (osc.id) {
+      this.mapService.selectById(osc.id);
+    }
+  }
+
   onCloseOscDetails(): void {
     this.selectedOsc = null;
   }
 
   onPlaceSelected(place: MapLocation|null): void {
-    if (place) {
-      this.mapService.zoomToMarker(fromLonLat([place.longitude, place.latitude]));
-    } else {
-      this.mapService.removeZoom();
-    }
+    this.mapService.selectLocation(place);
   }
 
   private countOscs(): void {
@@ -152,10 +163,10 @@ export class SidebarComponent implements OnDestroy, OnInit {
           const coordinates = [longitude, latitude]
           this.mapService.addMarker(coordinates, osc);
 
-          if (index === 0) {
-            // Zoom to the first marker
-            this.mapService.zoomToMarker(fromLonLat(coordinates));
-          }
+          // if (index === 0 && zoom) {
+          //   // Zoom to the first marker
+          //   this.mapService.zoomToMarker(fromLonLat(coordinates));
+          // }
         }
       });
     });
@@ -163,7 +174,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   showMap(): void {
     this.showOscs = false;
-    this.toggle();
+    this._open = false;
   }
 
   getCssClasses(): string {
@@ -191,14 +202,23 @@ export class SidebarComponent implements OnDestroy, OnInit {
     this.loading = true;
     this.oddService.getAll()
       .pipe(
-        finalize(() => this.loading = false)
+        finalize(() => {
+          if (!this.oddNumber) {
+            this.loading = false
+          }
+        })
       )
       .subscribe(data => {
         this.odds = data;
         if (this.oddNumber) {
           this.selectOdd();
+        } else {
+          this.getOscs();
         }
-        this.countOscs();
+
+        if (!this.oscsCount) {
+          this.countOscs();
+        }
       });
   }
 

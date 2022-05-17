@@ -12,7 +12,7 @@
     </button>
     <ng-scrollbar [autoHeightDisabled]="false" *ngIf="isOpen()">
       <div class="group px-7 flex-1 max-h-[calc(100vh-116px)] md:max-h-[calc(100vh-300px)]">
-        <app-loading-lines *ngIf="loading"></app-loading-lines>
+        <app-loading-lines *ngIf="loading && odds.length === 0"></app-loading-lines>
         <div *ngFor="let item of odds" class="last:pb-10">
           <app-odd [odd]="item" [selected]="item === selectedOdd" [lite]="false" (categoriesSelection)="onCategoriesSelection($event)" (click)="onSelectOdd(item)"></app-odd>
         </div>
@@ -44,7 +44,8 @@
         <ng-icon name="hero-chevron-down" strokeWidth="3"></ng-icon>
       </button>
     </div>
-    <app-osc [osc]="osc" [selected]="osc === selectedOsc" *ngFor="let osc of oscs" (click)="onSelectOsc(osc)"></app-osc>
+    <app-loading-lines *ngIf="loading"></app-loading-lines>
+    <app-osc [osc]="osc" [selected]="osc === selectedOsc" *ngFor="let osc of oscs" (click)="onSelectOscFromSidebar(osc)"></app-osc>
     <div class="pt-10 pb-5 fixed left-0 right-0 bottom-0 flex md:hidden justify-center">
       <button class="px-3 py-2 bg-primary text-white text-xs font-extrabold rounded-lg uppercase" (click)="showMap()">
         {{ 'button.show_map'|translate }}

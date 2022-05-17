@@ -5,17 +5,16 @@ import { Point } from 'ol/geom';
 import VectorLayer from 'ol/layer/Vector';
 import { fromLonLat } from 'ol/proj';
 import VectorSource from 'ol/source/Vector';
-import ClusterSource from 'ol/source/cluster';
+import ClusterSource from 'ol/source/Cluster';
 import Icon from 'ol/style/Icon';
 import {
-  Circle as CircleStyle,
   Fill,
-  Stroke,
   Style,
   Text,
 } from 'ol/style';
 import { Osc } from '../oscs/osc';
 import { Subject } from 'rxjs';
+import { MapLocation } from '../places/map-location';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +26,7 @@ export class MapService {
   private clusterSource: ClusterSource;
   private clusterLayer: VectorLayer<VectorSource>;
   private markerOscMap: Map<string, Osc> = new Map();
+  private _hasResults: boolean = false;
   selected: Subject<Osc> = new Subject();
   refreshed: Subject<boolean> = new Subject<boolean>();
   hidden: Subject<boolean> = new Subject<boolean>();
@@ -35,8 +35,7 @@ export class MapService {
     const styleCache: any = {};
     this.markerSource = new VectorSource();
     this.clusterSource = new ClusterSource({
-      distance: 100,
-      minDistance: 40,
+      distance: 80,
       source: this.markerSource
     });
     this.clusterLayer = new VectorLayer({
@@ -45,7 +44,7 @@ export class MapService {
         const size = feature.get('features').length;
         let style = styleCache[size];
         if (!style) {
-          style = size > 1 ? new Style({
+          style = new Style({
             image: new Icon({
               src: '/assets/icons/map/marker.png',
             }),
@@ -56,14 +55,14 @@ export class MapService {
               }),
               font: 'bold 14px sans-serif',
             }),
-          }) : null;
+          });
           styleCache[size] = style;
         }
         return style;
       }
     });
     this.markerLayer = new VectorLayer({
-      source: this.markerSource
+      source: this.markerSource,
     });
   }
 
@@ -85,7 +84,7 @@ export class MapService {
         name: osc.name,
         geometry: new Point(fromLonLat(coordinate)),
       });
-      iconFeature.setStyle(this.getMarkerStyle(''));
+      iconFeature.setStyle(this.getMarkerStyle('', osc.abbreviation));
       iconFeature.setId(osc.id);
       this.markerSource.addFeature(iconFeature);
       this.markerOscMap.set(osc.id.toString(), osc);
@@ -99,36 +98,79 @@ export class MapService {
 
   setMap(map: OlMap) {
     this.map = map;
+    this.markerLayer.setMaxResolution(this.map?.getView().getResolutionForZoom(8));
+    this.markerLayer.setMinResolution(this.map?.getView().getResolutionForZoom(20))
+    this.clusterLayer.setMinResolution(this.map?.getView().getResolutionForZoom(8));
+    this.clusterLayer.setMaxResolution(this.map?.getView().getResolutionForZoom(0));
   }
 
-  private getMarkerStyle(type: string) {
+  private getMarkerStyle(type: string, name?: string) {
     const markerStyle: Style = new Style({
       image: new Icon({
         src: '/assets/icons/map/marker-star.png',
+      }),
+      text: new Text({
+        text: name,
+        fill: new Fill({
+          color: '#255033',
+        }),
+        font: 'bold 14px sans-serif',
+        offsetY: -30,
+        padding: [2, 5, 2, 5],
+        backgroundFill: new Fill({
+          color: '#fff'
+        })
       })
     });
 
     return markerStyle;
   }
 
-  select(feature: Feature) {
+  selectById(id: number) {
+    const feature = this.markerSource.getFeatureById(id)
+
+    if (feature) {
+      this.select(feature, false);
+    }
+  }
+
+  select(feature: Feature, emit: boolean = true) {
     const id = feature.getId();
     this.getMarkerSource().forEachFeature((feature: Feature) => {
+      const style = feature.getStyle() as Style;
+      const text = style.getText();
       let iconSrc = '/assets/icons/map/marker-star-active.png';
+      let backgroundFill = '#255033';
+      let fill = '#fff';
+
       if (feature.getId() !== id) {
         iconSrc = '/assets/icons/map/marker-star.png';
+        backgroundFill = '#fff';
+        fill = '#255033';
+        style.setZIndex(1);
+      } else {
+        style.setZIndex(2);
       }
 
-      feature.setStyle(new Style({
-        image: new Icon({
-          src: iconSrc,
-        })
-      }));
-    })
+      text.setBackgroundFill(new Fill({ color: backgroundFill }));
+      text.setFill(new Fill({ color: fill }));
+
+      if (style) {
+        style.setImage(new Icon({ src: iconSrc }));
+      }
+
+      feature.setStyle(style);
+    });
     if (id) {
       const osc = this.markerOscMap.get(id.toString());
       if (osc) {
-        this.selected.next(osc);
+        if (emit) {
+          this.selected.next(osc);
+        } else {
+          if (osc?.longitude && osc.latitude) {
+            this.zoomToMarker(fromLonLat([Number.parseFloat(osc?.longitude), Number.parseFloat(osc?.latitude)]))
+          }
+        }
       }
     }
   }
@@ -165,5 +207,28 @@ export class MapService {
 
   hasMarkers(): boolean {
     return this.markerSource.getFeatures().length > 0;
+  }
+
+  setHasResults(hasResult: boolean): void {
+    this._hasResults = hasResult;
+  }
+
+  hasResults(): boolean {
+    return this._hasResults;
+  }
+
+  selectLocation(location: MapLocation|null): void {
+    if (location) {
+      if (location.id) {
+        const feature = this.markerSource.getFeatureById(location.id)
+
+        if (feature) {
+          this.select(feature, true);
+        }
+      }
+      this.zoomToMarker(fromLonLat([location.longitude, location.latitude]));
+    } else {
+      this.removeZoom();
+    }
   }
 }

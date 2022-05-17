@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Collection, Feature, Map as OlMap, View } from 'ol';
 import { Coordinate } from 'ol/coordinate';
 import { Control} from 'ol/control';
-import { applyTransform, Extent } from 'ol/extent';
+import { applyTransform } from 'ol/extent';
 import TileLayer from 'ol/layer/Tile';
 import { fromLonLat, getTransform, Projection, toLonLat } from 'ol/proj';
 import OSM from 'ol/source/OSM';
@@ -23,7 +23,6 @@ import { Odd } from 'src/app/odds/odd';
 import { OddService } from 'src/app/odds/odd.service';
 import { finalize } from 'rxjs';
 import { Category } from 'src/app/odds/category';
-import { ZoneIntervention } from '../zone-intervention';
 import { OscService } from '../osc.service';
 import { Osc } from '../osc';
 
@@ -67,7 +66,6 @@ export class OscFormComponent implements OnInit {
   form = new FormGroup({
     name: new FormControl('', [Validators.required]),
     abbreviation: new FormControl('', [Validators.required]),
-    numero_osc: new FormControl('', [Validators.required]),
     pays: new FormControl('', [Validators.required]),
     date_fondation: new FormControl('', [Validators.required]),
     description: new FormControl('', []),
@@ -244,9 +242,8 @@ export class OscFormComponent implements OnInit {
 
     this.map.on('click', (event: any) => {
       const coordinates = this.map?.getCoordinateFromPixel(event.pixel);
-      console.log(coordinates);
       if (coordinates) {
-        this.findPlaceByCoordinates(toLonLat(coordinates));
+        this.findPlaceByCoordinates(toLonLat(coordinates), true);
       }
     });
   }
@@ -258,6 +255,10 @@ export class OscFormComponent implements OnInit {
         const extent: any = applyTransform(this.selectedLocation.bbox, getTransform("EPSG:4326", "EPSG:3857"));
         this.map.getView().fit(extent);
         this.map.getView().setZoom(8);
+        this.coordinatesForm.setValue({
+          longitude: this.selectedLocation.longitude,
+          latitude: this.selectedLocation.latitude
+        })
       } else {
         this.map.getView().setZoom(1);
       }
@@ -380,7 +381,7 @@ export class OscFormComponent implements OnInit {
     }
   }
 
-  onFindHeadquartersByCoordinates(): void {
+  onFindPlaceByCoordinates(): void {
     const value = this.coordinatesForm.value;
     if (value.longitude && value.latitude) {
       const coordinates = [value.longitude, value.latitude];
@@ -404,15 +405,17 @@ export class OscFormComponent implements OnInit {
     }
   }
 
-  private findPlaceByCoordinates(coordinates: Coordinate): void {
+  private findPlaceByCoordinates(coordinates: Coordinate, isHeadquarters: boolean = false): void {
     this.loading = true;
     this.placeService.reverse(coordinates).pipe(
       finalize(() => this.loading = false)
     )
     .subscribe((location: MapLocation|null) => {
       this.onPlaceSelected(location);
-      this.removeHeadquarters();
-      this.setHeadquarters();
+      if (isHeadquarters) {
+        this.removeHeadquarters();
+        this.setHeadquarters();
+      }
     });
   }
 }
