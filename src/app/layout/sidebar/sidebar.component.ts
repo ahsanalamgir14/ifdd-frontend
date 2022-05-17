@@ -141,7 +141,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
     })
   }
 
-  private getOscs(zoom: boolean = true): void {
+  private getOscs(): void {
     this.loading = true;
     let oscs$: Observable<Osc[]>;
     if (this.selectedCategories.length > 0) {
@@ -163,10 +163,10 @@ export class SidebarComponent implements OnDestroy, OnInit {
           const coordinates = [longitude, latitude]
           this.mapService.addMarker(coordinates, osc);
 
-          if (index === 0 && zoom) {
-            // Zoom to the first marker
-            this.mapService.zoomToMarker(fromLonLat(coordinates));
-          }
+          // if (index === 0 && zoom) {
+          //   // Zoom to the first marker
+          //   this.mapService.zoomToMarker(fromLonLat(coordinates));
+          // }
         }
       });
     });
@@ -209,9 +209,12 @@ export class SidebarComponent implements OnDestroy, OnInit {
         if (this.oddNumber) {
           this.selectOdd();
         } else {
-          this.getOscs(false);
+          this.getOscs();
         }
-        this.countOscs();
+
+        if (!this.oscsCount) {
+          this.countOscs();
+        }
       });
   }
 
