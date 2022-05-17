@@ -202,7 +202,11 @@ export class SidebarComponent implements OnDestroy, OnInit {
     this.loading = true;
     this.oddService.getAll()
       .pipe(
-        finalize(() => this.loading = false)
+        finalize(() => {
+          if (!this.oddNumber) {
+            this.loading = false
+          }
+        })
       )
       .subscribe(data => {
         this.odds = data;
