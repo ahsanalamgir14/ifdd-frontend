@@ -134,8 +134,8 @@ export class MapService {
     }
   }
 
-  select(feature: Feature, emit: boolean = true) {
-    const id = feature.getId();
+  select(newFeature: Feature, emit: boolean = true) {
+    const id = newFeature.getId();
     this.getMarkerSource().forEachFeature((feature: Feature) => {
       const style = feature.getStyle() as Style;
       const text = style.getText();
