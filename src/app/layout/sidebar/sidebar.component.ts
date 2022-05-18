@@ -1,5 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Feature } from 'ol';
 import { fromLonLat } from 'ol/proj';
 import { finalize, Observable } from 'rxjs';
 import { MapService } from 'src/app/map/map.service';
@@ -129,9 +130,18 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   onCloseOscDetails(): void {
     this.selectedOsc = null;
+    this.mapService.select(new Feature());
   }
 
   onPlaceSelected(place: MapLocation|null): void {
+    if (place?.osc) {
+      if (place.osc.longitude && place.osc.latitude) {
+        const longitude = Number.parseFloat(place.osc.longitude);
+        const latitude = Number.parseFloat(place.osc.latitude);
+        const coordinates = [longitude, latitude]
+        this.mapService.addMarker(coordinates, place.osc);
+      }
+    }
     this.mapService.selectLocation(place);
   }
 
@@ -143,6 +153,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   private getOscs(): void {
     this.loading = true;
+    this.oscs = [];
     let oscs$: Observable<Osc[]>;
     if (this.selectedCategories.length > 0) {
       oscs$ = this.oscService.search(this.selectedCategories)

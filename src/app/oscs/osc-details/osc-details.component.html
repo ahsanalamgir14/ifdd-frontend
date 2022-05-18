@@ -121,7 +121,7 @@
     </div>
     <div class="py-4 border-b border-neutral-200">
       <h4 class="text-secondary font-bold mb-2">{{ 'title.similar_orgs'|translate }}</h4>
-      <app-osc *ngFor="let similar of similarOscs.slice(0, similarOscsSlice)" [osc]="similar" (click)="selectedOsc = similar"></app-osc>
+      <app-osc *ngFor="let similar of similarOscs.slice(0, similarOscsSlice)" [osc]="similar" (click)="selectOsc(similar)"></app-osc>
       <div class="flex justify-center py-4">
         <button *ngIf="similarOscs.length > 0 && similarOscs.length !== similarOscsSlice" class="p-2 bg-accent text-primary text-xs font-extrabold rounded-lg uppercase" (click)="loadMoreOscs()">{{ 'button.search_more_similar_orgs'|translate }}</button>
       </div>
