@@ -16,6 +16,7 @@ export class Osc {
   public site_web?: string;
   public facebook?: string;
   public instagram?: string;
+  public twitter?: string;
   public linkedin?: string;
   public longitude?: string;
   public latitude?: string;
@@ -42,6 +43,7 @@ export class Osc {
       this.instagram = data.instagram;
       this.linkedin = data.linkedin;
       this.longitude = data.longitude;
+      this.twitter = data.twitter;
       this.latitude = data.latitude;
       this.siege = data.siege;
       this.active = data.active;

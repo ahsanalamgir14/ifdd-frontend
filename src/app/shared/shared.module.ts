@@ -18,6 +18,7 @@ import {
   HeroUserSolid,
   HeroX
 } from '@ng-icons/heroicons';
+import { IonLogoFacebook, IonLogoTwitter, IonLogoInstagram, IonLogoLinkedin } from '@ng-icons/ionicons';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -55,6 +56,10 @@ import { MenuTriggerForDirective } from './menu/menu-trigger-for.directive';
     FormsModule,
     ReactiveFormsModule,
     NgIconsModule.withIcons({
+      IonLogoFacebook,
+      IonLogoTwitter,
+      IonLogoInstagram,
+      IonLogoLinkedin,
       HeroArrowRight,
       HeroCheck,
       HeroChevronDown,
