@@ -62,7 +62,9 @@ export class SidebarComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
+    const body = document.body;
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
+    body.classList.remove('overflow-hidden');
   }
 
   onSelectOdd(odd: Odd): void {
@@ -97,6 +99,12 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   toggle() {
     this._open = !this._open;
+    const body = document.body;
+    if (this._open) {
+      body.classList.add('overflow-hidden');
+    } else {
+      body.classList.remove('overflow-hidden');
+    }
   }
 
   onShowOscs(): void {
