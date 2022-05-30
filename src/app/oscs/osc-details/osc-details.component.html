@@ -9,7 +9,10 @@
       </button>
     </div>
     <h3 class="mt-4 mb-3 text-xl text-primary font-bold">{{ osc.name }}</h3>
-    <span class="text-secondary font-medium">{{ osc.abbreviation }}</span>
+    <div class="flex items-center">
+      <span class="text-secondary font-medium">{{ osc.abbreviation }}</span>
+      <button (click)="onShowMap()" class="block md:hidden ml-auto px-3 py-2 bg-primary text-white text-xs font-extrabold rounded-lg uppercase">{{ 'button.show_map'|translate }}</button>
+    </div>
   </div>
   <div class="px-5">
     <div class="flex justify-between py-4 border-b border-neutral-200">

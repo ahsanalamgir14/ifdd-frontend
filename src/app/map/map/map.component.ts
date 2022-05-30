@@ -112,4 +112,8 @@ export class MapComponent implements AfterViewInit {
   hasMarkers(): boolean {
     return this.mapService.hasResults();
   }
+
+  hasMarkerSelected(): boolean {
+    return this.mapService.hasSelected();
+  }
 }

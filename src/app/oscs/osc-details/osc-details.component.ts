@@ -47,6 +47,7 @@ export class OscDetailsComponent {
         this.similarOscsSlice = 3;
         this.getOdds();
         this.getSimilarOscs();
+        this.mapService.setHasSelected(true);
         this.changeDetector.detectChanges();
         this.changed.emit(true);
       })
@@ -55,6 +56,11 @@ export class OscDetailsComponent {
 
   onHide(): void {
     this.hide.emit(true);
+    this.mapService.setHasSelected(false);
+  }
+
+  onShowMap(): void {
+    this.mapService.show();
   }
 
   onToggleCategoriesDetails(): void {
