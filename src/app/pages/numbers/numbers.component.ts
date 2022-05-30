@@ -62,7 +62,7 @@ export class NumbersComponent implements OnInit {
     }
 
     if (this.numbers.countriesCount < this.countriesCount || this.numbers.oddsCount < this.odds.length || this.numbers.orgsCount < this.orgsCount) {
-      this.timeout = setTimeout(() => this.animateNumbers(), 60);
+      this.timeout = setTimeout(() => this.animateNumbers(), 30);
     } else {
       clearTimeout(this.timeout);
     }
