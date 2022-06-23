@@ -17,6 +17,11 @@
 		"find_location_to_add": "Chercher une localisation sur la carte pour l'ajouter",
 		"odd": "Cibles des Objectifs de développement durable",
 		"describe_actions_for_each_target": "Description des actions menées pour chaque cible sélectionnée",
+		"terms": "Conditions d'utilisation",
+		"legal_mentions": "Mentions légales",
+		"site_editor": "éditeur du site",
+		"hosting": "Hébergement",
+		"responsibility": "Responsabilité",
 		"localization": "Localisation",
 		"objectives": "Objectifs",
 		"details": "Cliquez pour voir les activités"
@@ -36,14 +41,14 @@
 		"all_goal_categories": "Toutes les cibles de l'objectif {{number}}",
 		"add_social_network": "Ajouter un réseau social",
 		"find_location_by_coordinates": "Vous pouvez aussi chercher un lieu par ses coordonnées géographiques.",
+		"odd_selection_warning": "Ne sélectionnez que des objectifs et cibles pour lesquels vous avez eu une contribution directe au cours des cinq dernières années",
 		"target_with_number": "Cible {{number}} {{target}}",
 		"character_remaining": "un caractère restant",
 		"characters_remaining": "{{number}} caractères restants",
 		"countries": "Pays",
 		"accompanied": "Accompagnés",
 		"objectives": "Objectifs",
-		"target": "Cible {{target}}",
-    "odd_selection_warning": "Ne sélectionnez que des objectifs et cibles pour lesquels vous avez eu une contribution directe au cours des cinq dernières années"
+		"target": "Cible {{target}}"
 	},
 	"label": {
 		"email": "Adresse email",
