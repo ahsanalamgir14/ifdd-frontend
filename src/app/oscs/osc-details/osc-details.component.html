@@ -94,7 +94,7 @@
       <div class="flex items-center">
         <h4 class="text-secondary font-bold mb-2 flex-1" [ngClass]="{'hover:cursor-pointer': osc.zoneInterventions.length > 4}" (click)="onToggleInterventionZones()">{{ 'title.intervention_zones'|translate }}</h4>
         <button class="text-primary" (click)="onToggleInterventionZones()" *ngIf="osc.zoneInterventions.length > 4">
-          <ng-icon [name]="showAllInterventionZones ? 'hero-chevron-up' : 'hero-chevron-down'" [strokeWidth]="3"></ng-icon>
+          <ng-icon [name]="showAllInterventionZones ? 'feather-minus-square' : 'feather-plus-square'" [strokeWidth]="3"></ng-icon>
         </button>
       </div>
       <ng-container *ngIf="showAllInterventionZones">
@@ -114,7 +114,7 @@
       <div class="flex items-center">
         <h4 class="flex-1 text-secondary font-bold mb-2 hover:cursor-pointer" (click)="onToggleCategoriesDetails()">{{ 'title.sdgs'|translate }}</h4>
         <button class="text-primary" (click)="onToggleCategoriesDetails()">
-          <ng-icon [name]="showCategoriesDetails ? 'hero-chevron-up' : 'hero-chevron-down'" [strokeWidth]="3"></ng-icon>
+          <ng-icon [name]="showCategoriesDetails ? 'feather-minus-square' : 'feather-plus-square'" [strokeWidth]="3"></ng-icon>
         </button>
       </div>
       <div class="flex flex-wrap" [ngClass]="{'flex-col': showCategoriesDetails}">
