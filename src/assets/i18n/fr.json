@@ -5,7 +5,7 @@
 		"login": "Connectez-vous pour continuer",
 		"register": "Inscription",
 		"reset_password": "Réinitialisez votre mot de passe",
-		"civil_organization_map": "Carte des Organizations de la Société Civile",
+		"civil_organization_map": "Cartographie des organisations travaillant sur les ODD",
 		"filter_by_objectives": "Filtrer par objectifs de développement durable",
 		"contact": "Contact",
 		"presentation": "Présentation",
@@ -15,11 +15,11 @@
 		"similar_orgs": "Organisations similaires",
 		"information": "Informations",
 		"find_location_to_add": "Chercher une localisation sur la carte pour l'ajouter",
-		"odd": "Objectifs de Développement Durable",
+		"odd": "Cibles des Objectifs de développement durable",
 		"describe_actions_for_each_target": "Description des actions menées pour chaque cible sélectionnée",
 		"localization": "Localisation",
 		"objectives": "Objectifs",
-		"details": "Détails"
+		"details": "Cliquez pour voir les activités"
 	},
 	"text": {
 		"enter_email_for_password_reset": "Entrez votre adresse email ci-dessous et nous vous enverrons un lien pour récupérer votre mot de passe.",
@@ -42,7 +42,8 @@
 		"countries": "Pays",
 		"accompanied": "Accompagnés",
 		"objectives": "Objectifs",
-		"target": "Cible {{target}}"
+		"target": "Cible {{target}}",
+    "odd_selection_warning": "Ne sélectionnez que des objectifs et cibles pour lesquels vous avez eu une contribution directe au cours des cinq dernières années"
 	},
 	"label": {
 		"email": "Adresse email",

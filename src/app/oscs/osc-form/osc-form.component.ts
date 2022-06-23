@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Collection, Feature, Map as OlMap, View } from 'ol';
 import { Coordinate } from 'ol/coordinate';
@@ -417,5 +417,28 @@ export class OscFormComponent implements OnInit {
         this.setHeadquarters();
       }
     });
+  }
+
+  isValid(): boolean {
+    if (this.selectedStep.position === 1) {
+      if (this.field('name')?.valid && this.field('abbreviation')?.valid && this.field('pays')?.valid
+        && this.field('date_fondation')?.valid && this.field('description')?.valid
+        && this.field('personne_contact')?.valid && this.field('dialCode')?.valid && this.field('telephone')?.valid
+        && this.field('email_osc')?.valid) {
+          return true;
+        };
+
+      return false;
+    }
+
+    if (this.selectedStep.position === 2) {
+      return Boolean(this.form.get('siege')?.value);
+    }
+
+    return true;
+  }
+
+  field(name: string): AbstractControl|null {
+    return this.form.get(name);
   }
 }

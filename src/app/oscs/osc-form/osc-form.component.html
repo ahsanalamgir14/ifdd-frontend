@@ -115,8 +115,11 @@
         </div>
       </div>
       <div class="grid grid-cols-2 gap-10" *ngIf="selectedStep.position === 2">
+        <div class="col-span-2">
+          <h4 class="text-xl text-primary">Recherchez d'abord le lieu sur la carte ou grâce à ses coordonnées, puis ajoutez-le comme siège ou zone d'intervention</h4>
+        </div>
         <div>
-          <h4 class="mb-4 text-xl text-primary">{{ 'title.find_location_to_add'|translate }}</h4>
+          <p class="mb-4 italic">{{ 'title.find_location_to_add'|translate }}</p>
           <div class="relative">
             <app-new-search-bar class="absolute left-3 right-3 w-72 top-4 z-20" (selected)="onPlaceSelected($event)"></app-new-search-bar>
             <div id="location-selector" class="w-80 h-80 rounded-lg overflow-hidden"></div>
@@ -186,7 +189,8 @@
         </div>
       </div>
       <div *ngIf="selectedStep.position === 3">
-        <h4 class="mb-4 text-xl text-primary">{{ 'title.odd'|translate }}</h4>
+        <h4 class="mb-3 text-xl text-primary">{{ 'title.odd'|translate }}</h4>
+        <p class="mb-4 italic">{{ 'text.odd_selection_warning'|translate }}</p>
         <app-loading-lines *ngIf="loading"></app-loading-lines>
         <div class="grid grid-cols-2 gap-10">
           <div *ngFor="let item of odds" class="last:pb-10">
@@ -205,7 +209,7 @@
       <div class="flex py-4">
         <button type="button" class="py-2 px-3 mb-1 mr-auto bg-neutral-200 text-primary text-xs font-bold rounded-lg uppercase" (click)="onCancel()">{{ 'button.cancel'|translate }}</button>
         <button type="button" class="py-2 px-3 mb-1 mr-3 bg-primary text-white text-xs font-bold rounded-lg uppercase" *ngIf="selectedStep.position !== 1" (click)="onPrevious()">{{ 'button.previous'|translate }}</button>
-        <button type="button" class="py-2 px-3 mb-1 bg-primary text-white text-xs font-bold rounded-lg uppercase disabled:bg-secondary disabled:cursor-not-allowed" *ngIf="selectedStep.position !== steps.length" (click)="onNext()">{{ 'button.next'|translate }}</button>
+        <button type="button" class="py-2 px-3 mb-1 bg-primary text-white text-xs font-bold rounded-lg uppercase disabled:bg-secondary disabled:cursor-not-allowed" *ngIf="selectedStep.position !== steps.length" (click)="onNext()" [disabled]="!isValid()">{{ 'button.next'|translate }}</button>
         <button type="submit" class="py-2 px-3 mb-1 bg-primary text-white text-xs font-bold rounded-lg uppercase disabled:bg-secondary disabled:cursor-not-allowed" *ngIf="selectedStep.position === steps.length" [disabled]="loading ||!form.valid">{{ 'button.validate'|translate }}</button>
       </div>
     </form>
