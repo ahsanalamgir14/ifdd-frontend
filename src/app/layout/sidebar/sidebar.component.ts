@@ -8,6 +8,7 @@ import { Odd } from 'src/app/odds/odd';
 import { OddService } from 'src/app/odds/odd.service';
 import { Osc } from 'src/app/oscs/osc';
 import { OscService } from 'src/app/oscs/osc.service';
+import { Results } from 'src/app/oscs/results';
 import { MapLocation } from 'src/app/places/map-location';
 
 @Component({
@@ -160,17 +161,47 @@ export class SidebarComponent implements OnDestroy, OnInit {
     })
   }
 
-  private getOscs(): void {
-    this.loading = true;
-    this.oscs = [];
-    let oscs$: Observable<Osc[]>;
-    if (this.selectedCategories.length > 0) {
-      oscs$ = this.oscService.search(this.selectedCategories)
-    } else {
-      oscs$ = this.oscService.getAll();
+  private getOscs(push: boolean = false, url?: string): void {
+    if (!push) {
+      this.oscs = [];
     }
 
-    oscs$.pipe(
+    if (this.selectedCategories.length > 0) {
+      this.searchOscs();
+      return;
+    }
+
+    this.loading = true;
+
+    this.oscService.getAll(url).pipe(
+      finalize(() => this.loading = false)
+    )
+    .subscribe((oscs: Results<Osc>) => {
+      if (push) {
+        this.oscs.push(...oscs.data);;
+      } else {
+        this.oscs = oscs.data;
+      }
+      this.mapService.removeMarkers();
+      oscs.data.forEach((osc: Osc, index: number) => {
+        if (osc.longitude && osc.latitude) {
+          const longitude = Number.parseFloat(osc.longitude);
+          const latitude = Number.parseFloat(osc.latitude);
+          const coordinates = [longitude, latitude]
+          this.mapService.addMarker(coordinates, osc);
+        }
+      });
+
+      if (oscs.next) {
+        this.getOscs(true, oscs.next);
+      }
+    });
+  }
+
+  private searchOscs(): void {
+    this.loading = true;
+
+    this.oscService.search(this.selectedCategories).pipe(
       finalize(() => this.loading = false)
     )
     .subscribe((oscs: Osc[]) => {
