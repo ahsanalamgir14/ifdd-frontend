@@ -24,14 +24,17 @@
     </div>
   </div>
   <div *ngIf="showOscs" class="relative flex flex-col pt-14 md:pt-0 pb-16 md:pb-5 px-3 md:px-0" [ngClass]="{'mt-2 mx-3': !isOpen()}" [ngClass]="{'md:mt-3': !showOscs}">
-    <div class="flex flex-col items-center justify-center p-3 bg-white shadow-lg border-t-neutral-200 border-t" [ngClass]="{'rounded-lg': mobileQuery.matches || (!mobileQuery.matches && !showOscs), 'rounded-b-lg': !mobileQuery.matches && showOscs}">
+    <div class="flex flex-col justify-center p-3 bg-white shadow-lg border-t-neutral-200 border-t" [ngClass]="{'rounded-lg': mobileQuery.matches || (!mobileQuery.matches && !showOscs), 'rounded-b-lg': !mobileQuery.matches && showOscs}">
       <div class="w-full flex flex-wrap" [ngClass]="{'mb-3': selectedCategories.length !== 0}">
         <app-odd-category [category]="category" *ngFor="let category of selectedCategories; let i = index;" [color]="selectedOdd?.color" (unselectCategory)="unselectCategory(i)"></app-odd-category>
       </div>
-      <button class="flex text-primary text-xs md:text-sm font-bold items-center lowercase" (click)="hideOscs()">
-        <span>{{ 'button.update_filters'|translate }}</span>
-        <ng-icon name="hero-chevron-down" strokeWidth="3" class="inline-flex ml-4"></ng-icon>
-      </button>
+      <div class="flex">
+        <button class="flex text-primary text-xs md:text-sm font-bold items-center lowercase" (click)="hideOscs()">
+          <span>{{ 'button.update_filters'|translate }}</span>
+          <ng-icon name="hero-chevron-down" strokeWidth="3" class="inline-flex ml-4"></ng-icon>
+        </button>
+        <button class="ml-auto p-2 bg-secondary-light text-primary text-xs font-extrabold rounded-lg uppercase" (click)="reinitialize(true)">{{ 'button.reinitialize'|translate }}</button>
+      </div>
     </div>
     <div class="flex mt-3 md:mt-2 mb-3 md:mb-4">
       <p class="font-bold text-sm text-white">

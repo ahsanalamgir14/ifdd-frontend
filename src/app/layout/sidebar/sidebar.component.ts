@@ -81,7 +81,11 @@ export class SidebarComponent implements OnDestroy, OnInit {
     return this.oscsCount;
   }
 
-  reinitialize(): void {
+  reinitialize(hideOscs:boolean = false): void {
+    if (hideOscs) {
+      this.hideOscs();
+    }
+
     this.selectedOdd = null;
     this.selectedOsc = null;
     this.selectedCategories = [];

@@ -19,6 +19,7 @@ import {
   HeroX
 } from '@ng-icons/heroicons';
 import { IonLogoFacebook, IonLogoTwitter, IonLogoInstagram, IonLogoLinkedin } from '@ng-icons/ionicons';
+import { FeatherPlusSquare, FeatherMinusSquare } from '@ng-icons/feather-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -58,6 +59,8 @@ import { TermsComponent } from './terms/terms.component';
     FormsModule,
     ReactiveFormsModule,
     NgIconsModule.withIcons({
+      FeatherMinusSquare,
+      FeatherPlusSquare,
       IonLogoFacebook,
       IonLogoTwitter,
       IonLogoInstagram,
