@@ -1,7 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Feature } from 'ol';
-import { fromLonLat } from 'ol/proj';
 import { finalize, Observable } from 'rxjs';
 import { MapService } from 'src/app/map/map.service';
 import { Category } from 'src/app/odds/category';
@@ -50,19 +49,23 @@ export class SidebarComponent implements OnDestroy, OnInit {
     this.mapService.selected.subscribe((osc: Osc) => {
       this.selectedOsc = null;
       this.onSelectOsc(osc);
+      this.hideMap();
       this.changeDetectorRef.detectChanges();
     });
 
     this.mapService.hidden.subscribe((hidden: boolean) => {
       if (hidden) {
-        this._open = true;
-        this.showOscs = true;
+        this.hideMap();
+      } else {
+        this.showMap();
       }
     })
   }
 
   ngOnDestroy(): void {
+    const body = document.body;
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
+    body.classList.remove('overflow-hidden');
   }
 
   onSelectOdd(odd: Odd): void {
@@ -97,6 +100,12 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   toggle() {
     this._open = !this._open;
+    const body = document.body;
+    if (this._open) {
+      body.classList.add('overflow-hidden');
+    } else {
+      body.classList.remove('overflow-hidden');
+    }
   }
 
   onShowOscs(): void {
@@ -173,11 +182,6 @@ export class SidebarComponent implements OnDestroy, OnInit {
           const latitude = Number.parseFloat(osc.latitude);
           const coordinates = [longitude, latitude]
           this.mapService.addMarker(coordinates, osc);
-
-          // if (index === 0 && zoom) {
-          //   // Zoom to the first marker
-          //   this.mapService.zoomToMarker(fromLonLat(coordinates));
-          // }
         }
       });
     });
@@ -186,6 +190,11 @@ export class SidebarComponent implements OnDestroy, OnInit {
   showMap(): void {
     this.showOscs = false;
     this._open = false;
+  }
+
+  hideMap(): void {
+    this.showOscs = true;
+    this._open = true;
   }
 
   getCssClasses(): string {

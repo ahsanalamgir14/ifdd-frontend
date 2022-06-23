@@ -1,4 +1,4 @@
-<div class="fixed md:pt-20 pl-0 md:pl-5 pr-0 md:pr-5 md:top-0 md:bottom-0 left-0 right-0 md:right-auto md:w-[400px] md:bg-secondary md:z-0 overflow-y-auto" [ngClass]="getCssClasses()">
+<div class="fixed md:pt-20 pl-0 md:pl-5 pr-0 md:pr-5 md:top-0 md:bottom-0 left-0 right-0 md:right-auto md:w-[400px] md:bg-secondary md:z-0 overflow-auto" [ngClass]="getCssClasses()">
   <app-search-bar class="hidden md:block mt-5" [isRounded]="!showOscs" (selected)="onPlaceSelected($event)"></app-search-bar>
   <div *ngIf="!showOscs" class="relative flex flex-col md:mt-3 bg-white rounded-lg shadow-lg" [ngClass]="{'pb-14': isOpen(), 'mt-2 mx-3': !isOpen()}">
     <h2 class="flex items-center justify-center md:pt-4 md:pb-5 text-xs md:text-sm text-secondary text-center md:text-left font-semibold" [ngClass]="{'pb-4 pt-4 px-7': isOpen(), 'pb-2 pt-2 px-4': !isOpen()}">
@@ -10,15 +10,15 @@
     <button *ngIf="!isOpen()" class="text-primary" (click)="toggle()">
       <ng-icon name="hero-chevron-down" strokeWidth="3"></ng-icon>
     </button>
-    <ng-scrollbar [autoHeightDisabled]="false" *ngIf="isOpen()">
-      <div class="group px-7 flex-1 max-h-[calc(100vh-116px)] md:max-h-[calc(100vh-300px)]">
+    <div *ngIf="isOpen()">
+      <div class="group px-7 flex-1 max-h-[calc(100vh-116px)] md:max-h-[calc(100vh-300px)] overflow-auto">
         <app-loading-lines *ngIf="loading && odds.length === 0"></app-loading-lines>
-        <div *ngFor="let item of odds" class="last:pb-10">
+        <div *ngFor="let item of odds" class="last:pb-28 last:md:pb-10">
           <app-odd [odd]="item" [selected]="item === selectedOdd" [lite]="false" (categoriesSelection)="onCategoriesSelection($event)" (click)="onSelectOdd(item)"></app-odd>
         </div>
       </div>
-    </ng-scrollbar>
-    <div *ngIf="isOpen() && selectedOscsCount() !== 0" class="absolute bottom-0 left-0 right-0 flex px-5 py-3 bg-white rounded-b-lg shadow-[0px_-5px_10px_rgb(0,0,0,.2)]">
+    </div>
+    <div *ngIf="isOpen() && selectedOscsCount() !== 0" class="fixed md:absolute bottom-0 left-0 right-0 flex px-5 py-3 bg-white rounded-b-lg shadow-[0px_-5px_10px_rgb(0,0,0,.2)]">
       <button *ngIf="selectedOdd" class="p-2 bg-secondary-light text-primary text-xs font-extrabold rounded-lg uppercase" (click)="reinitialize()">{{ 'button.reinitialize'|translate }}</button>
       <button class="p-2 ml-auto bg-accent text-primary text-xs font-extrabold rounded-lg uppercase" (click)="onShowOscs()">{{ 'button.display_oscs'|translate:{oscsCount: selectedOscsCount()} }}</button>
     </div>
@@ -54,7 +54,7 @@
   </div>
 </div>
 
-<div class="fixed z-20 md:z-10 md:pt-20 top-0 bottom-0 left-0 right-0 md:right-auto md:translate-x-[400px] md:w-[400px] bg-white transition-transform" *ngIf="selectedOsc">
+<div class="fixed z-20 md:z-10 md:pt-20 top-0 bottom-0 left-0 right-0 md:right-auto md:translate-x-[400px] md:w-[400px] bg-white transition-transform" *ngIf="selectedOsc && showOscs">
   <ng-scrollbar [autoHeightDisabled]="false" #scrollRef>
     <app-osc-details [selectedOsc]="selectedOsc" (hide)="onCloseOscDetails()" (changed)="scrollRef.scrollTo({top: 0})"></app-osc-details>
   </ng-scrollbar>

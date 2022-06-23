@@ -27,6 +27,7 @@ export class MapService {
   private clusterLayer: VectorLayer<VectorSource>;
   private markerOscMap: Map<string, Osc> = new Map();
   private _hasResults: boolean = false;
+  private _hasSelected: boolean = false;
   selected: Subject<Osc> = new Subject();
   refreshed: Subject<boolean> = new Subject<boolean>();
   hidden: Subject<boolean> = new Subject<boolean>();
@@ -231,5 +232,13 @@ export class MapService {
     } else {
       this.removeZoom();
     }
+  }
+
+  setHasSelected(selected: boolean): void {
+    this._hasSelected = selected;
+  }
+
+  hasSelected(): boolean {
+    return this._hasSelected;
   }
 }
