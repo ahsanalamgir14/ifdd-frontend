@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Category } from '../odds/category';
 import { Osc } from './osc';
+import { Results } from './results';
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +20,19 @@ export class OscService {
     )
   }
 
-  getAll(): Observable<Osc[]> {
-    return this.http.get<Osc[]>(this.url).pipe(
-      map((response: any) => response.data.map((data: any) => new Osc(data)))
+  getAll(url?: string): Observable<Results<Osc>> {
+    url = url || this.url
+    return this.http.get<Results<Osc>>(url).pipe(
+      map((response: any) => {
+        const results = new Results<Osc>();
+
+        results.data = response.data.data.map((data: any) => new Osc(data));
+        results.next = response.data.next_page_url;
+        results.previous = response.data.prev_page_url;
+        results.total = response.data.total;
+
+        return results;
+      })
     );
   }
 

@@ -20,22 +20,22 @@
     <div
       class="flex flex-col md:flex-row items-center pl-4 md:p-0 after:hidden after:md:block after:h-3/4 after:mx-3 after:w-0.5 after:bg-slate-200">
       <div class="flex">
-        <a href="" class="pr-0 pt-2 md:pt-0">
+        <a href="https://www.ifdd.francophonie.org/" class="pr-0 pt-2 md:pt-0" target="_blank" rel="noopener">
           <img src="/assets/logos/ifdd.svg" [alt]="'alt.logo_ifdd'|translate" width="150">
         </a>
         <button class="flex items-center md:hidden px-4 py-2 text-primary" (click)="closeSidebar()">
           <ng-icon name="hero-x" size="24"></ng-icon>
         </button>
       </div>
-      <a href="" class="pr-0 ml-auto md:ml-0">
+      <a href="https://www.francophonie.org/" class="pr-0 ml-auto md:ml-0" target="_blank" rel="noopener">
         <img src="/assets/logos/oif.svg" [alt]="'alt.logo_oif'|translate" width="150">
       </a>
-      <a href="" class="pr-3 mr-auto md:mr-0">
+      <a href="https://sdg-advisorybodies.net/" class="pr-3 mr-auto md:mr-0" target="_blank" rel="noopener">
         <img src="/assets/logos/sdg.png" [alt]="'alt.logo_sdg'|translate">
       </a>
     </div>
     <div class="flex flex-col md:flex-row flex-1 justify-between p-8 md:p-0 bg-primary md:bg-white">
-      <h1 class="hidden md:flex items-center w-44 text-sm text-neutral-700">{{ 'title.civil_organization_map'|translate
+      <h1 class="hidden md:flex items-center w-44 text-sm text-primary font-bold">{{ 'title.civil_organization_map'|translate
         }}</h1>
       <nav class="flex flex-col md:flex-row">
         <a [routerLink]="item.link" *ngFor="let item of menuItems" (click)="closeSidebar()"

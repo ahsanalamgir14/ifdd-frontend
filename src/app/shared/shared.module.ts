@@ -27,6 +27,7 @@ import { DialogModule } from './dialog/dialog.module';
 import { StepperComponent } from './stepper/stepper.component';
 import { MenuComponent } from './menu/menu/menu.component';
 import { MenuTriggerForDirective } from './menu/menu-trigger-for.directive';
+import { TermsComponent } from './terms/terms.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { MenuTriggerForDirective } from './menu/menu-trigger-for.directive';
     MenuComponent,
     MenuTriggerForDirective,
     StepperComponent,
+    TermsComponent,
   ],
   exports: [
     CommonModule,

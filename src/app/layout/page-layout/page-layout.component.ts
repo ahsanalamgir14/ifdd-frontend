@@ -1,9 +1,15 @@
 import { Component } from '@angular/core';
+import { DialogService } from 'src/app/shared/dialog/dialog.service';
+import { TermsComponent } from 'src/app/shared/terms/terms.component';
 
 @Component({
   selector: 'app-page-layout',
   templateUrl: './page-layout.component.html',
 })
 export class PageLayoutComponent {
-  constructor() { }
+  constructor(private dialogService: DialogService) { }
+
+  showTerms(): void {
+    this.dialogService.open(TermsComponent);
+  }
 }
