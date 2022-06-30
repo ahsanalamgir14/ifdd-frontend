@@ -9,6 +9,7 @@ import OSM from 'ol/source/OSM';
 import { MapService } from '../map.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ResetZoomControl } from '../reset-zoom-control';
+import {defaults} from 'ol/interaction';
 
 @Component({
   selector: 'app-map',
@@ -64,6 +65,7 @@ export class MapComponent implements AfterViewInit {
       ],
       target: 'map',
       view: this.view,
+      interactions: defaults({pinchRotate: false,altShiftDragRotate: false}),
       controls: DefaultControls().extend([
         new ScaleLine({}),
         new ResetZoomControl({})
