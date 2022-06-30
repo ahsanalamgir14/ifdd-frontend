@@ -5,6 +5,8 @@ import { Category } from '../odds/category';
 import { Osc } from './osc';
 import { Results } from './results';
 
+const PAGE_LIMIT = 50;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,8 +23,10 @@ export class OscService {
   }
 
   getAll(url?: string): Observable<Results<Osc>> {
-    url = url || this.url
-    return this.http.get<Results<Osc>>(url).pipe(
+    let params = new HttpParams();
+    params = params.set('per_page', PAGE_LIMIT);
+    url = url || this.url;
+    return this.http.get<Results<Osc>>(url, { params }).pipe(
       map((response: any) => {
         const results = new Results<Osc>();
 

@@ -14,7 +14,7 @@ export class HttpBaseHeadersInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (request.url.startsWith('http')) {
+    if (request.url.startsWith('http') && !request.url.startsWith(environment.apiRoot)) {
       return next.handle(request);
     }
 
