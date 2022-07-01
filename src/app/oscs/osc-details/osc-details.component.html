@@ -17,7 +17,7 @@
   <div class="px-5">
     <div class="flex justify-between py-4 border-b border-neutral-200">
       <div class="flex flex-col items-center text-primary text-xs" *ngIf="osc.site_web">
-        <a [href]="osc.site_web" class="p-1.5 border rounded-md border-primary hover:bg-secondary focus:bg-secondary" target="blank">
+        <a target="_blank" [href]="osc.site_web" class="p-1.5 border rounded-md border-primary hover:bg-secondary focus:bg-secondary" target="blank">
           <img src="/assets/icons/actions/website.svg" alt="">
         </a>
         <span class="mt-1.5">{{ 'link.website'|translate }}</span>
@@ -63,23 +63,23 @@
       </div>
       <div class="flex items-center mb-2 text-primary" *ngIf="osc.site_web">
         <ng-icon name="hero-globe-alt" size="24" class="text-secondary"></ng-icon>
-        <a [href]="osc.site_web" class="ml-1 text-sm underline" target="blank">{{ osc.site_web }}</a>
+        <a target="_blank" [href]="osc.site_web" class="ml-1 text-sm underline" target="blank">{{ osc.site_web }}</a>
       </div>
       <div class="flex items-center mb-2 text-primary" *ngIf="osc.facebook">
         <ng-icon name="ion-logo-facebook" size="24" class="text-secondary"></ng-icon>
-        <a [href]="osc.facebook" class="ml-1 text-sm underline" target="blank">{{ osc.facebook }}</a>
+        <a target="_blank" [href]="osc.facebook" class="ml-1 text-sm underline" target="blank">{{ osc.facebook }}</a>
       </div>
       <div class="flex items-center mb-2 text-primary" *ngIf="osc.instagram">
         <ng-icon name="ion-logo-instagram" size="24" class="text-secondary"></ng-icon>
-        <a [href]="osc.instagram" class="ml-1 text-sm underline" target="blank">{{ osc.instagram }}</a>
+        <a target="_blank" [href]="osc.instagram" class="ml-1 text-sm underline" target="blank">{{ osc.instagram }}</a>
       </div>
       <div class="flex items-center mb-2 text-primary" *ngIf="osc.linkedin">
         <ng-icon name="ion-logo-linkedin" size="24" class="text-secondary"></ng-icon>
-        <a [href]="osc.linkedin" class="ml-1 text-sm underline" target="blank">{{ osc.linkedin }}</a>
+        <a target="_blank" [href]="osc.linkedin" class="ml-1 text-sm underline" target="blank">{{ osc.linkedin }}</a>
       </div>
       <div class="flex items-center mb-2 text-primary" *ngIf="osc.twitter">
         <ng-icon name="ion-logo-twitter" size="24" class="text-secondary"></ng-icon>
-        <a [href]="osc.twitter" class="ml-1 text-sm underline" target="blank">{{ osc.twitter }}</a>
+        <a target="_blank" [href]="osc.twitter" class="ml-1 text-sm underline" target="blank">{{ osc.twitter }}</a>
       </div>
       <div class="flex items-center mb-2 text-primary" *ngIf="osc.siege">
         <img src="/assets/icons/map/pin-star.svg" alt="" width="22" height="22">
