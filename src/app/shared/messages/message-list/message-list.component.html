@@ -1,0 +1,3 @@
+<div class="fixed z-30 top-0 right-0 pt-11 md:pt-24 p-3" *ngIf="messages.length !== 0">
+  <app-message *ngFor="let message of messages; let i = index;" [message]="message" (remove)="onRemove(i)"></app-message>
+</div>

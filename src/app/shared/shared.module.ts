@@ -1,25 +1,6 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgIconsModule } from '@ng-icons/core';
-import {
-  HeroArrowRight,
-  HeroCheck,
-  HeroChevronDown,
-  HeroChevronUp,
-  HeroGlobeAlt,
-  HeroInformationCircleSolid,
-  HeroLocationMarkerSolid,
-  HeroMailSolid,
-  HeroMenu,
-  HeroPhoneSolid,
-  HeroPlus,
-  HeroSearch,
-  HeroUserSolid,
-  HeroX
-} from '@ng-icons/heroicons';
-import { IonLogoFacebook, IonLogoTwitter, IonLogoInstagram, IonLogoLinkedin } from '@ng-icons/ionicons';
-import { FeatherPlusSquare, FeatherMinusSquare } from '@ng-icons/feather-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,6 +10,8 @@ import { StepperComponent } from './stepper/stepper.component';
 import { MenuComponent } from './menu/menu/menu.component';
 import { MenuTriggerForDirective } from './menu/menu-trigger-for.directive';
 import { TermsComponent } from './terms/terms.component';
+import { MessagesModule } from './messages/messages.module';
+import { IconsModule } from './icons/icons.module';
 
 
 @NgModule({
@@ -43,7 +26,6 @@ import { TermsComponent } from './terms/terms.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgIconsModule,
     TranslateModule,
     OverlayModule,
     NgScrollbarModule,
@@ -51,38 +33,20 @@ import { TermsComponent } from './terms/terms.component';
     MenuTriggerForDirective,
     DialogModule,
     LoadingLinesComponent,
-    StepperComponent
+    StepperComponent,
+    MessagesModule,
+    IconsModule,
   ],
   imports: [
     OverlayModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgIconsModule.withIcons({
-      FeatherMinusSquare,
-      FeatherPlusSquare,
-      IonLogoFacebook,
-      IonLogoTwitter,
-      IonLogoInstagram,
-      IonLogoLinkedin,
-      HeroArrowRight,
-      HeroCheck,
-      HeroChevronDown,
-      HeroChevronUp,
-      HeroGlobeAlt,
-      HeroInformationCircleSolid,
-      HeroLocationMarkerSolid,
-      HeroMailSolid,
-      HeroMenu,
-      HeroPhoneSolid,
-      HeroPlus,
-      HeroSearch,
-      HeroUserSolid,
-      HeroX
-    }),
+    IconsModule,
     TranslateModule,
     NgScrollbarModule,
-    DialogModule
+    DialogModule,
+    MessagesModule,
   ]
 })
 export class SharedModule { }

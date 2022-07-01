@@ -1,0 +1,9 @@
+<div class="flex p-3 text-white items-start rounded-md mb-3 w-[250px]" [ngClass]="getCssClasses()">
+  <div class="flex flex-col flex-1">
+    <h4 class="font-bold">{{ message.title }}</h4>
+    <p>{{ message.description }}</p>
+  </div>
+  <button (click)="onRemove()">
+    <ng-icon name="hero-x" size="20" strokeWidth="3"></ng-icon>
+  </button>
+</div>
