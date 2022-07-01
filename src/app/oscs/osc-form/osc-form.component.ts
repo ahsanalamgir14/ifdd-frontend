@@ -25,6 +25,7 @@ import { finalize } from 'rxjs';
 import { Category } from 'src/app/odds/category';
 import { OscService } from '../osc.service';
 import { Osc } from '../osc';
+import { MessageService } from 'src/app/shared/messages/message.service';
 
 const enum LocationTypes {
   INTERVENTION_ZONE,
@@ -108,6 +109,7 @@ export class OscFormComponent implements OnInit {
     private placeService: PlaceService,
     private oddService: OddService,
     private oscService: OscService,
+    private messageService: MessageService,
     @Inject(DIALOG_DATA) public data: any
   ) {}
 
@@ -155,7 +157,14 @@ export class OscFormComponent implements OnInit {
     this.oscService.create(value).pipe(
       finalize(() => this.loading = false)
     ).subscribe({
-      next: (osc: Osc) => this.dialogRef.close(osc),
+      next: (osc: Osc) => {
+        this.dialogRef.close(osc);
+        this.messageService.addMessage(
+          'success',
+          'OSC Soumise avec succès',
+          'Merci d\'avoir soumis votre organisation. Les informations vont maintenant être contrôlées et vous serez prévenus lorsque l\'organisation sera ajoutée à la carte.'
+        )
+      },
       error: (error: any) => {
         this.errors = error?.error?.data;
         Object.keys(this.errors).forEach((key: string) => {

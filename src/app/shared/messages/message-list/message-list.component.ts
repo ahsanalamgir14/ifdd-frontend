@@ -11,7 +11,15 @@ export class MessageListComponent {
 
   constructor(private messageService: MessageService) {
     this.messageService.messages.subscribe({
-      next: (message: Message) => this.messages.push(message)
+      next: (newMessage: Message) => {
+        for (let message of this.messages) {
+          if (message.type === newMessage.type && message.description === newMessage.description && message.title === newMessage.title) {
+            return;
+          }
+        }
+
+        this.messages.push(newMessage);
+      }
     });
   }
 
