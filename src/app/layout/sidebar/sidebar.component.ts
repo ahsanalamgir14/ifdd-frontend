@@ -144,6 +144,9 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   onCloseOscDetails(): void {
     this.selectedOsc = null;
+    if (this.mobileQuery.matches) {
+      this.showMap();
+    }
     this.mapService.select(new Feature());
   }
 
