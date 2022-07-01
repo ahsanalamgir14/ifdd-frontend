@@ -55,7 +55,7 @@ export class OddComponent implements OnInit {
     }
 
     if (!this.showCategories) {
-      this.categoriesSelection.emit(this.getSelectedCategories())
+      this.categoriesSelection.emit(this.getSelectedCategories());
     }
   }
 
@@ -154,6 +154,12 @@ export class OddComponent implements OnInit {
   }
 
   onSelected(): void {
+    if (this.forceSelected && this.categories.length > 0) {
+      this.categories = [];
+      this.categoriesSelection.emit(this.categories);
+      return;
+    }
+
     if (!this.categories.length) {
       this.getCategories(true);
     }
