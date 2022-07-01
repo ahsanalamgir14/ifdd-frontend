@@ -35,11 +35,11 @@
       </a>
     </div>
     <div class="flex flex-col md:flex-row flex-1 justify-between p-8 md:p-0 bg-primary md:bg-white">
-      <h1 class="hidden md:flex items-center w-44 text-sm text-primary font-bold">{{ 'title.civil_organization_map'|translate
+      <h1 class="hidden md:flex items-center w-44 text-xs xl:text-sm text-primary font-bold">{{ 'title.civil_organization_map'|translate
         }}</h1>
       <nav class="flex flex-col md:flex-row">
         <a [routerLink]="item.link" *ngFor="let item of menuItems" (click)="closeSidebar()"
-          class="flex items-center mb-3 md:mb-0 text-xs xl:text-[13px] font-extrabold pl-1 pr-3 md:px-4 py-0.5 md:py-0 uppercase hover:bg-primary hover:text-white focus:bg-primary focus:text-white bg-white rounded-lg md:rounded-none"
+          class="flex flex-row md:flex-col 2xl:flex-row whitespace-nowrap justify-center text-center items-center mb-3 md:mb-0 text-base sm:text-[.7rem] xl:text-[13px] font-extrabold sm:pl-1 sm:pr-3 px-4 sm:px-0 md:px-4 py-4 sm:py-0.5 md:py-0 uppercase hover:bg-primary hover:text-white focus:bg-primary focus:text-white bg-white rounded-lg md:rounded-none"
           [ngClass]="{'text-primary md:bg-primary md:text-white': item.active, 'text-primary md:text-secondary': !item.active}" [attr.aria-label]="item.label">
           <img [src]="item.image" [alt]="item.label" *ngIf="!item.active" width="44" height="44" class="w-6 xl:w-12">
           <img [src]="item.activeImage" [alt]="item.label" *ngIf="item.active" width="44" height="44" class="w-6 xl:w-12">
@@ -48,14 +48,13 @@
             <ng-icon name="hero-arrow-right" strokeWidth="3" size="18" class="text-accent"></ng-icon>
           </span>
         </a>
-        <p class="mt-5 md:hidden text-white italic">NB: La création d'une OSC se fait uniquement sur Ordinateur.</p>
       </nav>
       <button class="md:hidden block text-center text-secondary text-xs font-bold">{{ 'button.terms_of_use'|translate
         }}</button>
       <div class="hidden md:flex items-center ml-4">
-        <a [routerLink]="'/auth/register'" class="px-4 py-2 bg-accent text-primary text-xs font-extrabold rounded-lg uppercase" *ngIf="!isAuthenticated()">{{
+        <a [routerLink]="'/auth/register'" class="px-2 xl:px-4 py-2 bg-accent text-primary xl:text-xs text-[.7rem] font-extrabold rounded-lg uppercase" *ngIf="!isAuthenticated()">{{
           'button.register'|translate }}</a>
-        <a [routerLink]="'/auth/login'" class="px-4 py-2 ml-4 bg-secondary-light text-primary text-xs font-extrabold rounded-lg uppercase" *ngIf="!isAuthenticated()">{{
+        <a [routerLink]="'/auth/login'" class="px-2 xl:px-4 py-2 ml-4 bg-secondary-light text-primary xl:text-xs text-[.7rem] font-extrabold rounded-lg uppercase" *ngIf="!isAuthenticated()">{{
           'button.login'|translate }}</a>
       </div>
       <div class="hidden md:flex items-center ml-4" *ngIf="isAuthenticated()">

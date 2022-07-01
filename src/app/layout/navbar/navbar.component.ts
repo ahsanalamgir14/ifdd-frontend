@@ -1,8 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Coordinate } from 'ol/coordinate';
-import { fromLonLat } from 'ol/proj';
 import { AuthService } from 'src/app/auth/auth.service';
 import { MapService } from 'src/app/map/map.service';
 import { OscFormComponent } from 'src/app/oscs/osc-form/osc-form.component';
@@ -26,7 +24,7 @@ export class NavbarComponent implements OnInit {
     },
     {
       link: '/a-propos',
-      label: 'À propos',
+      label: 'À-propos',
       image: '/assets/icons/menu/about.svg',
       activeImage: '/assets/icons/menu/about-active.svg',
       active: false
