@@ -15,6 +15,7 @@ import { OddsModule } from './odds/odds.module';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { DiscoverComponent } from './discover/discover.component';
 import { MapModule } from './map/map.module';
+import { HttpErrorsInterceptor } from './core/http/http-errors.interceptor';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -57,6 +58,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpBaseUrlInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorsInterceptor,
       multi: true
     }
   ],

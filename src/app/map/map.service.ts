@@ -1,9 +1,10 @@
+
 import { Injectable } from '@angular/core';
 import { Feature, Map as OlMap } from 'ol';
 import { Coordinate } from 'ol/coordinate';
 import { Point } from 'ol/geom';
 import VectorLayer from 'ol/layer/Vector';
-import { fromLonLat } from 'ol/proj';
+import { fromLonLat, useGeographic } from 'ol/proj';
 import VectorSource from 'ol/source/Vector';
 import ClusterSource from 'ol/source/Cluster';
 import Icon from 'ol/style/Icon';
@@ -15,6 +16,8 @@ import {
 import { Osc } from '../oscs/osc';
 import { Subject } from 'rxjs';
 import { MapLocation } from '../places/map-location';
+
+useGeographic();
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +38,9 @@ export class MapService {
   constructor() {
     const styleCache: any = {};
     this.markerSource = new VectorSource();
+    this.markerLayer = new VectorLayer({
+      source: this.markerSource,
+    });
     this.clusterSource = new ClusterSource({
       distance: 80,
       source: this.markerSource
@@ -62,9 +68,6 @@ export class MapService {
         return style;
       }
     });
-    this.markerLayer = new VectorLayer({
-      source: this.markerSource,
-    });
   }
 
   getMarkerLayer(): VectorLayer<VectorSource> {
@@ -83,7 +86,7 @@ export class MapService {
     if (osc && osc.id && !this.markerOscMap.has(osc.id.toString())) {
       const iconFeature = new Feature({
         name: osc.name,
-        geometry: new Point(fromLonLat(coordinate)),
+        geometry: new Point(coordinate),
       });
       iconFeature.setStyle(this.getMarkerStyle('', osc.abbreviation));
       iconFeature.setId(osc.id);
@@ -170,7 +173,7 @@ export class MapService {
           this.selected.next(osc);
         } else {
           if (osc?.longitude && osc.latitude) {
-            this.zoomToMarker(fromLonLat([Number.parseFloat(osc?.longitude), Number.parseFloat(osc?.latitude)]))
+            this.zoomToMarker([Number.parseFloat(osc?.longitude), Number.parseFloat(osc?.latitude)])
           }
         }
       }
@@ -228,7 +231,7 @@ export class MapService {
           this.select(feature, true);
         }
       }
-      this.zoomToMarker(fromLonLat([location.longitude, location.latitude]));
+      this.zoomToMarker([location.longitude, location.latitude]);
     } else {
       this.removeZoom();
     }

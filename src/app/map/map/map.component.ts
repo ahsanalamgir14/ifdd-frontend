@@ -4,12 +4,14 @@ import { Coordinate } from 'ol/coordinate';
 import { ScaleLine, defaults as DefaultControls} from 'ol/control';
 import { boundingExtent, Extent } from 'ol/extent';
 import TileLayer from 'ol/layer/Tile';
-import { Projection } from 'ol/proj';
+import { Projection, useGeographic } from 'ol/proj';
 import OSM from 'ol/source/OSM';
 import { MapService } from '../map.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ResetZoomControl } from '../reset-zoom-control';
 import {defaults} from 'ol/interaction';
+
+useGeographic();
 
 @Component({
   selector: 'app-map',
@@ -76,21 +78,20 @@ export class MapComponent implements AfterViewInit {
       const features = this.map?.getFeaturesAtPixel(event.pixel);
       if (features && features.length > 0) {
         const feature = features[0] as Feature;
-        this.mapService.select(feature);
-      }
-
-      this.mapService.getClusterLayer().getFeatures(event.pixel).then((clickedFeatures) => {
-        if (clickedFeatures.length) {
-          // Get clustered Coordinates
-          const features = clickedFeatures[0].get('features');
-          if (features.length > 1) {
+        if (feature.getId() !== undefined) {
+          // This is a marker we added
+          this.mapService.select(feature);
+        } else {
+          // This is a cluster
+          const markers = features[0].get('features');
+          if (markers.length > 1) {
             const extent = boundingExtent(
-              features.map((r: any) => r.getGeometry().getCoordinates())
+              markers.map((r: any) => r.getGeometry().getCoordinates())
             );
             this.map?.getView().fit(extent, {duration: 1000, padding: [50, 50, 50, 50]});
           }
         }
-      });
+      }
     });
 
     this.map.on("pointermove", (evt) => {

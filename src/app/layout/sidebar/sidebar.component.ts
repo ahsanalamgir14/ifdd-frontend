@@ -144,6 +144,9 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   onCloseOscDetails(): void {
     this.selectedOsc = null;
+    if (this.mobileQuery.matches) {
+      this.showMap();
+    }
     this.mapService.select(new Feature());
   }
 
@@ -184,9 +187,10 @@ export class SidebarComponent implements OnDestroy, OnInit {
       if (push) {
         this.oscs.push(...oscs.data);;
       } else {
+        this.mapService.removeMarkers();
         this.oscs = oscs.data;
       }
-      this.mapService.removeMarkers();
+
       oscs.data.forEach((osc: Osc, index: number) => {
         if (osc.longitude && osc.latitude) {
           const longitude = Number.parseFloat(osc.longitude);
