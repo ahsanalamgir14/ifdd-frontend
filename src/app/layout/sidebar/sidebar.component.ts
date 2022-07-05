@@ -116,7 +116,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
   onShowOscs(): void {
     this.showOscs = true;
     this.mapService.setHasResults(true);
-    if (!this.selectOdd) {
+    if (this.selectedOdd) {
       this.getOscs();
     }
   }
