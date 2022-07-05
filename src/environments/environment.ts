@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiRoot: 'https://ifdd.geosm.org/api',
-  apiKey: 'KHb1NaDr5VLSnQghnZ9e04Xv2mnBYRHQUOZEWpGUfkEemerPnMRzeJNhzCu3VqXq'
+  apiRoot: 'https://cartodd-api.francophonie.org/api',
+  apiKey: 'cJSK1y1AKYNoywvUpHs3G4BQVDIQXO7wwAYpMeJwftd4pfQENOAYLCSlF4WJn1xs'
 };
 
 /*
