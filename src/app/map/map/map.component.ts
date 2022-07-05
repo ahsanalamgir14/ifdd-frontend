@@ -60,18 +60,22 @@ export class MapComponent implements AfterViewInit {
     this.map = new Map({
       layers: [
         new TileLayer({
-          source: new OSM({})
+          source: new OSM({
+            attributions: [
+              '&copy; Powered by <a href="https://api.whatsapp.com/send?phone=694698607&text=" target="_blank">GeOsm Family</a> | <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            ],
+          }),
         }),
         this.mapService.getMarkerLayer(),
         this.mapService.getClusterLayer(),
-        this.mapService.getTextLayer()
+        this.mapService.getTextLayer(),
       ],
       target: 'map',
       view: this.view,
-      interactions: defaults({pinchRotate: false,altShiftDragRotate: false}),
+      interactions: defaults({ pinchRotate: false, altShiftDragRotate: false }),
       controls: DefaultControls().extend([
         new ScaleLine({}),
-        new ResetZoomControl({})
+        new ResetZoomControl({}),
       ]),
     });
 
