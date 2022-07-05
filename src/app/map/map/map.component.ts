@@ -62,7 +62,8 @@ export class MapComponent implements AfterViewInit {
           source: new OSM({})
         }),
         this.mapService.getMarkerLayer(),
-        this.mapService.getClusterLayer()
+        this.mapService.getClusterLayer(),
+        this.mapService.getTextLayer()
       ],
       target: 'map',
       view: this.view,
@@ -104,6 +105,17 @@ export class MapComponent implements AfterViewInit {
         }
       }
     });
+
+    this.map.on("moveend", () => {
+      if (this.map) {
+        const zoom = this.map.getView().getZoom();
+        if (zoom && zoom >= 12) {
+          this.mapService.getTextLayer().setVisible(true);
+        } else {
+          this.mapService.getTextLayer().setVisible(false);
+        }
+      }
+    })
   }
 
   hideMap(): void {
