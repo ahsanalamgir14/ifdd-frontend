@@ -1,4 +1,5 @@
 import { OverlayModule } from '@angular/cdk/overlay';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -28,6 +29,7 @@ import { IconsModule } from './icons/icons.module';
     ReactiveFormsModule,
     TranslateModule,
     OverlayModule,
+    ScrollingModule,
     NgScrollbarModule,
     MenuComponent,
     MenuTriggerForDirective,
@@ -39,6 +41,7 @@ import { IconsModule } from './icons/icons.module';
   ],
   imports: [
     OverlayModule,
+    ScrollingModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
