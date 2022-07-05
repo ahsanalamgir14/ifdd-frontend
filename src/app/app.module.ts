@@ -16,16 +16,14 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { DiscoverComponent } from './discover/discover.component';
 import { MapModule } from './map/map.module';
 import { HttpErrorsInterceptor } from './core/http/http-errors.interceptor';
+import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DiscoverComponent
-  ],
+  declarations: [AppComponent, DiscoverComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -34,8 +32,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
     AppRoutingModule,
     LayoutModule,
@@ -43,29 +41,31 @@ export function HttpLoaderFactory(http: HttpClient) {
     PlacesModule,
     OddsModule,
     MapModule,
+    NgxGoogleAnalyticsModule.forRoot('G-DJE535S2SZ'),
+    NgxGoogleAnalyticsRouterModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpBaseHeadersInterceptor,
-      multi: true
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpBaseUrlInterceptor,
-      multi: true
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorsInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
