@@ -27,7 +27,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
   oscs: Osc[] = [];
   showOscs: boolean = false;
   loading = false;
-  oscsCount: number = 0;
+  ready = false;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -78,7 +78,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
       return this.selectedOdd.count_osc;
     }
 
-    return this.oscsCount;
+    return this.oscs.length;
   }
 
   reinitialize(hideOscs:boolean = false): void {
@@ -115,8 +115,10 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   onShowOscs(): void {
     this.showOscs = true;
-    this.getOscs();
     this.mapService.setHasResults(true);
+    if (!this.selectOdd) {
+      this.getOscs();
+    }
   }
 
   hideOscs(): void {
@@ -162,12 +164,6 @@ export class SidebarComponent implements OnDestroy, OnInit {
     this.mapService.selectLocation(place);
   }
 
-  private countOscs(): void {
-    this.oscService.count().subscribe((count: number) => {
-      this.oscsCount = count;
-    })
-  }
-
   private getOscs(push: boolean = false, url?: string): void {
     if (!push) {
       this.oscs = [];
@@ -202,6 +198,8 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
       if (oscs.next) {
         this.getOscs(true, oscs.next);
+      } else {
+        this.ready = true;
       }
     });
   }
@@ -274,10 +272,6 @@ export class SidebarComponent implements OnDestroy, OnInit {
         } else {
           this.getOscs();
         }
-
-        if (!this.oscsCount) {
-          this.countOscs();
-        }
       });
   }
 
@@ -293,5 +287,13 @@ export class SidebarComponent implements OnDestroy, OnInit {
         }
       })
     }
+  }
+
+  oscTrackBy(index: number, osc: Osc):  number {
+    if (osc.id) {
+      return osc.id;
+    }
+
+    return 0;
   }
 }
