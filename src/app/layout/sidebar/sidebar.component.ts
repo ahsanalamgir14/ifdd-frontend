@@ -1,7 +1,8 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Feature } from 'ol';
-import { finalize, Observable } from 'rxjs';
+import { finalize } from 'rxjs';
 import { MapService } from 'src/app/map/map.service';
 import { Category } from 'src/app/odds/category';
 import { Odd } from 'src/app/odds/odd';
@@ -17,6 +18,7 @@ import { MapLocation } from 'src/app/places/map-location';
 })
 export class SidebarComponent implements OnDestroy, OnInit {
   @Input() oddNumber: string =  '';
+  @Input() oscId?: number;
   private _mobileQueryListener: () => void;
   private _open = false;
   mobileQuery: MediaQueryList;
@@ -30,6 +32,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
   ready = false;
 
   constructor(
+    private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private oddService: OddService,
@@ -45,6 +48,11 @@ export class SidebarComponent implements OnDestroy, OnInit {
     if (this.oddNumber) {
       this._open = true;
       this.showOscs = true;
+    } else if (this.oscId) {
+      this.oscService.get(this.oscId).subscribe((osc: Osc) => {
+        this.selectedOsc = osc;
+        this.onShowOscs();
+      })
     }
     this.getOdds();
     this.mapService.selected.subscribe((osc: Osc) => {
@@ -135,6 +143,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   onSelectOsc(osc: Osc): void {
     this.selectedOsc = osc;
+    this.router.navigate(['/'], {queryParams: {oscId: osc.id}, queryParamsHandling: 'merge'});
   }
 
   onSelectOscFromSidebar(osc: Osc): void {
@@ -150,6 +159,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
       this.showMap();
     }
     this.mapService.select(new Feature());
+    this.router.navigate(['/']);
   }
 
   onPlaceSelected(place: MapLocation|null): void {
