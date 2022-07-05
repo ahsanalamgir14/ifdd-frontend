@@ -27,6 +27,10 @@ export class OscDetailsComponent {
   showCategoriesDetails: boolean = false;
   showAllInterventionZones: boolean = false;
 
+  get absoluteUrl(): string {
+    return window.location.href;
+  }
+
   constructor(
     private changeDetector: ChangeDetectorRef,
     private oscService: OscService,

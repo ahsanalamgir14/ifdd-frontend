@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ShareModule as ShareButtonsModule } from 'ngx-sharebuttons';
 import { LoadingLinesComponent } from './loading-lines/loading-lines.component';
 import { DialogModule } from './dialog/dialog.module';
 import { StepperComponent } from './stepper/stepper.component';
@@ -38,6 +39,7 @@ import { IconsModule } from './icons/icons.module';
     StepperComponent,
     MessagesModule,
     IconsModule,
+    ShareButtonsModule,
   ],
   imports: [
     OverlayModule,
@@ -50,6 +52,7 @@ import { IconsModule } from './icons/icons.module';
     NgScrollbarModule,
     DialogModule,
     MessagesModule,
+    ShareButtonsModule,
   ]
 })
 export class SharedModule { }
