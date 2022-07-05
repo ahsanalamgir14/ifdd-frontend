@@ -4,9 +4,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Collection, Feature, Map as OlMap, View } from 'ol';
 import { Coordinate } from 'ol/coordinate';
 import { Control} from 'ol/control';
-import { applyTransform } from 'ol/extent';
 import TileLayer from 'ol/layer/Tile';
-import { fromLonLat, getTransform, Projection, toLonLat } from 'ol/proj';
+import { Projection } from 'ol/proj';
 import OSM from 'ol/source/OSM';
 import { Country } from 'src/app/places/country';
 import { MapLocation } from 'src/app/places/map-location';
@@ -252,7 +251,7 @@ export class OscFormComponent implements OnInit {
     this.map.on('click', (event: any) => {
       const coordinates = this.map?.getCoordinateFromPixel(event.pixel);
       if (coordinates) {
-        this.findPlaceByCoordinates(toLonLat(coordinates), true);
+        this.findPlaceByCoordinates(coordinates, true);
       }
     });
   }
@@ -261,7 +260,7 @@ export class OscFormComponent implements OnInit {
     this.selectedLocation = place;
     if (this.map) {
       if (this.selectedLocation) {
-        const extent: any = applyTransform(this.selectedLocation.bbox, getTransform("EPSG:4326", "EPSG:3857"));
+        const extent: any = this.selectedLocation.bbox;
         this.map.getView().fit(extent);
         this.map.getView().setZoom(8);
         this.coordinatesForm.setValue({
@@ -331,7 +330,7 @@ export class OscFormComponent implements OnInit {
 
     const iconFeature = new Feature({
       name: place.name,
-      geometry: new Point(fromLonLat([place.longitude, place.latitude])),
+      geometry: new Point([place.longitude, place.latitude]),
     });
     const markerStyle: Style = new Style({
       image: new Icon({
