@@ -120,6 +120,7 @@ export class MapService {
     this.markerSource.clear();
     this.clusterSource.clear();
     this.markerOscMap.clear();
+    this.textSource.clear();
   }
 
   setMap(map: OlMap) {
