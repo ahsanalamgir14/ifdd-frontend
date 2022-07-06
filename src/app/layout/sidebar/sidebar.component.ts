@@ -52,7 +52,7 @@ export class SidebarComponent implements OnDestroy, OnInit {
       this.oscService.get(this.oscId).subscribe((osc: Osc) => {
         this.selectedOsc = osc;
         this.onShowOscs();
-      })
+      });
     }
     this.getOdds();
     this.mapService.selected.subscribe((osc: Osc) => {
@@ -131,6 +131,8 @@ export class SidebarComponent implements OnDestroy, OnInit {
 
   hideOscs(): void {
     this.showOscs = false;
+    this.onCloseOscDetails();
+    this.mapService.removeZoom();
   }
 
   onCategoriesSelection(categories: Category[]): void {
@@ -209,6 +211,10 @@ export class SidebarComponent implements OnDestroy, OnInit {
       if (oscs.next) {
         this.getOscs(true, oscs.next);
       } else {
+        if (this.ready === false && this.oscId && this.selectedOsc) {
+          this.onSelectOscFromSidebar(this.selectedOsc);
+        }
+
         this.ready = true;
       }
     });
