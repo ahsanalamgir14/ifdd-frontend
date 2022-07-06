@@ -17,28 +17,44 @@
   <div class="px-5">
     <div class="flex justify-between py-4 border-b border-neutral-200">
       <div class="flex flex-col items-center text-primary text-xs" *ngIf="osc.site_web">
-        <a target="_blank" [href]="osc.site_web" class="p-1.5 border rounded-md border-primary hover:bg-secondary focus:bg-secondary" target="blank">
-          <img src="/assets/icons/actions/website.svg" alt="">
+        <a target="_blank" [href]="osc.site_web" class="flex items-center p-1.5 border rounded-md text-primary border-primary hover:bg-primary focus:bg-primary hover:text-white focus:text-white" target="blank">
+          <ng-icon name="hero-globe" size="24"></ng-icon>
         </a>
         <span class="mt-1.5">{{ 'link.website'|translate }}</span>
       </div>
       <div class="flex flex-col items-center text-primary text-xs" *ngIf="osc.email_osc">
-        <a [href]="'mailto:' + osc.email_osc" class="p-1.5 border rounded-md border-primary hover:bg-secondary focus:bg-secondary">
-          <img src="/assets/icons/actions/mail.svg" alt="">
+        <a [href]="'mailto:' + osc.email_osc" class="flex items-center p-1.5 border rounded-md text-primary border-primary hover:bg-primary focus:bg-primary hover:text-white focus:text-white">
+          <ng-icon name="ion-mail" size="24"></ng-icon>
         </a>
         <span class="mt-1.5">{{ 'link.mail'|translate }}</span>
       </div>
       <div class="flex flex-col items-center text-primary text-xs" *ngIf="osc.telephone">
-        <a [href]="'tel:' + osc.telephone" class="p-1.5 border rounded-md border-primary hover:bg-secondary focus:bg-secondary">
-          <img src="/assets/icons/actions/phone.svg" alt="">
+        <a [href]="'tel:' + osc.telephone" class="flex items-center p-1.5 border rounded-md text-primary border-primary hover:bg-primary focus:bg-primary hover:text-white focus:text-white">
+          <ng-icon name="ion-call" size="24"></ng-icon>
         </a>
         <span class="mt-1.5">{{ 'link.phone'|translate }}</span>
       </div>
       <div class="flex flex-col items-center text-primary text-xs">
-        <button class="p-1.5 border rounded-md border-primary hover:bg-secondary focus:bg-secondary">
-          <img src="/assets/icons/actions/share.svg" alt="">
+        <button  class="flex items-center p-1.5 border rounded-md text-primary border-primary hover:bg-primary focus:bg-primary hover:text-white focus:text-white" [appMenuTriggerFor]="shareMenu" [xPosition]="'after'" [yPosition]="'below'">
+          <ng-icon name="hero-share" size="24"></ng-icon>
         </button>
         <span class="mt-1.5">{{ 'link.share'|translate }}</span>
+        <app-menu #shareMenu>
+          <div class="flex flex-row">
+            <button [url]="absoluteUrl" shareButton="facebook" aria-label="Partager sur Facebook">
+              <img src="/assets/logos/facebook.png" alt="">
+            </button>
+            <button [url]="absoluteUrl" shareButton="twitter" aria-label="Partager sur Twitter">
+              <img src="/assets/logos/twitter.png" alt="">
+            </button>
+            <button [url]="absoluteUrl" shareButton="linkedin" aria-label="Partager sur LinkedIn">
+              <img src="/assets/logos/linkedin.png" alt="">
+            </button>
+            <button [url]="absoluteUrl" shareButton="whatsapp" aria-label="Partager sur Whatsapp">
+              <img src="/assets/logos/whatsapp.png" alt="">
+            </button>
+          </div>
+        </app-menu>
       </div>
     </div>
     <div class="py-4 border-b border-neutral-200">

@@ -5,6 +5,7 @@ import {
   HeroCheck,
   HeroChevronDown,
   HeroChevronUp,
+  HeroGlobe,
   HeroGlobeAlt,
   HeroInformationCircleSolid,
   HeroLocationMarkerSolid,
@@ -13,10 +14,18 @@ import {
   HeroPhoneSolid,
   HeroPlus,
   HeroSearch,
+  HeroShare,
   HeroUserSolid,
   HeroX
 } from '@ng-icons/heroicons';
-import { IonLogoFacebook, IonLogoTwitter, IonLogoInstagram, IonLogoLinkedin } from '@ng-icons/ionicons';
+import {
+  IonLogoFacebook,
+  IonLogoTwitter,
+  IonLogoInstagram,
+  IonLogoLinkedin,
+  IonMail,
+  IonCall
+} from '@ng-icons/ionicons';
 import { FeatherPlusSquare, FeatherMinusSquare } from '@ng-icons/feather-icons';
 
 
@@ -31,10 +40,13 @@ import { FeatherPlusSquare, FeatherMinusSquare } from '@ng-icons/feather-icons';
       IonLogoTwitter,
       IonLogoInstagram,
       IonLogoLinkedin,
+      IonMail,
+      IonCall,
       HeroArrowRight,
       HeroCheck,
       HeroChevronDown,
       HeroChevronUp,
+      HeroGlobe,
       HeroGlobeAlt,
       HeroInformationCircleSolid,
       HeroLocationMarkerSolid,
@@ -43,6 +55,7 @@ import { FeatherPlusSquare, FeatherMinusSquare } from '@ng-icons/feather-icons';
       HeroPhoneSolid,
       HeroPlus,
       HeroSearch,
+      HeroShare,
       HeroUserSolid,
       HeroX
     }),
