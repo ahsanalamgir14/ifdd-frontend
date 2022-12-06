@@ -74,6 +74,7 @@ export class OscFormComponent implements OnInit {
     telephone: new FormControl('', [Validators.required]),
     email_osc: new FormControl('', [Validators.required, Validators.email]),
     site_web: new FormControl('', []),
+    reference : new FormControl('', []),
     facebook: new FormControl('', []),
     twitter: new FormControl('', []),
     instagram: new FormControl('', []),
