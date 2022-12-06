@@ -21,6 +21,7 @@ export class Osc {
   public longitude?: string;
   public latitude?: string;
   public siege?: string;
+  public reference?: string;
   public active?: boolean;
   public categorieOdds: Category[] = [];
   public zoneInterventions: ZoneIntervention[] = [];
@@ -46,6 +47,7 @@ export class Osc {
       this.twitter = data.twitter;
       this.latitude = data.latitude;
       this.siege = data.siege;
+      this.reference = data.reference;
       this.active = data.active;
 
       if (data.categorie_odds) {
