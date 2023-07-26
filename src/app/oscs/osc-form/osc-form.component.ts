@@ -74,7 +74,7 @@ export class OscFormComponent implements OnInit {
     telephone: new FormControl('', [Validators.required]),
     email_osc: new FormControl('', [Validators.required, Validators.email]),
     site_web: new FormControl('', []),
-    reference : new FormControl('', []),
+    reference: new FormControl('', [Validators.required]),
     facebook: new FormControl('', []),
     twitter: new FormControl('', []),
     instagram: new FormControl('', []),
@@ -83,7 +83,7 @@ export class OscFormComponent implements OnInit {
     latitude: new FormControl('', [Validators.required]),
     siege: new FormControl({value: '', disabled: true}, [Validators.required]),
     siege_alt: new FormControl('', []),
-    interventionZones: new FormArray([]),
+    interventionZones: new FormArray([], [Validators.required]),
     interventionZonesAlt: new FormArray([]),
     categories: new FormArray([])
   });
