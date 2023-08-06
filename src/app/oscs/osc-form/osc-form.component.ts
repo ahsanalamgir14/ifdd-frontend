@@ -442,7 +442,7 @@ export class OscFormComponent implements OnInit {
     }
 
     if (this.selectedStep.position === 2) {
-      return Boolean(this.form.get('siege')?.value);
+      return Boolean(this.form.get('siege')?.value && this.form.get('interventionZones')?.value);
     }
 
     return true;
