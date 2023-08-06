@@ -433,6 +433,7 @@ export class OscFormComponent implements OnInit {
       if (this.field('name')?.valid && this.field('abbreviation')?.valid && this.field('pays')?.valid
         && this.field('date_fondation')?.valid && this.field('description')?.valid
         && this.field('personne_contact')?.valid && this.field('dialCode')?.valid && this.field('telephone')?.valid
+        && this.field('reference')?.valid
         && this.field('email_osc')?.valid) {
           return true;
         };
