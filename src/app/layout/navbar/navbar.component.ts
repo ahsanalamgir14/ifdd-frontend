@@ -91,8 +91,9 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
+    this.auth.clearSession();
+    window.location.href = '/';
     this.auth.logout().subscribe(() => {
-      this.auth.clearSession();
       window.location.href = '/';
     });
   }
