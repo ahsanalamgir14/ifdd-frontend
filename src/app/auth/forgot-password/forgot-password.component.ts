@@ -5,16 +5,16 @@ import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-forgot-password',
-  templateUrl: './forgot-password.component.html'
+  templateUrl: './forgot-password.component.html',
 })
 export class ForgotPasswordComponent {
   form: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email])
+    email: new FormControl<string>('', [Validators.required, Validators.email]),
   });
   loading: boolean = false;
   completed: boolean = false;
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService) {}
 
   onSubmit(): void {
     if (!this.form.valid) {
@@ -22,16 +22,21 @@ export class ForgotPasswordComponent {
     }
 
     this.loading = true;
-    this.auth.sendResetPassword(this.form.value.email).pipe(
-      finalize(() => this.loading = false)
-    )
-    .subscribe({
-      next: () => this.completed = true
-    });
+    this.auth
+      .sendResetPassword(this.form.value.email)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: () => (this.completed = true),
+      });
   }
 
   hasError(field: string, error: string): boolean {
     const formControl = this.form.get(field);
-    return formControl && formControl.errors && formControl.touched && formControl.errors[error];
+    return (
+      formControl &&
+      formControl.errors &&
+      formControl.touched &&
+      formControl.errors[error]
+    );
   }
 }

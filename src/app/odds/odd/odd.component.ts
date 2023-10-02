@@ -1,6 +1,19 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, AbstractControl, FormControl } from '@angular/forms';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  FormGroup,
+  FormBuilder,
+  FormArray,
+  AbstractControl,
+  FormControl,
+} from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { Category } from '../category';
@@ -9,7 +22,7 @@ import { OddService } from '../odd.service';
 
 @Component({
   selector: 'app-odd',
-  templateUrl: './odd.component.html'
+  templateUrl: './odd.component.html',
 })
 export class OddComponent implements OnInit {
   private _mobileQueryListener: () => void;
@@ -18,7 +31,9 @@ export class OddComponent implements OnInit {
   @Input() forceSelected = false;
   @Input() categoriesSelected = false;
   @Input() lite = false;
-  @Output() categoriesSelection: EventEmitter<Category[]> = new EventEmitter<Category[]>();
+  @Output() categoriesSelection: EventEmitter<Category[]> = new EventEmitter<
+    Category[]
+  >();
   mobileQuery: MediaQueryList;
   form: FormGroup;
   showCategories: boolean = false;
@@ -37,7 +52,7 @@ export class OddComponent implements OnInit {
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
     this.form = this.formBuilder.group({
-      categories: this.formBuilder.array([])
+      categories: this.formBuilder.array([]),
     });
   }
 
@@ -61,12 +76,11 @@ export class OddComponent implements OnInit {
 
   getCategories(emit: boolean = false): void {
     this.loading = true;
-    this.oddService.get(this.odd.id)
-      .pipe(
-        finalize(() => this.loading = false)
-      )
+    this.oddService
+      .get(this.odd.id)
+      .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: (odd: Odd|null) => {
+        next: (odd: Odd | null) => {
           if (odd) {
             this.categories = odd.categories;
           }
@@ -74,7 +88,7 @@ export class OddComponent implements OnInit {
           if (emit) {
             this.categoriesSelection.emit(this.getSelectedCategories());
           }
-        }
+        },
       });
   }
 
@@ -90,11 +104,13 @@ export class OddComponent implements OnInit {
     const selectedCategories: Category[] = [];
 
     const categoriesFormControl = this.form.get('categories') as FormArray;
-    categoriesFormControl.controls.forEach((control: AbstractControl, index: number) => {
-      if (control.value) {
-        selectedCategories.push(this.categories[index]);
+    categoriesFormControl.controls.forEach(
+      (control: AbstractControl, index: number) => {
+        if (control.value) {
+          selectedCategories.push(this.categories[index]);
+        }
       }
-    });
+    );
 
     return selectedCategories;
   }
@@ -102,19 +118,25 @@ export class OddComponent implements OnInit {
   getSelectPlaceholder(): string {
     const selectedCategories: Category[] = this.getSelectedCategories();
     if (this.forceSelected && selectedCategories.length === 0) {
-      return this.i18n.instant('text.all_goal_categories', {number: this.odd.id});
+      return this.i18n.instant('text.all_goal_categories', {
+        number: this.odd.id,
+      });
     }
 
     if (!this.allSelected()) {
       const selectedTexts: string[] = [];
       selectedCategories.forEach((category: Category) => {
-        selectedTexts.push(this.i18n.instant('text.target', {target: category.category_number}));
+        selectedTexts.push(
+          this.i18n.instant('text.target', { target: category.category_number })
+        );
       });
 
       return selectedTexts.join(', ');
     }
 
-    return this.i18n.instant('text.all_goal_categories', {number: this.odd.id});
+    return this.i18n.instant('text.all_goal_categories', {
+      number: this.odd.id,
+    });
   }
 
   allSelected(): boolean {
@@ -126,7 +148,7 @@ export class OddComponent implements OnInit {
     checkboxArray.clear();
     this.categories.forEach((category: Category) => {
       checkboxArray.push(new FormControl(true));
-    })
+    });
   }
 
   onSelectAll(event: any): void {
@@ -140,11 +162,13 @@ export class OddComponent implements OnInit {
 
   onCheckboxChange(event: any, position: number): void {
     const categoriesFormControl = this.form.get('categories') as FormArray;
-    categoriesFormControl.controls.forEach((control: AbstractControl, index: number) => {
-      if (position === index) {
-        control.setValue(control.value);
+    categoriesFormControl.controls.forEach(
+      (control: AbstractControl, index: number) => {
+        if (position === index) {
+          control.setValue(control.value);
+        }
       }
-    });
+    );
   }
 
   onOverlayKeydown(event: KeyboardEvent): void {

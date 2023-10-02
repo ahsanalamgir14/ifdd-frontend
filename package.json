@@ -13,15 +13,15 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~13.1.0",
+    "@angular/animations": "^14.3.0",
     "@angular/cdk": "^13.2.5",
-    "@angular/common": "~13.1.0",
-    "@angular/compiler": "~13.1.0",
-    "@angular/core": "~13.1.0",
-    "@angular/forms": "~13.1.0",
-    "@angular/platform-browser": "~13.1.0",
-    "@angular/platform-browser-dynamic": "~13.1.0",
-    "@angular/router": "~13.1.0",
+    "@angular/common": "^14.3.0",
+    "@angular/compiler": "^14.3.0",
+    "@angular/core": "^14.3.0",
+    "@angular/forms": "^14.3.0",
+    "@angular/platform-browser": "^14.3.0",
+    "@angular/platform-browser-dynamic": "^14.3.0",
+    "@angular/router": "^14.3.0",
     "@ng-icons/core": "^16.0.0",
     "@ng-icons/feather-icons": "^13.2.0",
     "@ng-icons/heroicons": "^13.2.0",
@@ -38,14 +38,14 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~13.1.2",
+    "@angular-devkit/build-angular": "^14.2.12",
     "@angular-eslint/builder": "13.0.1",
     "@angular-eslint/eslint-plugin": "13.0.1",
     "@angular-eslint/eslint-plugin-template": "13.0.1",
     "@angular-eslint/schematics": "13.0.1",
     "@angular-eslint/template-parser": "13.0.1",
-    "@angular/cli": "~13.1.2",
-    "@angular/compiler-cli": "~13.1.0",
+    "@angular/cli": "^14.2.12",
+    "@angular/compiler-cli": "^14.3.0",
     "@misternick/ngx-translate-extract": "^7.2.1",
     "@tailwindcss/forms": "^0.4.0",
     "@types/jasmine": "~3.10.0",
@@ -60,6 +60,6 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
     "tailwindcss": "^3.0.15",
-    "typescript": "~4.5.2"
+    "typescript": "~4.8.4"
   }
 }

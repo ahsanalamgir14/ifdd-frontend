@@ -1,9 +1,15 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Collection, Feature, Map as OlMap, View } from 'ol';
 import { Coordinate } from 'ol/coordinate';
-import { Control} from 'ol/control';
+import { Control } from 'ol/control';
 import TileLayer from 'ol/layer/Tile';
 import { Projection } from 'ol/proj';
 import OSM from 'ol/source/OSM';
@@ -28,17 +34,17 @@ import { MessageService } from 'src/app/shared/messages/message.service';
 
 const enum LocationTypes {
   INTERVENTION_ZONE,
-  HEADQUARTERS
-};
+  HEADQUARTERS,
+}
 
 @Component({
   selector: 'app-osc-form',
-  templateUrl: './osc-form.component.html'
+  templateUrl: './osc-form.component.html',
 })
 export class OscFormComponent implements OnInit {
   @Input() center: Coordinate = [17.7578122, 11.5024338];
   view?: View;
-  projection: Projection|null = null;
+  projection: Projection | null = null;
   map?: OlMap;
   markerSource: VectorSource = new VectorSource();
   markerMap: Map<string, Feature> = new Map();
@@ -46,50 +52,55 @@ export class OscFormComponent implements OnInit {
     return [
       {
         position: 1,
-        title: this.i18n.instant('title.information')
+        title: this.i18n.instant('title.information'),
       },
       {
         position: 2,
-        title: this.i18n.instant('title.localization')
+        title: this.i18n.instant('title.localization'),
       },
       {
         position: 3,
-        title: this.i18n.instant('title.objectives')
+        title: this.i18n.instant('title.objectives'),
       },
       {
         position: 4,
-        title: this.i18n.instant('title.details')
-      }
+        title: this.i18n.instant('title.details'),
+      },
     ];
-  };
+  }
   selectedStep: Step = this.steps[0];
   form = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    abbreviation: new FormControl('', [Validators.required]),
-    pays: new FormControl('', [Validators.required]),
-    date_fondation: new FormControl('', [Validators.required]),
-    description: new FormControl('', []),
-    personne_contact: new FormControl('', [Validators.required]),
-    dialCode: new FormControl('', [Validators.required]),
-    telephone: new FormControl('', [Validators.required]),
-    email_osc: new FormControl('', [Validators.required, Validators.email]),
-    site_web: new FormControl('', []),
-    reference: new FormControl('', [Validators.required]),
-    facebook: new FormControl('', []),
-    twitter: new FormControl('', []),
-    instagram: new FormControl('', []),
-    linkedin: new FormControl('', []),
-    longitude: new FormControl('', [Validators.required]),
-    latitude: new FormControl('', [Validators.required]),
-    siege: new FormControl({value: '', disabled: true}, [Validators.required]),
-    siege_alt: new FormControl('', []),
+    name: new FormControl<string>('', [Validators.required]),
+    abbreviation: new FormControl<string>('', [Validators.required]),
+    pays: new FormControl<string>('', [Validators.required]),
+    date_fondation: new FormControl<string>('', [Validators.required]),
+    description: new FormControl<string>('', []),
+    personne_contact: new FormControl<string>('', [Validators.required]),
+    dialCode: new FormControl<string>('', [Validators.required]),
+    telephone: new FormControl<string>('', [Validators.required]),
+    email_osc: new FormControl<string>('', [
+      Validators.required,
+      Validators.email,
+    ]),
+    site_web: new FormControl<string>('', []),
+    reference: new FormControl<string>('', [Validators.required]),
+    facebook: new FormControl<string>('', []),
+    twitter: new FormControl<string>('', []),
+    instagram: new FormControl<string>('', []),
+    linkedin: new FormControl<string>('', []),
+    longitude: new FormControl<string>('', [Validators.required]),
+    latitude: new FormControl<string>('', [Validators.required]),
+    siege: new FormControl<string>({ value: '', disabled: true }, [
+      Validators.required,
+    ]),
+    siege_alt: new FormControl<string>('', []),
     interventionZones: new FormArray([], [Validators.required]),
     interventionZonesAlt: new FormArray([]),
-    categories: new FormArray([])
+    categories: new FormArray([]),
   });
   coordinatesForm: FormGroup = new FormGroup({
-    longitude: new FormControl('', [Validators.required]),
-    latitude: new FormControl('', [Validators.required])
+    longitude: new FormControl<string>('', [Validators.required]),
+    latitude: new FormControl<string>('', [Validators.required]),
   });
   countries: Country[] = [];
   availableSocialNetworks: string[] = ['twitter', 'instagram', 'linkedin'];
@@ -114,7 +125,9 @@ export class OscFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.placeService.getCountries().subscribe((countries: Country[]) => this.countries = countries);
+    this.placeService
+      .getCountries()
+      .subscribe((countries: Country[]) => (this.countries = countries));
   }
 
   onConfirm(): void {
@@ -126,18 +139,18 @@ export class OscFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const value = this.form.getRawValue();
+    const value = this.form.getRawValue() as any;
 
     value.zone_intervention = [];
     this.interventionZones.forEach((zone: MapLocation, index: number) => {
       value.zone_intervention.push({
         name: this.form.get('interventionZonesAlt')?.value[index] || zone.name,
         longitude: zone.longitude,
-        latitude: zone.latitude
-      })
+        latitude: zone.latitude,
+      });
     });
 
-    value.osccategoriesOdd = []
+    value.osccategoriesOdd = [];
     this.categories.forEach((category: Category, index: number) => {
       value.osccategoriesOdd.push({
         id: category.id,
@@ -154,32 +167,38 @@ export class OscFormComponent implements OnInit {
     delete value.categories;
 
     this.loading = true;
-    this.oscService.create(value).pipe(
-      finalize(() => this.loading = false)
-    ).subscribe({
-      next: (osc: Osc) => {
-        this.dialogRef.close(osc);
-        this.messageService.addMessage(
-          'success',
-          'OSC Soumise avec succès',
-          'Merci d\'avoir soumis votre organisation. Les informations vont maintenant être contrôlées et vous serez prévenus lorsque l\'organisation sera ajoutée à la carte.'
-        )
-      },
-      error: (error: any) => {
-        this.errors = error?.error?.data;
-        Object.keys(this.errors).forEach((key: string) => {
-          const formControl = this.form.get(key);
-          if (formControl && Object.keys(this.errors).find((key: string) => key === 'required')) {
-             formControl.setErrors({'required': true});
-             formControl.markAllAsTouched();
-          }
-        })
-      }
-    });
+    this.oscService
+      .create(value)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (osc: Osc) => {
+          this.dialogRef.close(osc);
+          this.messageService.addMessage(
+            'success',
+            'OSC Soumise avec succès',
+            "Merci d'avoir soumis votre organisation. Les informations vont maintenant être contrôlées et vous serez prévenus lorsque l'organisation sera ajoutée à la carte."
+          );
+        },
+        error: (error: any) => {
+          this.errors = error?.error?.data;
+          Object.keys(this.errors).forEach((key: string) => {
+            const formControl = this.form.get(key);
+            if (
+              formControl &&
+              Object.keys(this.errors).find((key: string) => key === 'required')
+            ) {
+              formControl.setErrors({ required: true });
+              formControl.markAllAsTouched();
+            }
+          });
+        },
+      });
   }
 
   onNext() {
-    const newStep = this.steps.find((step: Step) => this.selectedStep.position + 1 === step.position);
+    const newStep = this.steps.find(
+      (step: Step) => this.selectedStep.position + 1 === step.position
+    );
 
     if (newStep) {
       this.selectedStep = newStep;
@@ -201,7 +220,9 @@ export class OscFormComponent implements OnInit {
   }
 
   onPrevious() {
-    const previousStep = this.steps.find((step: Step) => this.selectedStep.position - 1 === step.position);
+    const previousStep = this.steps.find(
+      (step: Step) => this.selectedStep.position - 1 === step.position
+    );
 
     if (previousStep) {
       this.selectedStep = previousStep;
@@ -217,12 +238,16 @@ export class OscFormComponent implements OnInit {
   addSocialNetwork() {
     if (this.availableSocialNetworks.length > 0) {
       this.usedSocialNetworks.push(this.availableSocialNetworks[0]);
-      this.availableSocialNetworks = this.availableSocialNetworks.filter((item: string) => item !== this.availableSocialNetworks[0]);
+      this.availableSocialNetworks = this.availableSocialNetworks.filter(
+        (item: string) => item !== this.availableSocialNetworks[0]
+      );
     }
   }
 
   removeSocialNetwork(network: string) {
-    this.usedSocialNetworks = this.usedSocialNetworks.filter((item: string) => item !== network);
+    this.usedSocialNetworks = this.usedSocialNetworks.filter(
+      (item: string) => item !== network
+    );
     this.availableSocialNetworks.push(network);
     this.availableSocialNetworks.sort();
   }
@@ -230,7 +255,7 @@ export class OscFormComponent implements OnInit {
   private initMap(): void {
     const controls = new Collection<Control>();
     const markerLayer: VectorLayer<VectorSource> = new VectorLayer({
-      source: this.markerSource
+      source: this.markerSource,
     });
     this.view = new View({
       projection: 'EPSG:900913',
@@ -240,9 +265,9 @@ export class OscFormComponent implements OnInit {
     this.map = new OlMap({
       layers: [
         new TileLayer({
-          source: new OSM({})
+          source: new OSM({}),
         }),
-        markerLayer
+        markerLayer,
       ],
       target: 'location-selector',
       view: this.view,
@@ -257,7 +282,7 @@ export class OscFormComponent implements OnInit {
     });
   }
 
-  onPlaceSelected(place: MapLocation|null) {
+  onPlaceSelected(place: MapLocation | null) {
     this.selectedLocation = place;
     if (this.map) {
       if (this.selectedLocation) {
@@ -266,8 +291,8 @@ export class OscFormComponent implements OnInit {
         this.map.getView().setZoom(8);
         this.coordinatesForm.setValue({
           longitude: this.selectedLocation.longitude,
-          latitude: this.selectedLocation.latitude
-        })
+          latitude: this.selectedLocation.latitude,
+        });
       } else {
         this.map.getView().setZoom(1);
       }
@@ -276,8 +301,12 @@ export class OscFormComponent implements OnInit {
 
   setHeadquarters(): void {
     if (this.selectedLocation) {
-      this.form.get('longitude')?.setValue(this.selectedLocation.longitude);
-      this.form.get('latitude')?.setValue(this.selectedLocation.latitude);
+      this.form
+        .get('longitude')
+        ?.setValue(this.selectedLocation.longitude.toString());
+      this.form
+        .get('latitude')
+        ?.setValue(this.selectedLocation.latitude.toString());
       this.form.get('siege')?.setValue(this.selectedLocation.name);
       this.addMarker(this.selectedLocation, LocationTypes.HEADQUARTERS);
     } else {
@@ -287,7 +316,9 @@ export class OscFormComponent implements OnInit {
 
   removeHeadquarters(): void {
     if (this.form.get('siege')) {
-      this.removeMarker(`${this.form.get('siege')?.value}-${LocationTypes.HEADQUARTERS}`);
+      this.removeMarker(
+        `${this.form.get('siege')?.value}-${LocationTypes.HEADQUARTERS}`
+      );
     }
     this.form.get('longitude')?.setValue('');
     this.form.get('latitude')?.setValue('');
@@ -295,14 +326,22 @@ export class OscFormComponent implements OnInit {
   }
 
   addInterventionZone(): void {
-    const added = this.interventionZones.find((zone: MapLocation) => {
-      return this.selectedLocation?.latitude === zone.latitude && this.selectedLocation?.longitude === zone.longitude
-    }) !== undefined;
+    const added =
+      this.interventionZones.find((zone: MapLocation) => {
+        return (
+          this.selectedLocation?.latitude === zone.latitude &&
+          this.selectedLocation?.longitude === zone.longitude
+        );
+      }) !== undefined;
     if (this.selectedLocation && !added) {
       const interventionZones = this.form.get('interventionZones') as FormArray;
-      const interventionZonesAlt = this.form.get('interventionZonesAlt') as FormArray;
+      const interventionZonesAlt = this.form.get(
+        'interventionZonesAlt'
+      ) as FormArray;
       this.interventionZones.push(this.selectedLocation);
-      interventionZones.push(new FormControl({value: this.selectedLocation.name, disabled: true}));
+      interventionZones.push(
+        new FormControl({ value: this.selectedLocation.name, disabled: true })
+      );
       interventionZonesAlt.push(new FormControl(''));
       this.addMarker(this.selectedLocation, LocationTypes.INTERVENTION_ZONE);
     }
@@ -310,7 +349,9 @@ export class OscFormComponent implements OnInit {
 
   removeInterventionZone(zone: MapLocation, index: number): void {
     const interventionZones = this.form.get('interventionZones') as FormArray;
-    const interventionZonesAlt = this.form.get('interventionZonesAlt') as FormArray;
+    const interventionZonesAlt = this.form.get(
+      'interventionZonesAlt'
+    ) as FormArray;
     this.interventionZones.splice(index, 1);
     interventionZones.removeAt(index);
     interventionZonesAlt.removeAt(index);
@@ -336,7 +377,7 @@ export class OscFormComponent implements OnInit {
     const markerStyle: Style = new Style({
       image: new Icon({
         src,
-      })
+      }),
     });
     iconFeature.setStyle(markerStyle);
     this.markerSource.addFeature(iconFeature);
@@ -354,17 +395,21 @@ export class OscFormComponent implements OnInit {
 
   getOdds(): void {
     this.loading = true;
-    this.oddService.getAll().pipe(
-      finalize(() => this.loading = false)
-    ).subscribe((odds: Odd[]) => {
-      this.odds = odds;
-    });
+    this.oddService
+      .getAll()
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe((odds: Odd[]) => {
+        this.odds = odds;
+      });
   }
 
   onCategoriesSelection(categories: Category[], odd: Odd): void {
     // Remove categories that were already added and that are not in the new emitted value
     for (let [key, value] of this.categoriesMap) {
-      if (value.id_odd === odd.id && categories.find((cat: Category) => cat.id === value.id) === undefined) {
+      if (
+        value.id_odd === odd.id &&
+        categories.find((cat: Category) => cat.id === value.id) === undefined
+      ) {
         this.categoriesMap.delete(key);
       }
     }
@@ -383,8 +428,10 @@ export class OscFormComponent implements OnInit {
     return false;
   }
 
-  onCountrySelected(name: string){
-    const country = this.countries.find((country: Country) => country.name === name);
+  onCountrySelected(name: string) {
+    const country = this.countries.find(
+      (country: Country) => country.name === name
+    );
     if (country) {
       this.form.get('dialCode')?.setValue(country.dialCode);
     }
@@ -400,7 +447,12 @@ export class OscFormComponent implements OnInit {
 
   hasError(field: string, error: string): boolean {
     const formControl = this.form.get(field);
-    return formControl && formControl.errors && formControl.touched && formControl.errors[error];
+    return (
+      formControl &&
+      formControl.errors &&
+      formControl.touched &&
+      formControl.errors[error]
+    );
   }
 
   private initCategoriesForm(): void {
@@ -410,45 +462,60 @@ export class OscFormComponent implements OnInit {
 
     for (let [key, value] of this.categoriesMap) {
       this.categories.push(value);
-      categoriesControls.push(new FormControl('', [Validators.required]))
+      categoriesControls.push(
+        new FormControl<string>('', [Validators.required])
+      );
     }
   }
 
-  private findPlaceByCoordinates(coordinates: Coordinate, isHeadquarters: boolean = false): void {
+  private findPlaceByCoordinates(
+    coordinates: Coordinate,
+    isHeadquarters: boolean = false
+  ): void {
     this.loading = true;
-    this.placeService.reverse(coordinates).pipe(
-      finalize(() => this.loading = false)
-    )
-    .subscribe((location: MapLocation|null) => {
-      this.onPlaceSelected(location);
-      if (isHeadquarters) {
-        this.removeHeadquarters();
-        this.setHeadquarters();
-      }
-    });
+    this.placeService
+      .reverse(coordinates)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe((location: MapLocation | null) => {
+        this.onPlaceSelected(location);
+        if (isHeadquarters) {
+          this.removeHeadquarters();
+          this.setHeadquarters();
+        }
+      });
   }
 
   isValid(): boolean {
     if (this.selectedStep.position === 1) {
-      if (this.field('name')?.valid && this.field('abbreviation')?.valid && this.field('pays')?.valid
-        && this.field('date_fondation')?.valid && this.field('description')?.valid
-        && this.field('personne_contact')?.valid && this.field('dialCode')?.valid && this.field('telephone')?.valid
-        && this.field('reference')?.valid
-        && this.field('email_osc')?.valid) {
-          return true;
-        };
+      if (
+        this.field('name')?.valid &&
+        this.field('abbreviation')?.valid &&
+        this.field('pays')?.valid &&
+        this.field('date_fondation')?.valid &&
+        this.field('description')?.valid &&
+        this.field('personne_contact')?.valid &&
+        this.field('dialCode')?.valid &&
+        this.field('telephone')?.valid &&
+        this.field('reference')?.valid &&
+        this.field('email_osc')?.valid
+      ) {
+        return true;
+      }
 
       return false;
     }
 
     if (this.selectedStep.position === 2) {
-      return Boolean(this.form.get('siege')?.value && this.form.get('interventionZones')?.value);
+      return Boolean(
+        this.form.get('siege')?.value &&
+          this.form.get('interventionZones')?.value
+      );
     }
 
     return true;
   }
 
-  field(name: string): AbstractControl|null {
+  field(name: string): AbstractControl | null {
     return this.form.get(name);
   }
 }
