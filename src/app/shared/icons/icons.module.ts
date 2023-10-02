@@ -15,8 +15,9 @@ import {
   HeroPlus,
   HeroSearch,
   HeroShare,
+  HeroTranslateSolid,
   HeroUserSolid,
-  HeroX
+  HeroX,
 } from '@ng-icons/heroicons';
 import {
   IonLogoFacebook,
@@ -24,11 +25,9 @@ import {
   IonLogoInstagram,
   IonLogoLinkedin,
   IonMail,
-  IonCall
+  IonCall,
 } from '@ng-icons/ionicons';
 import { FeatherPlusSquare, FeatherMinusSquare } from '@ng-icons/feather-icons';
-
-
 
 @NgModule({
   exports: [NgIconsModule],
@@ -56,9 +55,10 @@ import { FeatherPlusSquare, FeatherMinusSquare } from '@ng-icons/feather-icons';
       HeroPlus,
       HeroSearch,
       HeroShare,
+      HeroTranslateSolid,
       HeroUserSolid,
-      HeroX
+      HeroX,
     }),
-  ]
+  ],
 })
-export class IconsModule { }
+export class IconsModule {}

@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --no-watch --no-progress --code-coverage",
     "lint": "ng lint",
-    "i18n:extract": "ngx-translate-extract --input ./src --output ./src/assets/i18n/fr.json --clean --format namespaced-json"
+    "i18n:extract:fr": "ngx-translate-extract --input ./src --output ./src/assets/i18n/fr.json --clean --format namespaced-json",
+    "i18n:extract:en": "ngx-translate-extract --input ./src --output ./src/assets/i18n/en.json --clean --format namespaced-json"
   },
   "private": true,
   "dependencies": {
