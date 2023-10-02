@@ -1,7 +1,7 @@
 {
   "title": {
     "app": "IFDD",
-    "forgot_password": "Mot de passe oublié?",
+    "forgot_password": "Mot de passe oublié ?",
     "login": "Connectez-vous pour continuer",
     "register": "Inscription",
     "reset_password": "Réinitialisez votre mot de passe",
@@ -31,7 +31,7 @@
     "forgot_password_link_sent": "Un lien a été envoyé à {{email}} pour réinitialiser votre mot de passe.",
     "unregistered": "Pas encore inscrit ?",
     "registered": "Déjà inscrit ?",
-    "invalid_reset_information": "Le lien de réinitialisation du mot de passe est invalid. Veuillez-demander un nouveau lien.",
+    "invalid_reset_information": "Le lien de réinitialisation du mot de passe est invalide. Veuillez-demander un nouveau lien.",
     "password_changed": "Votre mot de passe a été réinitialisé avec succès. Retournez à la page de connexion pour vous connecter.",
     "copyright": "© 2023 Carte des Organisations de la Société Civile",
     "one_osc": "organisation",
@@ -91,6 +91,10 @@
     "osc_headquarters_is_required": "Le siège de l'OSC est requis."
   },
   "link": {
+    "about": "À-propos",
+    "discover": "Découvrir",
+    "partners": "Partenaires",
+    "numbers": "Chiffres",
     "login": "Connexion",
     "forgot_password": "Mot de passe oublié?",
     "back_to_home": "Retour à l'accueil",
@@ -105,7 +109,6 @@
     "register": "Inscription",
     "login": "Connexion",
     "reset_password": "Réinitialiser mot de passe",
-    "terms_of_user": "Conditions d'utilisation",
     "logout": "Déconnexion",
     "terms_of_use": "Conditions d'utilisation",
     "add_osc": "Créer une OSC",

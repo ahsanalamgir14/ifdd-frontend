@@ -15,36 +15,7 @@ import { TermsComponent } from 'src/app/shared/terms/terms.component';
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent implements OnInit {
-  menuItems: MenuItem[] = [
-    {
-      link: '/',
-      label: 'Découvrir',
-      image: '/assets/icons/menu/discover.svg',
-      activeImage: '/assets/icons/menu/discover-active.svg',
-      active: false,
-    },
-    {
-      link: '/a-propos',
-      label: 'À propos',
-      image: '/assets/icons/menu/about.svg',
-      activeImage: '/assets/icons/menu/about-active.svg',
-      active: false,
-    },
-    {
-      link: '/partenaires',
-      label: 'Partenaires',
-      image: '/assets/icons/menu/partners.svg',
-      activeImage: '/assets/icons/menu/partners-active.svg',
-      active: false,
-    },
-    {
-      link: '/chiffres',
-      label: 'Chiffres',
-      image: '/assets/icons/menu/numbers.svg',
-      activeImage: '/assets/icons/menu/numbers-active.svg',
-      active: false,
-    },
-  ];
+  menuItems: MenuItem[] = [];
   language: string;
   sidebarVisible = false;
   user?: User;
@@ -59,6 +30,36 @@ export class NavbarComponent implements OnInit {
   ) {
     this.language = this.i18n.getLanguage();
     this.subscribeToRouteEvents();
+    this.menuItems = [
+      {
+        link: '/',
+        label: this.i18n.instant('link.discover'),
+        image: '/assets/icons/menu/discover.svg',
+        activeImage: '/assets/icons/menu/discover-active.svg',
+        active: false,
+      },
+      {
+        link: '/a-propos',
+        label: this.i18n.instant('link.about'),
+        image: '/assets/icons/menu/about.svg',
+        activeImage: '/assets/icons/menu/about-active.svg',
+        active: false,
+      },
+      {
+        link: '/partenaires',
+        label: this.i18n.instant('link.partners'),
+        image: '/assets/icons/menu/partners.svg',
+        activeImage: '/assets/icons/menu/partners-active.svg',
+        active: false,
+      },
+      {
+        link: '/chiffres',
+        label: this.i18n.instant('link.numbers'),
+        image: '/assets/icons/menu/numbers.svg',
+        activeImage: '/assets/icons/menu/numbers-active.svg',
+        active: false,
+      },
+    ];
   }
 
   ngOnInit(): void {
@@ -121,7 +122,8 @@ export class NavbarComponent implements OnInit {
   }
 
   changeLanguage(language: string): void {
-    this.i18n.changeLanguage(language);
+    this.i18n.changeLanguage(language, false);
+    location.reload();
   }
 
   showTerms(): void {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from '../storage/storage.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -26,9 +26,13 @@ export class I18nService {
     return this.changeLanguage(language);
   }
 
-  changeLanguage(language: string): Observable<any> {
+  changeLanguage(language: string, immediate = true): Observable<any> {
     this.storage.setItem('language', language);
-    return this.translate.use(language);
+    if (immediate) {
+      return this.translate.use(language);
+    } else {
+      return of(true);
+    }
   }
 
   instant(key: string | string[], interpolateParams?: Object | undefined): any {

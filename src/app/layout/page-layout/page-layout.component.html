@@ -3,10 +3,12 @@
   <router-outlet></router-outlet>
 </main>
 
-<img src="/assets/images/hero.png" alt="" class="w-full">
+<img src="/assets/images/hero.png" alt="" class="w-full" />
 <footer class="p-8 bg-secondary-light">
   <div class="flex justify-between">
-    <p class="">{{ 'text.copyright'|translate }}</p>
-    <button class="text-secondary" (click)="showTerms()">{{ 'button.terms_of_user'|translate }}</button>
+    <p class="">{{ "text.copyright" | translate }}</p>
+    <button class="text-secondary" (click)="showTerms()">
+      {{ "button.terms_of_use" | translate }}
+    </button>
   </div>
 </footer>
