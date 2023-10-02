@@ -4,6 +4,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NavbarStubComponent } from '../base-layout/base-layout.component.spec';
 
 import { PageLayoutComponent } from './page-layout.component';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { DialogService } from 'src/app/shared/dialog/dialog.service';
 
 describe('PageLayoutComponent', () => {
   let component: PageLayoutComponent;
@@ -11,10 +13,10 @@ describe('PageLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PageLayoutComponent, NavbarStubComponent ],
-      imports: [ RouterTestingModule, TranslateModule.forRoot() ]
-    })
-    .compileComponents();
+      declarations: [PageLayoutComponent, NavbarStubComponent],
+      imports: [RouterTestingModule, TranslateModule.forRoot(), OverlayModule],
+      providers: [DialogService],
+    }).compileComponents();
   });
 
   beforeEach(() => {

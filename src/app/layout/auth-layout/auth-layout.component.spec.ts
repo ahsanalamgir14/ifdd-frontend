@@ -3,6 +3,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthLayoutComponent } from './auth-layout.component';
+import { DialogService } from 'src/app/shared/dialog/dialog.service';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 describe('AuthLayoutComponent', () => {
   let component: AuthLayoutComponent;
@@ -10,10 +12,10 @@ describe('AuthLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AuthLayoutComponent ],
-      imports: [ RouterTestingModule, TranslateModule.forRoot() ]
-    })
-    .compileComponents();
+      declarations: [AuthLayoutComponent],
+      imports: [RouterTestingModule, TranslateModule.forRoot(), OverlayModule],
+      providers: [DialogService],
+    }).compileComponents();
   });
 
   beforeEach(() => {

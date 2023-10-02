@@ -2,21 +2,29 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { NavbarStubComponent, SidebarStubComponent } from '../layout/base-layout/base-layout.component.spec';
+import {
+  NavbarStubComponent,
+  SidebarStubComponent,
+} from '../layout/base-layout/base-layout.component.spec';
 import { MapService } from '../map/map.service';
 import { MapStubComponent } from '../map/testing';
 import { OscService } from '../oscs/osc.service';
 
 import { DiscoverComponent } from './discover.component';
+import { Results } from '../oscs/results';
+import { Osc } from '../oscs/osc';
 
 describe('DiscoverComponent', () => {
   let component: DiscoverComponent;
   let fixture: ComponentFixture<DiscoverComponent>;
   let mapServiceSpy: jasmine.SpyObj<MapService>;
   let oscServiceSpy: jasmine.SpyObj<OscService>;
+  const oscs = new Results<Osc>();
 
   beforeEach(async () => {
-    const mockMapService = jasmine.createSpyObj('MapService', ['removeMarkers']);
+    const mockMapService = jasmine.createSpyObj('MapService', [
+      'removeMarkers',
+    ]);
     const mockOscService = jasmine.createSpyObj('OscService', ['getAll']);
 
     await TestBed.configureTestingModule({
@@ -24,18 +32,14 @@ describe('DiscoverComponent', () => {
         DiscoverComponent,
         NavbarStubComponent,
         SidebarStubComponent,
-        MapStubComponent
+        MapStubComponent,
       ],
-      imports: [
-        RouterTestingModule,
-        TranslateModule.forRoot(),
-      ],
+      imports: [RouterTestingModule, TranslateModule.forRoot()],
       providers: [
         { provide: MapService, useValue: mockMapService },
-        { provide: OscService, useValue: mockOscService }
-      ]
-    })
-    .compileComponents();
+        { provide: OscService, useValue: mockOscService },
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -43,7 +47,7 @@ describe('DiscoverComponent', () => {
     component = fixture.componentInstance;
     mapServiceSpy = TestBed.inject(MapService) as jasmine.SpyObj<MapService>;
     oscServiceSpy = TestBed.inject(OscService) as jasmine.SpyObj<OscService>;
-    oscServiceSpy.getAll.and.returnValue(of([]));
+    oscServiceSpy.getAll.and.returnValue(of(oscs));
     fixture.detectChanges();
   });
 

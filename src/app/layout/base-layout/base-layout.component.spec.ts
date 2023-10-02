@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -9,15 +9,18 @@ import { BaseLayoutComponent } from './base-layout.component';
 
 @Component({
   selector: 'app-navbar',
-  template: 'navbar works!'
+  template: 'navbar works!',
 })
-export class NavbarStubComponent { }
+export class NavbarStubComponent {}
 
 @Component({
   selector: 'app-sidebar',
-  template: 'sidebar works!'
+  template: 'sidebar works!',
 })
-export class SidebarStubComponent {}
+export class SidebarStubComponent {
+  @Input() oddNumber: string = '';
+  @Input() oscId?: number;
+}
 
 describe('BaseLayoutComponent', () => {
   let component: BaseLayoutComponent;
@@ -29,14 +32,10 @@ describe('BaseLayoutComponent', () => {
         BaseLayoutComponent,
         NavbarStubComponent,
         SidebarStubComponent,
-        MapStubComponent
+        MapStubComponent,
       ],
-      imports: [
-        RouterTestingModule,
-        TranslateModule.forRoot(),
-      ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule, TranslateModule.forRoot()],
+    }).compileComponents();
   });
 
   beforeEach(() => {

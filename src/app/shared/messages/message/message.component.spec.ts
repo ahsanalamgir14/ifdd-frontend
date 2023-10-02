@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MessageComponent } from './message.component';
+import { Message } from '../message';
 
 describe('MessageComponent', () => {
   let component: MessageComponent;
@@ -8,14 +9,14 @@ describe('MessageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MessageComponent ]
-    })
-    .compileComponents();
+      declarations: [MessageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MessageComponent);
     component = fixture.componentInstance;
+    component.message = new Message('success', 'Operation successful!');
     fixture.detectChanges();
   });
 

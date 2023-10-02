@@ -12,6 +12,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { SearchBarStubComponent } from '../testing';
 
 import { SidebarComponent } from './sidebar.component';
+import { Results } from 'src/app/oscs/results';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
@@ -22,14 +24,15 @@ describe('SidebarComponent', () => {
     new Odd(1, 'Pas de pauvreté', '1', 12, 'https://logo.com', '#ef9493'),
     new Odd(2, 'Faim zéro', '2', 12, 'https://logo.com', '#ef9493'),
   ];
-  const oscs: Osc[] = [
-    new Osc({}),
-    new Osc({})
-  ]
+  const oscs = new Results<Osc>();
+  oscs.data = [new Osc({}), new Osc({})];
 
   beforeEach(async () => {
     const oddServiceMock = jasmine.createSpyObj('OddService', ['getAll']);
-    const oscServiceMock = jasmine.createSpyObj('OscService', ['getAll', 'count']);
+    const oscServiceMock = jasmine.createSpyObj('OscService', [
+      'getAll',
+      'count',
+    ]);
 
     await TestBed.configureTestingModule({
       declarations: [
@@ -38,22 +41,22 @@ describe('SidebarComponent', () => {
         SearchBarStubComponent,
       ],
       imports: [
+        RouterTestingModule,
         NgScrollbarModule,
         TranslateModule.forRoot(),
-        SharedModule
+        SharedModule,
       ],
       providers: [
         {
           provide: OddService,
-          useValue: oddServiceMock
+          useValue: oddServiceMock,
         },
         {
           provide: OscService,
-          useValue: oscServiceMock
-        }
-      ]
-    })
-    .compileComponents();
+          useValue: oscServiceMock,
+        },
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -102,7 +105,7 @@ describe('SidebarComponent', () => {
       onchange: () => {},
       addListener: () => {},
       removeListener: () => {},
-      dispatchEvent: (event: Event) => true
+      dispatchEvent: (event: Event) => true,
     };
 
     expect(component.isOpen()).toEqual(false);

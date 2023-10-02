@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TermsComponent } from './terms.component';
+import { DialogRef } from '../dialog/dialog-ref';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('TermsComponent', () => {
   let component: TermsComponent;
@@ -8,9 +10,10 @@ describe('TermsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TermsComponent ]
-    })
-    .compileComponents();
+      imports: [TranslateModule.forRoot()],
+      declarations: [TermsComponent],
+      providers: [{ provide: DialogRef, useValue: { close: () => true } }],
+    }).compileComponents();
   });
 
   beforeEach(() => {
