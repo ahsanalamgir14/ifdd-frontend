@@ -6,7 +6,7 @@
       class="flex items-center px-3 text-secondary"
       (click)="openSidebar()"
     >
-      <ng-icon name="hero-menu" size="24"></ng-icon>
+      <ng-icon name="heroBars3Solid" size="24"></ng-icon>
     </button>
     <app-search-bar
       [isFull]="false"
@@ -18,7 +18,7 @@
       [appMenuTriggerFor]="userMenuMobile"
       xPosition="after"
     >
-      <ng-icon name="hero-user-solid" size="24"></ng-icon>
+      <ng-icon name="heroUserSolid" size="24"></ng-icon>
     </button>
     <app-menu #userMenuMobile>
       <button
@@ -66,7 +66,7 @@
           class="flex items-center md:hidden px-4 py-2 text-primary"
           (click)="closeSidebar()"
         >
-          <ng-icon name="hero-x" size="24"></ng-icon>
+          <ng-icon name="heroXMarkSolid" size="24"></ng-icon>
         </button>
       </div>
       <a
@@ -131,7 +131,7 @@
           <span class="">{{ item.label }}</span>
           <span class="inline-flex md:hidden ml-auto">
             <ng-icon
-              name="hero-arrow-right"
+              name="heroArrowRightSolid"
               strokeWidth="3"
               size="18"
               class="text-accent"
@@ -150,7 +150,7 @@
           [appMenuTriggerFor]="languageMenu"
           xPosition="after"
         >
-          <ng-icon name="hero-translate-solid" size="24"></ng-icon>
+          <ng-icon name="heroLanguageSolid" size="24"></ng-icon>
           <span *ngIf="language === 'en'">English</span>
           <span *ngIf="language === 'fr'">Français</span>
         </button>
@@ -161,7 +161,7 @@
           [appMenuTriggerFor]="languageMenu"
           xPosition="after"
         >
-          <ng-icon name="hero-translate-solid" size="24"></ng-icon>
+          <ng-icon name="heroLanguageSolid" size="24"></ng-icon>
         </button>
         <app-menu #languageMenu>
           <button
@@ -197,7 +197,7 @@
           (click)="onAdd()"
           [attr.arial-label]="'button.add_osc' | translate"
         >
-          <ng-icon name="hero-plus" size="16" strokeWidth="3"></ng-icon>
+          <ng-icon name="heroPlusSolid" size="16" strokeWidth="3"></ng-icon>
           <span
             class="ml-1 inline-flex md:hidden xl:inline-flex"
             style="font-size: 10px"
@@ -211,7 +211,7 @@
           xPosition="after"
           [attr.aria-label]="user?.name"
         >
-          <ng-icon name="hero-user-solid" size="24"></ng-icon>
+          <ng-icon name="heroUserSolid" size="24"></ng-icon>
         </button>
         <app-menu #userMenu>
           <button

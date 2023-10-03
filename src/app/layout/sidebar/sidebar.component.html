@@ -1,64 +1,160 @@
-<div class="fixed md:pt-20 pl-0 md:pl-5 pr-0 md:pr-5 md:top-0 md:bottom-0 left-0 right-0 md:right-auto md:w-[400px] md:bg-secondary md:z-0 overflow-auto overflow-x-hidden" [ngClass]="getCssClasses()">
-  <app-search-bar class="hidden md:block mt-5" [isRounded]="!showOscs" (selected)="onPlaceSelected($event)"></app-search-bar>
-  <div *ngIf="!showOscs" class="relative flex flex-col md:mt-3 bg-white rounded-lg shadow-lg" [ngClass]="{'pb-14': isOpen(), 'mt-2 mx-3': !isOpen()}">
-    <h2 class="flex items-center justify-center md:pt-4 md:pb-5 text-xs md:text-sm text-secondary text-center md:text-left font-semibold" [ngClass]="{'pb-4 pt-4 px-7': isOpen(), 'pb-2 pt-2 px-4': !isOpen()}">
-      {{ 'title.filter_by_objectives'|translate }}
-      <button *ngIf="isOpen()" class="md:hidden ml-auto text-primary" (click)="toggle()">
-        <ng-icon name="hero-x" size="24"></ng-icon>
+<div
+  class="fixed md:pt-20 pl-0 md:pl-5 pr-0 md:pr-5 md:top-0 md:bottom-0 left-0 right-0 md:right-auto md:w-[400px] md:bg-secondary md:z-0 overflow-auto overflow-x-hidden"
+  [ngClass]="getCssClasses()"
+>
+  <app-search-bar
+    class="hidden md:block mt-5"
+    [isRounded]="!showOscs"
+    (selected)="onPlaceSelected($event)"
+  ></app-search-bar>
+  <div
+    *ngIf="!showOscs"
+    class="relative flex flex-col md:mt-3 bg-white rounded-lg shadow-lg"
+    [ngClass]="{ 'pb-14': isOpen(), 'mt-2 mx-3': !isOpen() }"
+  >
+    <h2
+      class="flex items-center justify-center md:pt-4 md:pb-5 text-xs md:text-sm text-secondary text-center md:text-left font-semibold"
+      [ngClass]="{ 'pb-4 pt-4 px-7': isOpen(), 'pb-2 pt-2 px-4': !isOpen() }"
+    >
+      {{ "title.filter_by_objectives" | translate }}
+      <button
+        *ngIf="isOpen()"
+        class="md:hidden ml-auto text-primary"
+        (click)="toggle()"
+      >
+        <ng-icon name="heroXMarkSolid" size="24"></ng-icon>
       </button>
     </h2>
     <button *ngIf="!isOpen()" class="text-primary" (click)="toggle()">
-      <ng-icon name="hero-chevron-down" strokeWidth="3"></ng-icon>
+      <ng-icon name="heroChevronDownSolid" strokeWidth="3"></ng-icon>
     </button>
     <div *ngIf="isOpen()">
-      <div class="group px-7 flex-1 max-h-[calc(100vh-116px)] md:max-h-[calc(100vh-300px)] overflow-auto">
-        <app-loading-lines *ngIf="loading && odds.length === 0"></app-loading-lines>
+      <div
+        class="group px-7 flex-1 max-h-[calc(100vh-116px)] md:max-h-[calc(100vh-300px)] overflow-auto"
+      >
+        <app-loading-lines
+          *ngIf="loading && odds.length === 0"
+        ></app-loading-lines>
         <div *ngFor="let item of odds" class="last:pb-28 last:md:pb-10">
-          <app-odd [odd]="item" [selected]="item === selectedOdd" [lite]="false" (categoriesSelection)="onCategoriesSelection($event)" (click)="onSelectOdd(item)"></app-odd>
+          <app-odd
+            [odd]="item"
+            [selected]="item === selectedOdd"
+            [lite]="false"
+            (categoriesSelection)="onCategoriesSelection($event)"
+            (click)="onSelectOdd(item)"
+          ></app-odd>
         </div>
       </div>
     </div>
-    <div *ngIf="isOpen() && selectedOscsCount() !== 0" class="fixed md:absolute bottom-0 left-0 right-0 flex px-5 py-3 bg-white rounded-b-lg shadow-[0px_-5px_10px_rgb(0,0,0,.2)]">
-      <button *ngIf="selectedOdd" class="p-2 bg-secondary-light text-primary text-xs font-extrabold rounded-lg uppercase" (click)="reinitialize()">{{ 'button.reinitialize'|translate }}</button>
-      <button class="p-2 ml-auto bg-accent text-primary disabled:bg-yellow-100 disabled:cursor-not-allowed text-xs font-extrabold rounded-lg uppercase" (click)="onShowOscs()" [disabled]="!selectedOdd && !ready">{{ 'button.display_oscs'|translate:{oscsCount: selectedOscsCount()} }}</button>
+    <div
+      *ngIf="isOpen() && selectedOscsCount() !== 0"
+      class="fixed md:absolute bottom-0 left-0 right-0 flex px-5 py-3 bg-white rounded-b-lg shadow-[0px_-5px_10px_rgb(0,0,0,.2)]"
+    >
+      <button
+        *ngIf="selectedOdd"
+        class="p-2 bg-secondary-light text-primary text-xs font-extrabold rounded-lg uppercase"
+        (click)="reinitialize()"
+      >
+        {{ "button.reinitialize" | translate }}
+      </button>
+      <button
+        class="p-2 ml-auto bg-accent text-primary disabled:bg-yellow-100 disabled:cursor-not-allowed text-xs font-extrabold rounded-lg uppercase"
+        (click)="onShowOscs()"
+        [disabled]="!selectedOdd && !ready"
+      >
+        {{
+          "button.display_oscs" | translate : { oscsCount: selectedOscsCount() }
+        }}
+      </button>
     </div>
   </div>
-  <div *ngIf="showOscs" class="relative flex flex-col pt-14 md:pt-0 pb-16 md:pb-5 px-3 md:px-0" [ngClass]="{'mt-2 mx-3': !isOpen()}" [ngClass]="{'md:mt-3': !showOscs}">
-    <div class="flex flex-col justify-center p-3 bg-white shadow-lg border-t-neutral-200 border-t" [ngClass]="{'rounded-lg': mobileQuery.matches || (!mobileQuery.matches && !showOscs), 'rounded-b-lg': !mobileQuery.matches && showOscs}">
-      <div class="w-full flex flex-wrap" [ngClass]="{'mb-3': selectedCategories.length !== 0}">
-        <app-odd-category [category]="category" *ngFor="let category of selectedCategories; let i = index;" [color]="selectedOdd?.color" (unselectCategory)="unselectCategory(i)"></app-odd-category>
+  <div
+    *ngIf="showOscs"
+    class="relative flex flex-col pt-14 md:pt-0 pb-16 md:pb-5 px-3 md:px-0"
+    [ngClass]="{ 'mt-2 mx-3': !isOpen() }"
+    [ngClass]="{ 'md:mt-3': !showOscs }"
+  >
+    <div
+      class="flex flex-col justify-center p-3 bg-white shadow-lg border-t-neutral-200 border-t"
+      [ngClass]="{
+        'rounded-lg':
+          mobileQuery.matches || (!mobileQuery.matches && !showOscs),
+        'rounded-b-lg': !mobileQuery.matches && showOscs
+      }"
+    >
+      <div
+        class="w-full flex flex-wrap"
+        [ngClass]="{ 'mb-3': selectedCategories.length !== 0 }"
+      >
+        <app-odd-category
+          [category]="category"
+          *ngFor="let category of selectedCategories; let i = index"
+          [color]="selectedOdd?.color"
+          (unselectCategory)="unselectCategory(i)"
+        ></app-odd-category>
       </div>
       <div class="flex">
-        <button class="flex text-primary text-xs md:text-sm font-bold items-center lowercase" (click)="hideOscs()">
-          <span>{{ 'button.update_filters'|translate }}</span>
-          <ng-icon name="hero-chevron-down" strokeWidth="3" class="inline-flex ml-4"></ng-icon>
+        <button
+          class="flex text-primary text-xs md:text-sm font-bold items-center lowercase"
+          (click)="hideOscs()"
+        >
+          <span>{{ "button.update_filters" | translate }}</span>
+          <ng-icon
+            name="heroChevronDownSolid"
+            strokeWidth="3"
+            class="inline-flex ml-4"
+          ></ng-icon>
         </button>
-        <button class="ml-auto p-2 bg-secondary-light text-primary text-xs font-extrabold rounded-lg uppercase" (click)="reinitialize(true)">{{ 'button.reinitialize'|translate }}</button>
+        <button
+          class="ml-auto p-2 bg-secondary-light text-primary text-xs font-extrabold rounded-lg uppercase"
+          (click)="reinitialize(true)"
+        >
+          {{ "button.reinitialize" | translate }}
+        </button>
       </div>
     </div>
     <div class="flex mt-3 md:mt-2 mb-3 md:mb-4">
       <p class="font-bold text-sm text-white">
         <span>{{ oscs.length }} </span>
-        <span *ngIf="oscs.length === 1">{{ 'text.one_osc'|translate }}</span>
-        <span *ngIf="oscs.length !== 1">{{ 'text.oscs_count'|translate }}</span>
+        <span *ngIf="oscs.length === 1">{{ "text.one_osc" | translate }}</span>
+        <span *ngIf="oscs.length !== 1">{{
+          "text.oscs_count" | translate
+        }}</span>
       </p>
       <button class="ml-auto font-bold text-sm text-white">
-        {{ 'button.filter_by_relevance'|translate }}
-        <ng-icon name="hero-chevron-down" strokeWidth="3"></ng-icon>
+        {{ "button.filter_by_relevance" | translate }}
+        <ng-icon name="heroChevronDownSolid" strokeWidth="3"></ng-icon>
       </button>
     </div>
     <app-loading-lines *ngIf="loading"></app-loading-lines>
-    <app-osc [osc]="osc" [selected]="selectedOsc !== null && osc.id === selectedOsc.id" *ngFor="let osc of oscs" (click)="onSelectOscFromSidebar(osc)"></app-osc>
-    <div class="pt-10 pb-5 fixed left-0 right-0 bottom-0 flex md:hidden justify-center">
-      <button class="px-3 py-2 bg-primary text-white text-xs font-extrabold rounded-lg uppercase" (click)="showMap()">
-        {{ 'button.show_map'|translate }}
+    <app-osc
+      [osc]="osc"
+      [selected]="selectedOsc !== null && osc.id === selectedOsc.id"
+      *ngFor="let osc of oscs"
+      (click)="onSelectOscFromSidebar(osc)"
+    ></app-osc>
+    <div
+      class="pt-10 pb-5 fixed left-0 right-0 bottom-0 flex md:hidden justify-center"
+    >
+      <button
+        class="px-3 py-2 bg-primary text-white text-xs font-extrabold rounded-lg uppercase"
+        (click)="showMap()"
+      >
+        {{ "button.show_map" | translate }}
       </button>
     </div>
   </div>
 </div>
 
-<div class="fixed z-20 md:z-10 md:pt-20 top-0 bottom-0 left-0 right-0 md:right-auto md:translate-x-[400px] md:w-[400px] bg-white transition-transform" *ngIf="selectedOsc && showOscs">
+<div
+  class="fixed z-20 md:z-10 md:pt-20 top-0 bottom-0 left-0 right-0 md:right-auto md:translate-x-[400px] md:w-[400px] bg-white transition-transform"
+  *ngIf="selectedOsc && showOscs"
+>
   <ng-scrollbar [autoHeightDisabled]="false" #scrollRef>
-    <app-osc-details [selectedOsc]="selectedOsc" (hide)="onCloseOscDetails()" (changed)="scrollRef.scrollTo({top: 0})"></app-osc-details>
+    <app-osc-details
+      [selectedOsc]="selectedOsc"
+      (hide)="onCloseOscDetails()"
+      (changed)="scrollRef.scrollTo({ top: 0 })"
+    ></app-osc-details>
   </ng-scrollbar>
 </div>

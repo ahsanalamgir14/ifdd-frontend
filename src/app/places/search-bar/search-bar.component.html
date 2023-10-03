@@ -1,23 +1,56 @@
 <form class="flex-1 relative">
   <span *ngIf="isFull" class="absolute top-1/4 left-3 text-primary">
-    <ng-icon name="hero-search" strokeWidth="3" size="20"></ng-icon>
+    <ng-icon
+      name="heroMagnifyingGlassSolid"
+      strokeWidth="3"
+      size="20"
+    ></ng-icon>
   </span>
-  <button *ngIf="place" class="absolute top-1/4 right-3 text-primary cursor-pointer" (click)="onClear()">
-    <ng-icon name="hero-x" strokeWidth="3" size="20"></ng-icon>
+  <button
+    *ngIf="place"
+    class="absolute top-1/4 right-3 text-primary cursor-pointer"
+    (click)="onClear()"
+  >
+    <ng-icon name="heroXMarkSolid" strokeWidth="3" size="20"></ng-icon>
   </button>
-  <input type="text"
-    class="w-full px-0 border-0 focus:border-secondary-light focus:shadow-none placeholder-primary focus:ring-transparent text-sm italic" [ngClass]="{'pl-12 pr-4 py-3 shadow-lg': isFull, 'rounded-lg': isFull && isRounded, 'rounded-t-lg': isFull && !isRounded}" [(ngModel)]="place" name="name"
-    [placeholder]="'placeholder.place_search'|translate"  cdkOverlayOrigin (keyup)="search(getValue($event))"
-    #trigger="cdkOverlayOrigin" autocomplete="off">
-    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="showPlaces" [cdkConnectedOverlayPanelClass]="getConnectedOverlayPanelClasses()" [cdkConnectedOverlayWidth]="getOverlayWidth()" [cdkConnectedOverlayOffsetY]="getOverlayOffset()">
-      <div class="flex flex-col bg-white rounded-lg overflow-y-auto shadow-lg min-w-full">
-        <div *ngFor="let place of places; let i = index;" class="p-2 flex items-center cursor-pointer hover:bg-secondary-light" (click)="onSelect(place)" data-test-id="place">
-          <div class="mr-3">
-          </div>
-          <div>
-            <p class="text-sm mb-0">{{ place.name }}</p>
-          </div>
+  <input
+    type="text"
+    class="w-full px-0 border-0 focus:border-secondary-light focus:shadow-none placeholder-primary focus:ring-transparent text-sm italic"
+    [ngClass]="{
+      'pl-12 pr-4 py-3 shadow-lg': isFull,
+      'rounded-lg': isFull && isRounded,
+      'rounded-t-lg': isFull && !isRounded
+    }"
+    [(ngModel)]="place"
+    name="name"
+    [placeholder]="'placeholder.place_search' | translate"
+    cdkOverlayOrigin
+    (keyup)="search(getValue($event))"
+    #trigger="cdkOverlayOrigin"
+    autocomplete="off"
+  />
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="trigger"
+    [cdkConnectedOverlayOpen]="showPlaces"
+    [cdkConnectedOverlayPanelClass]="getConnectedOverlayPanelClasses()"
+    [cdkConnectedOverlayWidth]="getOverlayWidth()"
+    [cdkConnectedOverlayOffsetY]="getOverlayOffset()"
+  >
+    <div
+      class="flex flex-col bg-white rounded-lg overflow-y-auto shadow-lg min-w-full"
+    >
+      <div
+        *ngFor="let place of places; let i = index"
+        class="p-2 flex items-center cursor-pointer hover:bg-secondary-light"
+        (click)="onSelect(place)"
+        data-test-id="place"
+      >
+        <div class="mr-3"></div>
+        <div>
+          <p class="text-sm mb-0">{{ place.name }}</p>
         </div>
       </div>
-    </ng-template>
+    </div>
+  </ng-template>
 </form>
