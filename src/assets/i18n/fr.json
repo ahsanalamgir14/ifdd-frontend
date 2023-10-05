@@ -24,7 +24,8 @@
     "responsibility": "Responsabilité",
     "localization": "Localisation",
     "objectives": "Objectifs",
-    "details": "Cliquez pour voir les activités"
+    "details": "Cliquez pour voir les activités",
+    "search_place_for_headquarters_or_intervention_zone": "Recherchez d'abord le lieu sur la carte ou grâce à ses coordonnées, puis ajoutez-le comme siège ou zone d'intervention."
   },
   "text": {
     "enter_email_for_password_reset": "Entrez votre adresse email ci-dessous et nous vous enverrons un lien pour récupérer votre mot de passe.",
@@ -64,7 +65,7 @@
     "telephone": "Numéro de téléphone de l'organisation",
     "osc_email": "Adresse électronique de l'organisation",
     "osc_website": "Site web de l'organisation",
-    "osc_reference": "Réferences de l'organisation",
+    "osc_references": "Réferences de l'organisation",
     "social_networks": "Réseaux sociaux (optionnel)",
     "longitude": "Longitude",
     "latitude": "Latitude",
@@ -101,16 +102,15 @@
     "website": "Site Web",
     "mail": "Mail",
     "phone": "Appeler",
-    "share": "Partager",
-    "save": "Enregistrer"
+    "share": "Partager"
   },
   "button": {
     "send_link": "Envoyer le lien",
     "register": "Inscription",
     "login": "Connexion",
     "reset_password": "Réinitialiser mot de passe",
-    "logout": "Déconnexion",
     "terms_of_use": "Conditions d'utilisation",
+    "logout": "Déconnexion",
     "add_osc": "Créer une OSC",
     "reinitialize": "Réinitialiser",
     "display_oscs": "Afficher {{oscsCount}} organisations",
@@ -140,5 +140,8 @@
     "global_search": "Recherchez une OSC, un lieu...",
     "customize_the_name": "Personnaliser le nom",
     "place_search": "Recherchez un lieu"
+  },
+  "note": {
+    "mapping_availability": "La cartographie n’est disponible que pour certains pays pour le moment… Merci de votre compréhension !"
   }
 }

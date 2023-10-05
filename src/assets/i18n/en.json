@@ -24,7 +24,8 @@
     "responsibility": "Responsibility",
     "localization": "Localization",
     "objectives": "Objectives",
-    "details": "Click to see the activities"
+    "details": "Click to see the activities",
+    "search_place_for_headquarters_or_intervention_zone": "First, search for the location on the map or using its coordinates, then add it as a headquarters or intervention zone."
   },
   "text": {
     "enter_email_for_password_reset": "Enter your email address below and we will send you a link to recover your password.",
@@ -64,6 +65,7 @@
     "telephone": "Phone number",
     "osc_email": "Email address of the organization",
     "osc_website": "Website of the organization",
+    "osc_references": "References of the organization",
     "social_networks": "Social networks (optional)",
     "longitude": "Longitude",
     "latitude": "Latitude",
@@ -138,5 +140,8 @@
     "global_search": "Search an organization, a place...",
     "customize_the_name": "Personalize the name",
     "place_search": "Search a place"
+  },
+  "note": {
+    "mapping_availability": "The mapping is only available for some countries for the moment. Thank you for your understanding!"
   }
 }
