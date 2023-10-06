@@ -15,10 +15,7 @@
     <div class="my-5 p-3 bg-secondary-light text-primary">
       <p class="flex items-center text-xs font-bold">
         <ng-icon name="heroInformationCircleSolid" size="16"></ng-icon>
-        <span class="ml-3"
-          >La cartographie n’est disponible que pour certains pays pour le
-          moment… Merci de votre compréhension !</span
-        >
+        <span class="ml-3">{{ "note.mapping_availability" | translate }}</span>
       </p>
     </div>
     <form [formGroup]="form" (submit)="onSubmit()" autocomplete="off">
@@ -231,7 +228,7 @@
             <label
               for="oscReference"
               class="text-sm text-gray-500 font-semibold"
-              >Réferences de l'organisation *</label
+              >{{ "label.osc_references" | translate }} *</label
             >
             <input
               type="text"
@@ -305,8 +302,10 @@
       <div class="grid grid-cols-2 gap-10" *ngIf="selectedStep.position === 2">
         <div class="col-span-2">
           <h4 class="text-xl text-primary">
-            Recherchez d'abord le lieu sur la carte ou grâce à ses coordonnées,
-            puis ajoutez-le comme siège ou zone d'intervention
+            {{
+              "title.search_place_for_headquarters_or_intervention_zone"
+                | translate
+            }}
           </h4>
         </div>
         <div>
