@@ -26,6 +26,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "rbush",
+              "bezier-easing"
+            ],
             "outputPath": "dist/ifdd",
             "index": "src/index.html",
             "main": "src/main.ts",
