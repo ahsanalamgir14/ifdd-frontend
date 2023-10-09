@@ -1,27 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-@import '@angular/cdk/overlay-prebuilt.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "@angular/cdk/overlay-prebuilt.css";
 @import "ol/ol.css";
 
 *::-webkit-scrollbar {
-  width: 12px;               /* width of the entire scrollbar */
+  width: 12px; /* width of the entire scrollbar */
 }
 
 *::-webkit-scrollbar-track {
-  background: white;        /* color of the tracking area */
+  background: white; /* color of the tracking area */
   border-radius: 20px;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: lightgray;    /* color of the scroll thumb */
-  border-radius: 20px;       /* roundness of the scroll thumb */
-  border: 3px solid white;  /* creates padding around scroll thumb */
+  background-color: lightgray; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid white; /* creates padding around scroll thumb */
 }
 
 .ng-touched.ng-invalid {
-  border-color: theme('colors.red.500');
+  border-color: theme("colors.red.500");
 }
 
 .ol-control button,
@@ -42,7 +42,7 @@
   left: 8px;
 
   button {
-    background: url('/assets/icons/map/globe.png');
+    background: url("/assets/icons/map/globe.png");
     background-size: cover;
     width: 28px;
     height: 28px;
