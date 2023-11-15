@@ -15,7 +15,7 @@ export class NumbersComponent implements OnInit {
     orgsCount: 0
   };
   odds: Odd[] = [];
-  countriesCount: number = 5;
+  countriesCount: number = 6;
   orgsCount: number = 0;
   loading: boolean = false;
   selectedOdd: Odd | null = null;
