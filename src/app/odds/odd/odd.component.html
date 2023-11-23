@@ -28,7 +28,8 @@
           'flex w-full': categoriesSelected
         }"
       >
-        <span>{{ odd.name }}</span>
+        <span *ngIf="language === 'fr'">{{ odd.name }}</span>
+        <span *ngIf="language === 'en'">{{ odd.name_en }}</span>
         <ng-icon
           name="heroCheckSolid"
           class="ml-auto"
@@ -127,7 +128,7 @@
               class="py-3 border-b border-b-neutral-200"
               formArrayName="categories"
             >
-              <label class="flex text-primary text-xs">
+              <label *ngIf="language === 'en'" class="flex text-primary text-xs">
                 <input
                   type="checkbox"
                   (change)="onCheckboxChange($event, i)"
@@ -137,6 +138,11 @@
                 />
                 {{ category.category_number }} {{ category.intitule }}
               </label>
+               <label *ngIf="language === 'fr'" class="flex text-primary text-xs">
+                 <input type="checkbox" (change)="onCheckboxChange($event, i)" checked [formControlName]="i"
+                   class="mr-3 text-primary focus:ring-primary" />
+                 {{ category.category_number }} {{ category.name_en }}
+               </label>
             </div>
           </form>
         </ng-container>

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiRoot: 'https://ifdd.position.cm/api',
-  apiKey: 'umtLgvBqDAfZ38DRYxsRCgRaqjU872l44ywPCFn3Tegn4VuSwasvh6b0Bal6buDH',
+  apiRoot: 'http://localhost:8000/api',
+  apiKey: 'T6rQbH5OdbAAajUcEWtH9CCt4BmrsW7D4AzzUAILWYGt9iEUlqRIOnEkuwlsztv8',
 };
 
 /*

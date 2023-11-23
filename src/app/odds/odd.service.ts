@@ -21,6 +21,7 @@ export class OddService {
             const odd = new Odd(
               response.data.id,
               response.data.name,
+              response.data.name_en,
               response.data.number,
               response.data.count_osc,
               response.data.logo_odd,
@@ -31,6 +32,7 @@ export class OddService {
               (item: any) => new Category(
                 item.id,
                 item.category_number,
+                item.name_en,
                 item.intitule,
                 item.id_odd,
                 odd
@@ -54,6 +56,7 @@ export class OddService {
               const odd = new Odd(
                 item.id,
                 item.name,
+                item.name_en,
                 item.number,
                 item.count_osc,
                 item.logo_odd,
