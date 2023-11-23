@@ -19,6 +19,7 @@ import { finalize } from 'rxjs';
 import { Category } from '../category';
 import { Odd } from '../odd';
 import { OddService } from '../odd.service';
+import { StorageService } from 'src/app/core/storage/storage.service';
 
 @Component({
   selector: 'app-odd',
@@ -40,13 +41,15 @@ export class OddComponent implements OnInit {
   categories: Category[] = [];
   loading: boolean = false;
   logoSize: number = 36;
+  language: string | null = 'fr';
 
   constructor(
     private formBuilder: FormBuilder,
     private i18n: TranslateService,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private oddService: OddService
+    private oddService: OddService,
+    private storage: StorageService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -60,6 +63,7 @@ export class OddComponent implements OnInit {
     if (!this.mobileQuery.matches && (this.lite || this.forceSelected)) {
       this.logoSize = 64;
     }
+    this.language = this.storage.getItem('language');
   }
 
   toggleCategories(): void {
