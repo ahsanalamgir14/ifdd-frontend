@@ -10,7 +10,7 @@
     "contact": "Contact",
     "presentation": "Presentation",
     "intervention_zones": "Intervention zones",
-    "sdgs": "Sustainable Development Goals",
+    "sdgs": "Sustainable Development Goals targets",
     "click_to_see_description": "Click to see the activities",
     "similar_orgs": "Similar organisations",
     "information": "Information",
@@ -23,7 +23,7 @@
     "hosting": "Hosting",
     "responsibility": "Responsibility",
     "localization": "Localization",
-    "objectives": "Objectives",
+    "objectives": "Goals",
     "details": "Click to see the activities",
     "search_place_for_headquarters_or_intervention_zone": "First, search for the location on the map or using its coordinates, then add it as a headquarters or intervention zone."
   },
@@ -48,7 +48,7 @@
     "characters_remaining": "{{number}} characters remaining",
     "countries": "Countries",
     "accompanied": "Accompanied",
-    "objectives": "Objectives",
+    "objectives": "Goals",
     "target": "Target {{cible}}"
   },
   "label": {
@@ -58,7 +58,7 @@
     "confirm_password": "Confirm password",
     "org_name": "Name of the organization",
     "abbreviation": "Abbreviation",
-    "country": "Pays",
+    "country": "Country",
     "foundation_date": "Creation date",
     "description": "Description",
     "contact_person": "Contact person",
