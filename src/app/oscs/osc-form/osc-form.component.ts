@@ -31,6 +31,7 @@ import { Category } from 'src/app/odds/category';
 import { OscService } from '../osc.service';
 import { Osc } from '../osc';
 import { MessageService } from 'src/app/shared/messages/message.service';
+import { StorageService } from 'src/app/core/storage/storage.service';
 
 const enum LocationTypes {
   INTERVENTION_ZONE,
@@ -113,12 +114,14 @@ export class OscFormComponent implements OnInit {
   loading: boolean = false;
   categoryDescMaxLength: number = 400;
   errors: any = {};
+  language: string | null = 'fr';
 
   constructor(
     private i18n: TranslateService,
     private dialogRef: DialogRef,
     private placeService: PlaceService,
     private oddService: OddService,
+    private storage: StorageService,
     private oscService: OscService,
     private messageService: MessageService,
     @Inject(DIALOG_DATA) public data: any
@@ -128,6 +131,8 @@ export class OscFormComponent implements OnInit {
     this.placeService
       .getCountries()
       .subscribe((countries: Country[]) => (this.countries = countries));
+    
+    this.language = this.storage.getItem('language');
   }
 
   onConfirm(): void {
@@ -139,6 +144,7 @@ export class OscFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.language)
     const value = this.form.getRawValue() as any;
 
     value.zone_intervention = [];
@@ -173,11 +179,20 @@ export class OscFormComponent implements OnInit {
       .subscribe({
         next: (osc: Osc) => {
           this.dialogRef.close(osc);
-          this.messageService.addMessage(
-            'success',
-            'OSC Soumise avec succès',
-            "Merci d'avoir soumis votre organisation. Les informations vont maintenant être contrôlées et vous serez prévenus lorsque l'organisation sera ajoutée à la carte."
-          );
+          if (this.language === "fr") {
+            this.messageService.addMessage(
+              'success',
+              'OSC Soumise avec succès',
+              "Merci d'avoir soumis votre organisation. Les informations vont maintenant être contrôlées et vous serez prévenus lorsque l'organisation sera ajoutée à la carte."
+            );
+          } else {
+            this.messageService.addMessage(
+              'success',
+              'OSC Successfully submitted',
+              "Thank you for submitting your organisation. The information will now be checked and you will be notified when the organisation is added to the map."
+            );
+          }
+          
         },
         error: (error: any) => {
           this.errors = error?.error?.data;
