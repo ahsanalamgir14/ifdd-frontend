@@ -509,7 +509,7 @@
                 | translate
                   : {
                       number: category.category_number,
-                      target: category.intitule
+                      target: this.language === "fr" ? category.intitule : category.name_en
                     }
             }}</label
           >

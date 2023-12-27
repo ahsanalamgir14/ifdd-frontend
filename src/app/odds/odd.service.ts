@@ -32,8 +32,8 @@ export class OddService {
               (item: any) => new Category(
                 item.id,
                 item.category_number,
-                item.name_en,
                 item.intitule,
+                item.name_en,
                 item.id_odd,
                 odd
               )

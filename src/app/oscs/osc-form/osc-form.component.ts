@@ -133,6 +133,7 @@ export class OscFormComponent implements OnInit {
       .subscribe((countries: Country[]) => (this.countries = countries));
     
     this.language = this.storage.getItem('language');
+    console.log(this.language)
   }
 
   onConfirm(): void {
@@ -144,7 +145,6 @@ export class OscFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.language)
     const value = this.form.getRawValue() as any;
 
     value.zone_intervention = [];
