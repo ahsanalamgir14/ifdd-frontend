@@ -315,10 +315,10 @@
             [color]="colors[category.id_odd]"
             [title]="'title.click_to_see_description' | translate"
           ></app-odd-category>
-          <div *ngIf="showCategoriesDetails && language =='fr' " class="mb-2">
+          <div *ngIf="showCategoriesDetails && language ==='fr' " class="mb-2">
             {{ category.intitule }}
           </div>
-          <div *ngIf="showCategoriesDetails && language =='en' " class="mb-2">
+          <div *ngIf="showCategoriesDetails && language ==='en' " class="mb-2">
             {{ category.name_en }}
           </div>
         </div>
