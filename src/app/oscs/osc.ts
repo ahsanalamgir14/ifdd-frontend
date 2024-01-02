@@ -56,8 +56,8 @@ export class Osc {
           const cat = new Category(
             category.id,
             category.category_number,
-            category.name_en,
             category.intitule,
+            category.name_en,
             category.id_odd,
             new Odd(
               category.odd.id,

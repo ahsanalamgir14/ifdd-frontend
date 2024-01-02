@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { finalize } from 'rxjs';
 import { MapService } from 'src/app/map/map.service';
 import { Category } from 'src/app/odds/category';
@@ -6,12 +6,13 @@ import { Odd } from 'src/app/odds/odd';
 import { OddService } from 'src/app/odds/odd.service';
 import { Osc } from '../osc';
 import { OscService } from '../osc.service';
+import { StorageService } from 'src/app/core/storage/storage.service';
 
 @Component({
   selector: 'app-osc-details',
   templateUrl: './osc-details.component.html'
 })
-export class OscDetailsComponent {
+export class OscDetailsComponent implements OnInit {
   @Input() set selectedOsc(osc: Osc) {
     this.osc = osc;
     this.getOsc();
@@ -26,6 +27,7 @@ export class OscDetailsComponent {
   similarOscsSlice: number = 3;
   showCategoriesDetails: boolean = false;
   showAllInterventionZones: boolean = false;
+  language: string | null = 'fr';
 
   get absoluteUrl(): string {
     return window.location.href;
@@ -35,9 +37,14 @@ export class OscDetailsComponent {
     private changeDetector: ChangeDetectorRef,
     private oscService: OscService,
     private mapService: MapService,
+    private storage: StorageService,
     oddService: OddService
   ) {
     this.colors = oddService.getColors();
+  }
+  ngOnInit(): void {
+    this.language = this.storage.getItem('language');
+    console.log(this.language)
   }
 
   getOsc(): void {
