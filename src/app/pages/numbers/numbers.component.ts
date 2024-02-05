@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs';
+import { StorageService } from 'src/app/core/storage/storage.service';
 import { Odd } from 'src/app/odds/odd';
 import { OddService } from 'src/app/odds/odd.service';
 import { OscService } from 'src/app/oscs/osc.service';
@@ -20,10 +21,12 @@ export class NumbersComponent implements OnInit {
   loading: boolean = false;
   selectedOdd: Odd | null = null;
   private timeout: any;
+  language: string | null = 'fr';
 
-  constructor(private oddService: OddService, private oscService: OscService) { }
+  constructor(private oddService: OddService, private oscService: OscService, private storage: StorageService) { }
 
   ngOnInit(): void {
+    this.language = this.storage.getItem('language');
     this.getOdds();
   }
 
