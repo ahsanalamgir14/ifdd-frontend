@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from '../storage/storage.service';
 import { Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { L } from '@angular/cdk/keycodes';
 
 @Injectable({
   providedIn: 'root',
@@ -15,14 +17,19 @@ export class I18nService {
   init(): Observable<any> {
     let language = this.storage.getItem('language');
     if (!language) {
-      if (/^en\b/.test(navigator.language)) {
-        language = 'en';
-      } else {
+      if (location.hostname === 'cartodd.francophonie.org') {
         language = 'fr';
+      } else {
+        language = 'en';
       }
     }
-
-    this.translate.setDefaultLang('fr');
+    
+    if (location.hostname === 'cartodd.francophonie.org') {
+      this.translate.setDefaultLang('fr');
+    } else {
+      this.translate.setDefaultLang('en');
+    }
+    
     return this.changeLanguage(language);
   }
 
