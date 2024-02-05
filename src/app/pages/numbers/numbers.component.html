@@ -3,7 +3,8 @@
     <div class="grid grid-cols-3 gap-4 w-full">
       <div class="flex items-center justify-center p-3 bg-white rounded-xl shadow-lg">
         <div class="mr-3">
-          <img src="/assets/images/numbers-countries.png" alt="" width="80">
+          <img *ngIf="language === 'fr'" src="/assets/images/numbers-countries.png" alt="" width="80">
+          <img *ngIf="language === 'en'" src="/assets/images/supported-countries.png" alt="" width="80">
         </div>
         <div>
           <strong class="font-bold text-primary md:text-3xl lowercase">{{ numbers.countriesCount }} {{ 'text.countries'|translate }}</strong>
