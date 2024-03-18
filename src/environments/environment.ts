@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiRoot: 'http://localhost:8000/api',
-  apiKey: 'T6rQbH5OdbAAajUcEWtH9CCt4BmrsW7D4AzzUAILWYGt9iEUlqRIOnEkuwlsztv8',
+  apiRoot: 'http://127.0.0.1:8000/api',
+  apiKey: 'h8QCpW8CEPkRyiIcl5rMHAVb5CapWtHfxmbrznd5hvcRCxQJPYhme1dsTM1pQ2dC',
 };
 
 /*
