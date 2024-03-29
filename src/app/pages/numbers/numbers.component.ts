@@ -11,8 +11,8 @@ import { OscService } from 'src/app/oscs/osc.service';
 })
 export class NumbersComponent implements OnInit {
   numbers: any = {
-    countriesCount: 0,
-    oddsCount: 0,
+    countriesCount: 21,
+    oddsCount: 8,
     orgsCount: 0
   };
   odds: Odd[] = [];

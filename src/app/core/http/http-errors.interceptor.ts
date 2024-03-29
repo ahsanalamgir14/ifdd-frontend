@@ -42,13 +42,13 @@ export class HttpErrorsInterceptor implements HttpInterceptor {
           );
         }
 
-        // if (error.status === 0) {
-        //   this.messageService.addMessage(
-        //     'error',
-        //     'Pas de connexion',
-        //     'Impossible de contacter le serveur. Veuillez vérifier votre connexion internet et réessayer.'
-        //   );
-        // }
+         if (error.status === 0) {
+           this.messageService.addMessage(
+             'error',
+             'Pas de connexion',
+             'Impossible de contacter le serveur. Veuillez vérifier votre connexion internet et réessayer.'
+           );
+         }
 
         return throwError(() => error);
       })

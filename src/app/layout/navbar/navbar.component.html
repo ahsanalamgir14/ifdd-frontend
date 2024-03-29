@@ -51,15 +51,15 @@
       <div class="flex">
         <a
           target="_blank"
-          href="https://www.ifdd.francophonie.org/"
+          href="https://kixafrique21.org//"
           class="pr-0 pt-2 md:pt-0"
           target="_blank"
           rel="noopener"
         >
           <img
             src="/assets/logos/IFDD-CourtFondTransparent.png"
-            [alt]="'alt.logo_ifdd' | translate"
-            width="120"
+            [alt]="'alt.logo_kix' | translate"
+            width="300"
           />
         </a>
         <button
@@ -69,9 +69,9 @@
           <ng-icon name="heroXMarkSolid" size="24"></ng-icon>
         </button>
       </div>
-      <a
+      <!-- <a
         target="_blank"
-        href="https://www.francophonie.org/"
+        href="https://www.francophonie.org//"
         class="pr-0 ml-auto md:ml-0"
         target="_blank"
         rel="noopener"
@@ -84,19 +84,19 @@
       </a>
       <a
         target="_blank"
-        href="https://sdg-advisorybodies.net/"
+        href="https://ifef.francophonie.org/"
         class="pr-3 mr-auto md:mr-0"
         target="_blank"
         rel="noopener"
       >
         <img src="/assets/logos/sdg.png" [alt]="'alt.logo_sdg' | translate" />
-      </a>
+      </a> -->
     </div>
     <div
       class="flex flex-col md:flex-row flex-1 justify-between p-8 md:p-0 bg-primary md:bg-white"
     >
       <h1
-        class="hidden md:flex items-center w-44 text-xs xl:text-sm text-primary font-bold"
+        class="hidden md:flex items-center w-60 text-xs xl:text-sm text-primary font-bold"
       >
         {{ "title.civil_organization_map" | translate }}
       </h1>
@@ -148,8 +148,7 @@
         <button
           class="flex items-center text-secondary"
           [appMenuTriggerFor]="languageMenu"
-          xPosition="after"
-        >
+          xPosition="after">
           <ng-icon name="heroLanguageSolid" size="24"></ng-icon>
           <span *ngIf="language === 'en'">English</span>
           <span *ngIf="language === 'fr'">Français</span>

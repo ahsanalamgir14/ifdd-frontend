@@ -33,23 +33,10 @@ export class NavbarComponent implements OnInit {
     this.menuItems = [
       {
         link: '/',
+        /* label: this.i18n.instant('link.discover'), */
         label: this.i18n.instant('link.discover'),
         image: '/assets/icons/menu/discover.svg',
         activeImage: '/assets/icons/menu/discover-active.svg',
-        active: false,
-      },
-      {
-        link: '/a-propos',
-        label: this.i18n.instant('link.about'),
-        image: '/assets/icons/menu/about.svg',
-        activeImage: '/assets/icons/menu/about-active.svg',
-        active: false,
-      },
-      {
-        link: '/partenaires',
-        label: this.i18n.instant('link.partners'),
-        image: '/assets/icons/menu/partners.svg',
-        activeImage: '/assets/icons/menu/partners-active.svg',
         active: false,
       },
       {
@@ -59,6 +46,21 @@ export class NavbarComponent implements OnInit {
         activeImage: '/assets/icons/menu/numbers-active.svg',
         active: false,
       },
+      {
+        link: '/a-propos',
+        label: this.i18n.instant('link.about'),
+        image: '/assets/icons/menu/about.svg',
+        activeImage: '/assets/icons/menu/about-active.svg',
+        active: false,
+      },
+      /* {
+        link: '/partenaires',
+        label: this.i18n.instant('link.partners'),
+        image: '/assets/icons/menu/partners.svg',
+        activeImage: '/assets/icons/menu/partners-active.svg',
+        active: false,
+      }, */
+      
     ];
   }
 

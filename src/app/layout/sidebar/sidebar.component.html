@@ -53,9 +53,11 @@
       <button
         *ngIf="selectedOdd"
         class="p-2 bg-secondary-light text-primary text-xs font-extrabold rounded-lg uppercase"
-        (click)="reinitialize()"
+        (click)="reinitialize(true)"
       >
-        {{ "button.reinitialize" | translate }}
+        {{ 
+          "button.reinitialize" | translate 
+        }}
       </button>
       <button
         class="p-2 ml-auto bg-accent text-primary disabled:bg-yellow-100 disabled:cursor-not-allowed text-xs font-extrabold rounded-lg uppercase"
@@ -132,7 +134,17 @@
       [selected]="selectedOsc !== null && osc.id === selectedOsc.id"
       *ngFor="let osc of oscs"
       (click)="onSelectOscFromSidebar(osc)"
-    ></app-osc>
+    >
+    <button
+    *ngIf="selectedOdd"
+    class="p-2 bg-secondary-light text-primary text-xs font-extrabold rounded-lg uppercase"
+    (click)="reinitialize(true)"
+  >
+    {{ 
+      "button.reinitialize" | translate 
+    }}
+  </button>
+    </app-osc>
     <div
       class="pt-10 pb-5 fixed left-0 right-0 bottom-0 flex md:hidden justify-center"
     >

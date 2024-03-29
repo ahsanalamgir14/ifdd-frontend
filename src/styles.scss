@@ -26,13 +26,15 @@
 
 .ol-control button,
 .ol-scale-line {
-  background-color: #70af85;
+  /* background-color: #70af85; */
+  background-color: #4878c0;
 }
 
 .ol-control button {
   &:hover,
   &:focus {
-    background-color: #255033;
+    /* background-color: #255033; */
+    background-color: #062172;
   }
 }
 
