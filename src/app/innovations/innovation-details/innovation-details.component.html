@@ -1,0 +1,352 @@
+<br><br>
+<div *ngIf="innovation">
+  <div class="flex flex-col p-5 bg-neutral-100">
+    <div class="flex items-center">
+      <div class="flex flex-wrap">
+        <img
+          [src]="thematique.logo_thematique"
+          [alt]="thematique.name"
+          *ngFor="let thematique of thematiques"
+          class="mr-3 rounded-md mb-1"
+          width="36"
+          height="36"
+        />
+      </div>
+      <button class="flex items-center ml-auto text-primary" (click)="onHide()">
+        <ng-icon name="heroXMarkSolid" strokeWidth="3" size="20"></ng-icon>
+      </button>
+    </div>
+    <h3 class="mt-4 mb-3 text-xl text-primary font-bold">{{ innovation.name }}</h3>
+    <div class="flex items-center">
+      <span class="text-secondary font-medium">{{ innovation.abbreviation }}</span>
+      <button
+        (click)="onShowMap()"
+        class="block md:hidden ml-auto px-3 py-2 bg-primary text-white text-xs font-extrabold rounded-lg uppercase"
+      >
+        {{ "button.show_map" | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="px-5">
+    <div class="flex justify-between py-4 border-b border-neutral-200">
+      <div
+        class="flex flex-col items-center text-primary text-xs"
+        *ngIf="innovation.site_web"
+      >
+        <a
+          target="_blank"
+          [href]="innovation.site_web"
+          class="flex items-center p-1.5 border rounded-md text-primary border-primary hover:bg-primary focus:bg-primary hover:text-white focus:text-white"
+          target="blank"
+        >
+          <ng-icon name="heroGlobeAltSolid" size="24"></ng-icon>
+        </a>
+        <span class="mt-1.5">{{ "link.website" | translate }}</span>
+      </div>
+      <div
+        class="flex flex-col items-center text-primary text-xs"
+        *ngIf="innovation.email_innovation"
+      >
+        <a
+          [href]="'mailto:' + innovation.email_innovation"
+          class="flex items-center p-1.5 border rounded-md text-primary border-primary hover:bg-primary focus:bg-primary hover:text-white focus:text-white"
+        >
+          <ng-icon name="ionMail" size="24"></ng-icon>
+        </a>
+        <span class="mt-1.5">{{ "link.mail" | translate }}</span>
+      </div>
+      <div
+        class="flex flex-col items-center text-primary text-xs"
+        *ngIf="innovation.telephone"
+      >
+        <a
+          [href]="'tel:' + innovation.telephone"
+          class="flex items-center p-1.5 border rounded-md text-primary border-primary hover:bg-primary focus:bg-primary hover:text-white focus:text-white"
+        >
+          <ng-icon name="ionCall" size="24"></ng-icon>
+        </a>
+        <span class="mt-1.5">{{ "link.phone" | translate }}</span>
+      </div>
+      <div class="flex flex-col items-center text-primary text-xs">
+        <button
+          class="flex items-center p-1.5 border rounded-md text-primary border-primary hover:bg-primary focus:bg-primary hover:text-white focus:text-white"
+          [appMenuTriggerFor]="shareMenu"
+          [xPosition]="'after'"
+          [yPosition]="'below'"
+        >
+          <ng-icon name="heroShareSolid" size="24"></ng-icon>
+        </button>
+        <span class="mt-1.5">{{ "link.share" | translate }}</span>
+        <app-menu #shareMenu>
+          <div class="flex flex-row">
+            <button
+              [url]="absoluteUrl"
+              shareButton="facebook"
+              aria-label="Partager sur Facebook"
+            >
+              <img src="/assets/logos/facebook.png" alt="" />
+            </button>
+            <button
+              [url]="absoluteUrl"
+              shareButton="twitter"
+              aria-label="Partager sur Twitter"
+            >
+              <img src="/assets/logos/twitter.png" alt="" />
+            </button>
+            <button
+              [url]="absoluteUrl"
+              shareButton="linkedin"
+              aria-label="Partager sur LinkedIn"
+            >
+              <img src="/assets/logos/linkedin.png" alt="" />
+            </button>
+            <button
+              [url]="absoluteUrl"
+              shareButton="whatsapp"
+              aria-label="Partager sur Whatsapp"
+            >
+              <img src="/assets/logos/whatsapp.png" alt="" />
+            </button>
+          </div>
+        </app-menu>
+      </div>
+    </div>
+    <div class="py-4 border-b border-neutral-200">
+      <h4 class="text-secondary font-bold mb-2">
+        {{ "title.contact" | translate }}
+      </h4>
+      <div
+        class="flex items-center mb-2 text-primary"
+        *ngIf="innovation.personne_contact"
+      >
+        <ng-icon
+          name="heroUserSolid"
+          size="24"
+          class="text-secondary"
+        ></ng-icon>
+        <span class="ml-1 text-sm">{{ innovation.personne_contact }}</span>
+      </div>
+      <!-- <div class="flex items-center mb-2 text-primary" *ngIf="innovation.telephone">
+        <ng-icon
+          name="heroPhoneSolid"
+          size="24"
+          class="text-secondary"
+        ></ng-icon>
+        <a [href]="'tel:' + innovation.telephone" class="ml-1 text-sm">{{
+          innovation.telephone
+        }}</a>
+      </div>
+      <div class="flex items-center mb-2 text-primary" *ngIf="innovation.email_innovation">
+        <ng-icon
+          name="heroEnvelopeSolid"
+          size="24"
+          class="text-secondary"
+        ></ng-icon>
+        <a [href]="'mailto:' + innovation.email_innovation" class="ml-1 text-sm underline">{{
+          innovation.email_innovation
+        }}</a>
+      </div>
+      <div class="flex items-center mb-2 text-primary" *ngIf="innovation.site_web">
+        <ng-icon
+          name="heroGlobeAmericasSolid"
+          size="24"
+          class="text-secondary"
+        ></ng-icon>
+        <a
+          target="_blank"
+          [href]="innovation.site_web"
+          class="ml-1 text-sm underline"
+          target="blank"
+          >{{ innovation.site_web }}</a
+        >
+      </div> -->
+      <div class="flex items-center mb-2 text-primary" *ngIf="innovation.siege">
+        <img
+          src="/assets/icons/map/pin-star.svg"
+          alt=""
+          width="22"
+          height="22"
+        />
+        <span class="ml-1 text-sm">{{ innovation.siege }}</span>
+      </div>
+
+      <div class="flex items-center mb-2 text-primary" *ngIf="innovation.facebook">
+        <ng-icon
+          name="ionLogoFacebook"
+          size="24"
+          class="text-secondary"
+        ></ng-icon>
+        <a
+          target="_blank"
+          [href]="innovation.facebook"
+          class="ml-1 text-sm underline"
+          target="blank"
+          >{{ innovation.facebook }}</a
+        >
+      </div>
+      <div class="flex items-center mb-2 text-primary" *ngIf="innovation.instagram">
+        <ng-icon
+          name="ionLogoInstagram"
+          size="24"
+          class="text-secondary"
+        ></ng-icon>
+        <a
+          target="_blank"
+          [href]="innovation.instagram"
+          class="ml-1 text-sm underline"
+          target="blank"
+          >{{ innovation.instagram }}</a
+        >
+      </div>
+      <div class="flex items-center mb-2 text-primary" *ngIf="innovation.linkedin">
+        <ng-icon
+          name="ionLogoLinkedin"
+          size="24"
+          class="text-secondary"
+        ></ng-icon>
+        <a
+          target="_blank"
+          [href]="innovation.linkedin"
+          class="ml-1 text-sm underline"
+          target="blank"
+          >{{ innovation.linkedin }}</a
+        >
+      </div>
+      <div class="flex items-center mb-2 text-primary" *ngIf="innovation.twitter">
+        <ng-icon
+          name="ionLogoTwitter"
+          size="24"
+          class="text-secondary"
+        ></ng-icon>
+        <a
+          target="_blank"
+          [href]="innovation.twitter"
+          class="ml-1 text-sm underline"
+          target="blank"
+          >{{ innovation.twitter }}</a
+        >
+      </div>
+      
+    </div>
+    <div class="py-4 border-b border-neutral-200">
+      <h4 class="text-secondary font-bold mb-2">
+        {{ "title.presentation" | translate }}
+      </h4>
+      <div [innerText]="innovation.description" class="text-sm"></div>
+    </div>
+    <div class="py-4 border-b border-neutral-200" *ngIf="innovation.zoneInterventions">
+      <div class="flex items-center">
+        <h4
+          class="text-secondary font-bold mb-2 flex-1"
+          [ngClass]="{
+            'hover:cursor-pointer': innovation.zoneInterventions.length > 4
+          }"
+          (click)="onToggleInterventionZones()"
+        >
+          {{ "title.intervention_zones" | translate }}
+        </h4>
+        <button
+          class="text-primary"
+          (click)="onToggleInterventionZones()"
+          *ngIf="innovation.zoneInterventions.length > 4"
+        >
+          <ng-icon
+            [name]="
+              showAllInterventionZones
+                ? 'featherMinusSquare'
+                : 'featherPlusSquare'
+            "
+            [strokeWidth]="3"
+          ></ng-icon>
+        </button>
+      </div>
+      <ng-container *ngIf="showAllInterventionZones">
+        <div
+          class="flex items-center mb-2"
+          *ngFor="let zone of innovation.zoneInterventions"
+        >
+          <ng-icon
+            name="heroMapPinSolid"
+            size="24"
+            class="text-secondary"
+          ></ng-icon>
+          <span class="ml-1 text-sm">{{ zone.name }}</span>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!showAllInterventionZones">
+        <div
+          class="flex items-center mb-2"
+          *ngFor="let zone of innovation.zoneInterventions.slice(0, 4)"
+        >
+          <ng-icon
+            name="heroMapPinSolid"
+            size="24"
+            class="text-secondary"
+          ></ng-icon>
+          <span class="ml-1 text-sm">{{ zone.name }}</span>
+        </div>
+      </ng-container>
+    </div>
+    <div class="py-4 border-b border-neutral-200" *ngIf="innovation.categorieThematiques">
+      <div class="flex items-center">
+        <h4
+          class="flex-1 text-secondary font-bold mb-2 hover:cursor-pointer"
+          (click)="onToggleCategoriesDetails()"
+        >
+          {{ "title.sdgs" | translate }}
+        </h4>
+        <button class="text-primary" (click)="onToggleCategoriesDetails()">
+          <ng-icon
+            [name]="
+              showCategoriesDetails ? 'featherMinusSquare' : 'featherPlusSquare'
+            "
+            [strokeWidth]="3"
+          ></ng-icon>
+        </button>
+      </div>
+      <div
+        class="flex flex-wrap"
+        [ngClass]="{ 'flex-col': showCategoriesDetails }"
+      >
+        <div
+          class="flex-col mb-2 items-start inline-flex"
+          *ngFor="let category of innovation.categorieThematiques"
+        >
+          <app-thematique-category
+            [category]="category"
+            [unselectable]="false"
+            [color]="colors[category.id_thematique]"
+            [title]="'title.click_to_see_description' | translate"
+          ></app-thematique-category>
+          <div *ngIf="showCategoriesDetails && language ==='fr' " class="mb-2">
+            {{ category.intitule }}
+          </div>
+          <div *ngIf="showCategoriesDetails && language ==='en' " class="mb-2">
+            {{ category.name_en }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="py-4 border-b border-neutral-200">
+      <h4 class="text-secondary font-bold mb-2">
+        {{ "title.similar_orgs" | translate }}
+      </h4>
+      <app-innovation
+        *ngFor="let similar of similarInnovations.slice(0, similarInnovationsSlice)"
+        [innovation]="similar"
+        (click)="selectInnovation(similar)"
+      ></app-innovation>
+      <div class="flex justify-center py-4">
+        <button
+          *ngIf="
+            similarInnovations.length > 0 && similarInnovations.length !== similarInnovationsSlice
+          "
+          class="p-2 bg-accent text-primary text-xs font-extrabold rounded-lg uppercase"
+          (click)="loadMoreInnovations()"
+        >
+          {{ "button.search_more_similar_orgs" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

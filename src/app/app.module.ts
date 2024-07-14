@@ -15,7 +15,7 @@ import { SharedModule } from './shared/shared.module';
 import { PlacesModule } from './places/places.module';
 import { HttpBaseUrlInterceptor } from './core/http/http-base-url.interceptor';
 import { HttpBaseHeadersInterceptor } from './core/http/http-base-headers.interceptor';
-import { OddsModule } from './odds/odds.module';
+import { ThematiquesModule } from './thematiques/thematiques.module';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { DiscoverComponent } from './discover/discover.component';
 import { MapModule } from './map/map.module';
@@ -45,7 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LayoutModule,
     SharedModule,
     PlacesModule,
-    OddsModule,
+    ThematiquesModule,
     MapModule,
     NgxGoogleAnalyticsModule.forRoot('G-DJE535S2SZ'),
     NgxGoogleAnalyticsRouterModule,

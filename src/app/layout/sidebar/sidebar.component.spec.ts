@@ -3,33 +3,33 @@ import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { of } from 'rxjs';
-import { Odd } from 'src/app/odds/odd';
-import { OddService } from 'src/app/odds/odd.service';
-import { OddStubComponent } from 'src/app/odds/testing';
-import { Osc } from 'src/app/oscs/osc';
-import { OscService } from 'src/app/oscs/osc.service';
+import { Thematique } from 'src/app/thematiques/thematique';
+import { ThematiqueService } from 'src/app/thematiques/thematique.service';
+import { ThematiqueStubComponent } from 'src/app/thematiques/testing';
+import { Innovation } from 'src/app/innovations/innovation';
+import { InnovationService } from 'src/app/innovations/innovation.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SearchBarStubComponent } from '../testing';
 
 import { SidebarComponent } from './sidebar.component';
-import { Results } from 'src/app/oscs/results';
+import { Results } from 'src/app/innovations/results';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
   let fixture: ComponentFixture<SidebarComponent>;
-  let oddServiceSpy: jasmine.SpyObj<OddService>;
-  let oscServiceSpy: jasmine.SpyObj<OscService>;
-  const odds: Odd[] = [
-    new Odd(1, 'Pas de pauvreté', '1', 12, 'https://logo.com', '#ef9493'),
-    new Odd(2, 'Faim zéro', '2', 12, 'https://logo.com', '#ef9493'),
+  let thematiqueServiceSpy: jasmine.SpyObj<ThematiqueService>;
+  let innovationServiceSpy: jasmine.SpyObj<InnovationService>;
+  const thematiques: Thematique[] = [
+    new Thematique(1, 'Pas de pauvreté', '1', 12, 'https://logo.com', '#ef9493'),
+    new Thematique(2, 'Faim zéro', '2', 12, 'https://logo.com', '#ef9493'),
   ];
-  const oscs = new Results<Osc>();
-  oscs.data = [new Osc({}), new Osc({})];
+  const innovations = new Results<Innovation>();
+  innovations.data = [new Innovation({}), new Innovation({})];
 
   beforeEach(async () => {
-    const oddServiceMock = jasmine.createSpyObj('OddService', ['getAll']);
-    const oscServiceMock = jasmine.createSpyObj('OscService', [
+    const thematiqueServiceMock = jasmine.createSpyObj('ThematiqueService', ['getAll']);
+    const innovationServiceMock = jasmine.createSpyObj('InnovationService', [
       'getAll',
       'count',
     ]);
@@ -37,7 +37,7 @@ describe('SidebarComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         SidebarComponent,
-        OddStubComponent,
+        ThematiqueStubComponent,
         SearchBarStubComponent,
       ],
       imports: [
@@ -48,12 +48,12 @@ describe('SidebarComponent', () => {
       ],
       providers: [
         {
-          provide: OddService,
-          useValue: oddServiceMock,
+          provide: ThematiqueService,
+          useValue: thematiqueServiceMock,
         },
         {
-          provide: OscService,
-          useValue: oscServiceMock,
+          provide: InnovationService,
+          useValue: innovationServiceMock,
         },
       ],
     }).compileComponents();
@@ -62,11 +62,11 @@ describe('SidebarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SidebarComponent);
     component = fixture.componentInstance;
-    oddServiceSpy = TestBed.inject(OddService) as jasmine.SpyObj<OddService>;
-    oscServiceSpy = TestBed.inject(OscService) as jasmine.SpyObj<OscService>;
-    oddServiceSpy.getAll.and.returnValue(of(odds));
-    oscServiceSpy.getAll.and.returnValue(of(oscs));
-    oscServiceSpy.count.and.returnValue(of(2));
+    thematiqueServiceSpy = TestBed.inject(ThematiqueService) as jasmine.SpyObj<ThematiqueService>;
+    innovationServiceSpy = TestBed.inject(InnovationService) as jasmine.SpyObj<InnovationService>;
+    thematiqueServiceSpy.getAll.and.returnValue(of(thematiques));
+    innovationServiceSpy.getAll.and.returnValue(of(innovations));
+    innovationServiceSpy.count.and.returnValue(of(2));
     fixture.detectChanges();
   });
 
@@ -75,17 +75,17 @@ describe('SidebarComponent', () => {
   });
 
   it('should select an SDG', () => {
-    const sdgEl = fixture.debugElement.query(By.css('app-odd'));
+    const sdgEl = fixture.debugElement.query(By.css('app-thematique'));
     sdgEl.triggerEventHandler('click', {});
     fixture.detectChanges();
 
-    expect(component.selectedOdd).toBe(odds[0]);
+    expect(component.selectedThematique).toBe(thematiques[0]);
   });
 
   it('should reinitialize the selection', () => {
     component.reinitialize();
 
-    expect(component.selectedOdd).toBeNull();
+    expect(component.selectedThematique).toBeNull();
   });
 
   it('should toggle the sidebar', () => {

@@ -2,7 +2,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { OscService } from 'src/app/oscs/osc.service';
+import { InnovationService } from 'src/app/innovations/innovation.service';
 import { MapLocation } from 'src/app/places/map-location';
 import { Place } from 'src/app/places/place';
 import { PlaceService } from 'src/app/places/place.service';
@@ -14,18 +14,18 @@ describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
   let fixture: ComponentFixture<SearchBarComponent>;
   let placeServiceSpy: jasmine.SpyObj<PlaceService>;
-  let oscServiceSpy: jasmine.SpyObj<OscService>;
+  let innovationServiceSpy: jasmine.SpyObj<InnovationService>;
 
   beforeEach(async () => {
     const placeServiceMock = jasmine.createSpyObj('PlaceService', ['searchPlaces']);
-    const oscServiceMock = jasmine.createSpyObj('OscService', ['searchByName']);
+    const innovationServiceMock = jasmine.createSpyObj('InnovationService', ['searchByName']);
 
     await TestBed.configureTestingModule({
       declarations: [ SearchBarComponent ],
       imports: [ SharedModule, TranslateModule.forRoot() ],
       providers: [
         { provide: PlaceService, useValue: placeServiceMock },
-        { provide: OscService, useValue: oscServiceMock }
+        { provide: InnovationService, useValue: innovationServiceMock }
       ]
     })
     .compileComponents();
@@ -35,7 +35,7 @@ describe('SearchBarComponent', () => {
     fixture = TestBed.createComponent(SearchBarComponent);
     component = fixture.componentInstance;
     placeServiceSpy = TestBed.inject(PlaceService) as jasmine.SpyObj<PlaceService>;
-    oscServiceSpy = TestBed.inject(OscService) as jasmine.SpyObj<OscService>;
+    innovationServiceSpy = TestBed.inject(InnovationService) as jasmine.SpyObj<InnovationService>;
     fixture.detectChanges();
   });
 
@@ -49,7 +49,7 @@ describe('SearchBarComponent', () => {
       new MapLocation('Yaounde, Cameroon', 1.1, 1.1, [1, 0, 0, 1]),
     ];
     placeServiceSpy.searchPlaces.and.returnValue(of(places));
-    oscServiceSpy.searchByName.and.returnValue(of([]));
+    innovationServiceSpy.searchByName.and.returnValue(of([]));
     const searchInput = fixture.debugElement.query(By.css('input[name="name"]'));
     searchInput.nativeElement.value = 'Cotonou';
     searchInput.nativeElement.dispatchEvent(new Event('keyup'));
@@ -65,7 +65,7 @@ describe('SearchBarComponent', () => {
       new MapLocation('Yaounde, Cameroon', 1.1, 1.1, [1, 0, 0, 1]),
     ];
     placeServiceSpy.searchPlaces.and.returnValue(of(places));
-    oscServiceSpy.searchByName.and.returnValue(of([]));
+    innovationServiceSpy.searchByName.and.returnValue(of([]));
     const searchInput = fixture.debugElement.query(By.css('input[name="name"]'));
     searchInput.nativeElement.value = 'Cotonou';
     searchInput.nativeElement.dispatchEvent(new Event('keyup'));
@@ -86,7 +86,7 @@ describe('SearchBarComponent', () => {
       new MapLocation('Yaounde, Cameroon', 1.1, 1.1, [1, 0, 0, 1]),
     ];
     placeServiceSpy.searchPlaces.and.returnValue(of(places));
-    oscServiceSpy.searchByName.and.returnValue(of([]));
+    innovationServiceSpy.searchByName.and.returnValue(of([]));
     const searchInput = fixture.debugElement.query(By.css('input[name="name"]'));
     searchInput.nativeElement.value = 'Cotonou';
     searchInput.nativeElement.dispatchEvent(new Event('keyup'));

@@ -4,12 +4,12 @@ import { Router } from '@angular/router';
 import { Feature } from 'ol';
 import { finalize } from 'rxjs';
 import { MapService } from 'src/app/map/map.service';
-import { Category } from 'src/app/odds/category';
-import { Odd } from 'src/app/odds/odd';
-import { OddService } from 'src/app/odds/odd.service';
-import { Osc } from 'src/app/oscs/osc';
-import { OscService } from 'src/app/oscs/osc.service';
-import { Results } from 'src/app/oscs/results';
+import { Category } from 'src/app/thematiques/category';
+import { Thematique } from 'src/app/thematiques/thematique';
+import { ThematiqueService } from 'src/app/thematiques/thematique.service';
+import { Innovation } from 'src/app/innovations/innovation';
+import { InnovationService } from 'src/app/innovations/innovation.service';
+import { Results } from 'src/app/innovations/results';
 import { MapLocation } from 'src/app/places/map-location';
 
 @Component({
@@ -17,17 +17,17 @@ import { MapLocation } from 'src/app/places/map-location';
   templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent implements OnDestroy, OnInit {
-  @Input() oddNumber: string =  '';
-  @Input() oscId?: number;
+  @Input() thematiqueNumber: string =  '';
+  @Input() innovationId?: number;
   private _mobileQueryListener: () => void;
   private _open = false;
   mobileQuery: MediaQueryList;
-  odds: Odd[] = [];
-  selectedOdd: Odd | null = null;
+  thematiques: Thematique[] = [];
+  selectedThematique: Thematique | null = null;
   selectedCategories: Category[] = [];
-  selectedOsc: Osc | null = null;
-  oscs: Osc[] = [];
-  showOscs: boolean = false;
+  selectedInnovation: Innovation | null = null;
+  innovations: Innovation[] = [];
+  showInnovations: boolean = false;
   loading = false;
   ready = false;
 
@@ -35,8 +35,8 @@ export class SidebarComponent implements OnDestroy, OnInit {
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private oddService: OddService,
-    private oscService: OscService,
+    private thematiqueService: ThematiqueService,
+    private innovationService: InnovationService,
     private mapService: MapService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
@@ -45,19 +45,19 @@ export class SidebarComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    if (this.oddNumber) {
+    if (this.thematiqueNumber) {
       this._open = true;
-      this.showOscs = true;
-    } else if (this.oscId) {
-      this.oscService.get(this.oscId).subscribe((osc: Osc) => {
-        this.selectedOsc = osc;
-        this.onShowOscs();
+      this.showInnovations = true;
+    } else if (this.innovationId) {
+      this.innovationService.get(this.innovationId).subscribe((innovation: Innovation) => {
+        this.selectedInnovation = innovation;
+        this.onShowInnovations();
       });
     }
-    this.getOdds();
-    this.mapService.selected.subscribe((osc: Osc) => {
-      this.selectedOsc = null;
-      this.onSelectOsc(osc);
+    this.getThematiques();
+    this.mapService.selected.subscribe((innovation: Innovation) => {
+      this.selectedInnovation = null;
+      this.onSelectInnovation(innovation);
       this.hideMap();
       this.changeDetectorRef.detectChanges();
     });
@@ -77,29 +77,29 @@ export class SidebarComponent implements OnDestroy, OnInit {
     body.classList.remove('overflow-hidden');
   }
 
-  onSelectOdd(odd: Odd): void {
-    this.selectedOdd = odd;
+  onSelectThematique(thematique: Thematique): void {
+    this.selectedThematique = thematique;
   }
 
-  selectedOscsCount(): number {
-    if (this.selectedOdd) {
-      return this.selectedOdd.count_osc;
+  selectedInnovationsCount(): number {
+    if (this.selectedThematique) {
+      return this.selectedThematique.count_innovation;
     }
 
-    return this.oscs.length;
+    return this.innovations.length;
   }
 
-  reinitialize(hideOscs:boolean = false): void {
-    if (hideOscs) {
-      this.hideOscs();
+  reinitialize(hideInnovations:boolean = false): void {
+    if (hideInnovations) {
+      this.hideInnovations();
     }
 
-    this.selectedOdd = null;
-    this.selectedOsc = null;
+    this.selectedThematique = null;
+    this.selectedInnovation = null;
     this.selectedCategories = [];
     this.mapService.removeMarkers();
     this.mapService.removeZoom();
-    this.getOscs();
+    this.getInnovations();
     this.mapService.setHasResults(false);
   }
 
@@ -121,17 +121,17 @@ export class SidebarComponent implements OnDestroy, OnInit {
     }
   }
 
-  onShowOscs(): void {
-    this.showOscs = true;
+  onShowInnovations(): void {
+    this.showInnovations = true;
     this.mapService.setHasResults(true);
-    if (this.selectedOdd) {
-      this.getOscs();
+    if (this.selectedThematique) {
+      this.getInnovations();
     }
   }
 
-  hideOscs(): void {
-    this.showOscs = false;
-    this.onCloseOscDetails();
+  hideInnovations(): void {
+    this.showInnovations = false;
+    this.onCloseInnovationDetails();
     this.mapService.removeZoom();
   }
 
@@ -143,20 +143,20 @@ export class SidebarComponent implements OnDestroy, OnInit {
     this.selectedCategories.splice(position, 1);
   }
 
-  onSelectOsc(osc: Osc): void {
-    this.selectedOsc = osc;
-    this.router.navigate(['/'], {queryParams: {oscId: osc.id}, queryParamsHandling: 'merge'});
+  onSelectInnovation(innovation: Innovation): void {
+    this.selectedInnovation = innovation;
+    this.router.navigate(['/'], {queryParams: {innovationId: innovation.id}, queryParamsHandling: 'merge'});
   }
 
-  onSelectOscFromSidebar(osc: Osc): void {
-    this.onSelectOsc(osc);
-    if (osc.id) {
-      this.mapService.selectById(osc.id);
+  onSelectInnovationFromSidebar(innovation: Innovation): void {
+    this.onSelectInnovation(innovation);
+    if (innovation.id) {
+      this.mapService.selectById(innovation.id);
     }
   }
 
-  onCloseOscDetails(): void {
-    this.selectedOsc = null;
+  onCloseInnovationDetails(): void {
+    this.selectedInnovation = null;
     if (this.mobileQuery.matches) {
       this.showMap();
     }
@@ -165,54 +165,54 @@ export class SidebarComponent implements OnDestroy, OnInit {
   }
 
   onPlaceSelected(place: MapLocation|null): void {
-    if (place?.osc) {
-      if (place.osc.longitude && place.osc.latitude) {
-        const longitude = Number.parseFloat(place.osc.longitude);
-        const latitude = Number.parseFloat(place.osc.latitude);
+    if (place?.innovation) {
+      if (place.innovation.longitude && place.innovation.latitude) {
+        const longitude = Number.parseFloat(place.innovation.longitude);
+        const latitude = Number.parseFloat(place.innovation.latitude);
         const coordinates = [longitude, latitude]
-        this.mapService.addMarker(coordinates, place.osc);
+        this.mapService.addMarker(coordinates, place.innovation);
       }
     }
     this.mapService.selectLocation(place);
   }
 
-  private getOscs(push: boolean = false, url?: string): void {
+  private getInnovations(push: boolean = false, url?: string): void {
     if (!push) {
-      this.oscs = [];
+      this.innovations = [];
     }
 
     if (this.selectedCategories.length > 0) {
-      this.searchOscs();
+      this.searchInnovations();
       return;
     }
 
     this.loading = true;
 
-    this.oscService.getAll(url).pipe(
+    this.innovationService.getAll(url).pipe(
       finalize(() => this.loading = false)
     )
-    .subscribe((oscs: Results<Osc>) => {
+    .subscribe((innovations: Results<Innovation>) => {
       if (push) {
-        this.oscs.push(...oscs.data);;
+        this.innovations.push(...innovations.data);;
       } else {
         this.mapService.removeMarkers();
-        this.oscs = oscs.data;
+        this.innovations = innovations.data;
       }
 
-      oscs.data.forEach((osc: Osc, index: number) => {
-        if (osc.longitude && osc.latitude) {
-          const longitude = Number.parseFloat(osc.longitude);
-          const latitude = Number.parseFloat(osc.latitude);
+      innovations.data.forEach((innovation: Innovation, index: number) => {
+        if (innovation.longitude && innovation.latitude) {
+          const longitude = Number.parseFloat(innovation.longitude);
+          const latitude = Number.parseFloat(innovation.latitude);
           const coordinates = [longitude, latitude]
-          this.mapService.addMarker(coordinates, osc);
+          this.mapService.addMarker(coordinates, innovation);
         }
       });
 
-      if (oscs.next) {
-        this.getOscs(true, oscs.next);
+      if (innovations.next) {
+        this.getInnovations(true, innovations.next);
       } else {
-        if (this.ready === false && this.oscId && this.selectedOsc) {
-          this.onSelectOscFromSidebar(this.selectedOsc);
+        if (this.ready === false && this.innovationId && this.selectedInnovation) {
+          this.onSelectInnovationFromSidebar(this.selectedInnovation);
         }
 
         this.ready = true;
@@ -220,33 +220,33 @@ export class SidebarComponent implements OnDestroy, OnInit {
     });
   }
 
-  private searchOscs(): void {
+  private searchInnovations(): void {
     this.loading = true;
 
-    this.oscService.search(this.selectedCategories).pipe(
+    this.innovationService.search(this.selectedCategories).pipe(
       finalize(() => this.loading = false)
     )
-    .subscribe((oscs: Osc[]) => {
-      this.oscs = oscs;
+    .subscribe((innovations: Innovation[]) => {
+      this.innovations = innovations;
       this.mapService.removeMarkers();
-      this.oscs.forEach((osc: Osc, index: number) => {
-        if (osc.longitude && osc.latitude) {
-          const longitude = Number.parseFloat(osc.longitude);
-          const latitude = Number.parseFloat(osc.latitude);
+      this.innovations.forEach((innovation: Innovation, index: number) => {
+        if (innovation.longitude && innovation.latitude) {
+          const longitude = Number.parseFloat(innovation.longitude);
+          const latitude = Number.parseFloat(innovation.latitude);
           const coordinates = [longitude, latitude]
-          this.mapService.addMarker(coordinates, osc);
+          this.mapService.addMarker(coordinates, innovation);
         }
       });
     });
   }
 
   showMap(): void {
-    this.showOscs = false;
+    this.showInnovations = false;
     this._open = false;
   }
 
   hideMap(): void {
-    this.showOscs = true;
+    this.showInnovations = true;
     this._open = true;
   }
 
@@ -260,54 +260,54 @@ export class SidebarComponent implements OnDestroy, OnInit {
       classes = 'top-12 z-10';
     }
 
-    if (this.isOpen() && !this.showOscs) {
+    if (this.isOpen() && !this.showInnovations) {
       classes = 'top-0 z-20';
     }
 
-    if (this.isOpen() && this.showOscs) {
+    if (this.isOpen() && this.showInnovations) {
       classes = 'top-0 bottom-0 bg-secondary z-10';
     }
 
     return classes;
   }
 
-  private getOdds(): void {
+  private getThematiques(): void {
     this.loading = true;
-    this.oddService.getAll()
+    this.thematiqueService.getAll()
       .pipe(
         finalize(() => {
-          if (!this.oddNumber) {
+          if (!this.thematiqueNumber) {
             this.loading = false
           }
         })
       )
       .subscribe(data => {
-        this.odds = data;
-        if (this.oddNumber) {
-          this.selectOdd();
+        this.thematiques = data;
+        if (this.thematiqueNumber) {
+          this.selectThematique();
         } else {
-          this.getOscs();
+          this.getInnovations();
         }
       });
   }
 
-  private selectOdd(): void {
-    const existingOdd = this.odds.find((odd: Odd) => odd.number === this.oddNumber);
+  private selectThematique(): void {
+    const existingThematique = this.thematiques.find((thematique: Thematique) => thematique.number === this.thematiqueNumber);
 
-    if (existingOdd) {
-      this.onSelectOdd(existingOdd);
-      this.oddService.get(existingOdd.id).subscribe((odd: Odd|null) => {
-        if (odd) {
-          this.selectedCategories = odd.categories;
-          this.onShowOscs();
+    if (existingThematique) {
+      this.onSelectThematique(existingThematique);
+      this.thematiqueService.get(existingThematique.id).subscribe((thematique: Thematique|null) => {
+        if (thematique) {
+          this.selectedCategories = thematique.categories;
+          this.onShowInnovations();
         }
       })
     }
   }
 
-  oscTrackBy(index: number, osc: Osc):  number {
-    if (osc.id) {
-      return osc.id;
+  innovationTrackBy(index: number, innovation: Innovation):  number {
+    if (innovation.id) {
+      return innovation.id;
     }
 
     return 0;

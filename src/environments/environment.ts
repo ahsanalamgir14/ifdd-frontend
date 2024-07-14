@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiRoot: 'http://127.0.0.1:8000/api',
-  apiKey: 'h8QCpW8CEPkRyiIcl5rMHAVb5CapWtHfxmbrznd5hvcRCxQJPYhme1dsTM1pQ2dC',
+  apiRoot: 'https://carto-pilote.kixafrique21.org/api',
+  apiKey: 'HxIaEGQAHzWh3lTxMst8uYmsNl4OG94p1dfFM6oS7ialCxspDmngL6AQLbXi69tH',
 };
 
 /*

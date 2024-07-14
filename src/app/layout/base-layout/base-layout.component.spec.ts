@@ -18,8 +18,8 @@ export class NavbarStubComponent {}
   template: 'sidebar works!',
 })
 export class SidebarStubComponent {
-  @Input() oddNumber: string = '';
-  @Input() oscId?: number;
+  @Input() thematiqueNumber: string = '';
+  @Input() innovationId?: number;
 }
 
 describe('BaseLayoutComponent', () => {

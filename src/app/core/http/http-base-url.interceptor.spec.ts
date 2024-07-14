@@ -35,9 +35,9 @@ describe('HttpBaseUrlInterceptor', () => {
   });
 
   it('should add API Root endpoint', () => {
-    client.get('/odds').subscribe();
+    client.get('/thematiques').subscribe();
     const request = httpMock.match({method: 'get'})[0].request;
 
-    expect(request.url).toBe(`${environment.apiRoot}/odds`);
+    expect(request.url).toBe(`${environment.apiRoot}/thematiques`);
   });
 });

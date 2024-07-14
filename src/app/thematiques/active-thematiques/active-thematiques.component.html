@@ -1,0 +1,5 @@
+<div class="grid grid-cols-3 gap-0.5 w-20">
+  <div *ngFor="let id of colorIds; let i = index;" class="col-span-1 w-6 h-4 flex items-center justify-center" [ngStyle]="getStyles(id)">
+    <span *ngIf="isActive(id)" class="text-white text-xs leading-none font-medium">{{ id }}</span>
+  </div>
+</div>

@@ -1,3 +1,4 @@
+<br><br>
 <div class="mx-auto pb-12 container max-w-[940px]">
   <section class="mt-12">
     <div class="grid grid-cols-3 gap-4 w-full">
@@ -16,8 +17,8 @@
           <img src="/assets/images/numbers-objectives.png" alt="" width="80">
         </div>
         <div>
-          <strong class="font-bold text-primary md:text-3xl">{{ numbers.oddsCount }}</strong>
-          <p class="mb-0 font-medium text-xs md:text-base text-primary lowercase">{{ 'text.objectives'|translate }}</p>
+          <strong class="font-bold text-primary md:text-3xl">{{ numbers.thematiquesCount }}</strong>
+          <p class="mb-0 font-medium text-xs md:text-base text-primary lowercase">{{ 'text.themes'|translate }}</p>
         </div>
       </div>
       <div class="flex items-center justify-center p-3 bg-white rounded-xl shadow-lg">
@@ -26,7 +27,7 @@
         </div>
         <div>
           <strong class="font-bold text-primary md:text-3xl">{{ numbers.orgsCount }}</strong>
-          <p class="mb-0 font-medium text-xs md:text-base text-primary lowercase">{{ 'text.organizations'|translate }}</p>
+          <p class="mb-0 font-medium text-xs md:text-base text-primary lowercase">{{ 'text.innovations_count'|translate }}</p>
         </div>
       </div>
     </div>
@@ -35,8 +36,8 @@
   <section class="mt-8 p-3 lg:p-8 bg-white rounded-xl shadow-lg">
     <app-loading-lines *ngIf="loading"></app-loading-lines>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div *ngFor="let odd of odds">
-        <app-odd [odd]="odd" [lite]="true" (click)="onSelectOdd(odd)" [selected]="odd === selectedOdd"></app-odd>
+      <div *ngFor="let thematique of thematiques">
+        <app-thematique [thematique]="thematique" [lite]="true" (click)="onSelectThematique(thematique)" [selected]="thematique === selectedThematique"></app-thematique>
       </div>
     </div>
   </section>

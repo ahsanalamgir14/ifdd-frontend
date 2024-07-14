@@ -36,7 +36,7 @@ describe('HttpBaseHeadersInterceptor', () => {
   });
 
   it('should set the content type and accept headers and authorization', () => {
-    client.get('/odds').subscribe();
+    client.get('/thematiques').subscribe();
     const request = httpMock.match({method: 'get'})[0].request;
 
     expect(request.headers.get('Content-Type')).toEqual('application/json');

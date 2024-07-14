@@ -1,8 +1,8 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { debounceTime, distinctUntilChanged, map, merge, mergeMap, Subject, switchMap } from 'rxjs';
-import { Osc } from 'src/app/oscs/osc';
-import { OscService } from 'src/app/oscs/osc.service';
+import { Innovation } from 'src/app/innovations/innovation';
+import { InnovationService } from 'src/app/innovations/innovation.service';
 import { MapLocation } from 'src/app/places/map-location';
 import { PlaceService } from 'src/app/places/place.service';
 
@@ -32,7 +32,7 @@ export class SearchBarComponent implements OnInit {
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private placeService: PlaceService,
-    private oscService: OscService
+    private innovationService: InnovationService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -48,12 +48,12 @@ export class SearchBarComponent implements OnInit {
           this.places = [];
           return merge(
             this.placeService.searchPlaces(name),
-            this.oscService.searchByName(name).pipe(
-              map((oscs: Osc[]) => oscs.map((osc: any) => {
-                const location = new MapLocation(osc.name, osc.longitude, osc.latitude, []);
-                location.id = osc.id;
+            this.innovationService.searchByName(name).pipe(
+              map((innovations: Innovation[]) => innovations.map((innovation: any) => {
+                const location = new MapLocation(innovation.name, innovation.longitude, innovation.latitude, []);
+                location.id = innovation.id;
                 location.type = 'siege';
-                location.osc = osc;
+                location.innovation = innovation;
 
                 return location;
               }))
