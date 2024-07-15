@@ -73,7 +73,8 @@
     "siege": "Headquarters",
     "add_location_as_headquarters": "Add this localization to the headquarters",
     "intervention_zones": "Intervention zones",
-    "add_location_as_intervention_zone": "Add an intervention zone"
+    "add_location_as_intervention_zone": "Add an intervention zone",
+    "document_link": "Document Link"
   },
   "error": {
     "email_is_required": "Email address is required.",

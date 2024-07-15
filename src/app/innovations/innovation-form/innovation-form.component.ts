@@ -76,6 +76,7 @@ export class InnovationFormComponent implements OnInit {
     pays: new FormControl<string>('', [Validators.required]),
     date_fondation: new FormControl<string>('', [Validators.required]),
     description: new FormControl<string>('', []),
+    document_link: new FormControl<string>('', []),
     personne_contact: new FormControl<string>('', [Validators.required]),
     dialCode: new FormControl<string>('', [Validators.required]),
     telephone: new FormControl<string>('', [Validators.required]),
@@ -512,7 +513,8 @@ export class InnovationFormComponent implements OnInit {
         this.field('dialCode')?.valid &&
         this.field('telephone')?.valid &&
         this.field('reference')?.valid &&
-        this.field('email_innovation')?.valid
+        this.field('email_innovation')?.valid &&
+        this.field('document_link')?.valid
       ) {
         return true;
       }
