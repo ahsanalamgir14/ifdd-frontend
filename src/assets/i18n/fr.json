@@ -84,7 +84,8 @@
     "siege": "Siège",
     "add_location_as_headquarters": "Ajouter cette localisation au siège",
     "intervention_zones": "Zones d'interventions",
-    "add_location_as_intervention_zone": "Ajouter une zone d'intervention"
+    "add_location_as_intervention_zone": "Ajouter une zone d'intervention",
+    "document_link": "Liens vers le document"
   },
   "error": {
     "email_is_required": "L'adresse email est requise.",
