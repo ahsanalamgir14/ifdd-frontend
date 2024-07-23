@@ -9,8 +9,8 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
 import { PageLayoutComponent } from './page-layout/page-layout.component';
-import { OddsModule } from '../odds/odds.module';
-import { OscsModule } from '../oscs/oscs.module';
+import { ThematiquesModule } from '../thematiques/thematiques.module';
+import { InnovationsModule } from '../innovations/innovations.module';
 import { MapModule } from '../map/map.module';
 import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
 
@@ -30,8 +30,8 @@ import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
     RouterModule,
     TranslateModule,
     SharedModule,
-    OddsModule,
-    OscsModule,
+    ThematiquesModule,
+    InnovationsModule,
     MapModule
   ]
 })

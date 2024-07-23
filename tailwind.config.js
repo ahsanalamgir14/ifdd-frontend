@@ -14,11 +14,18 @@ module.exports = {
       },
       colors: {
         ...defaultTheme.colors,
+        primary: '#062172', // Couleur Bleu foncé
+        accent: '#fdcd01', // Couleur jaune des liens inscriptions et connexion
+        secondary: '#4878c0', // Couleur de base du sidebar de ma page carto
+        'secondary-light': '#c5dbe8'
+      }
+      /* colors: {
+        ...defaultTheme.colors,
         primary: '#255033',
         accent: '#fdcd01',
         secondary: '#70af85',
         'secondary-light': '#ecf8ed'
-      }
+      } */
     }
   },
   plugins: [

@@ -62,7 +62,7 @@ export class MapComponent implements AfterViewInit {
         new TileLayer({
           source: new OSM({
             attributions: [
-              'By <a href="https://api.whatsapp.com/send?phone=694698607&text=" target="_blank">GeOsm Family</a>,<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributors',
+              //'Copyright &copy'
             ],
           }),
         }),

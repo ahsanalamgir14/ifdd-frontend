@@ -13,7 +13,7 @@ import {
   Style,
   Text,
 } from 'ol/style';
-import { Osc } from '../oscs/osc';
+import { Innovation } from '../innovations/innovation';
 import { Subject } from 'rxjs';
 import { MapLocation } from '../places/map-location';
 
@@ -30,10 +30,10 @@ export class MapService {
   private clusterLayer: VectorLayer<VectorSource>;
   private textSource: VectorSource;
   private textLayer: VectorLayer<VectorSource>;
-  private markerOscMap: Map<string, Osc> = new Map();
+  private markerInnovationMap: Map<string, Innovation> = new Map();
   private _hasResults: boolean = false;
   private _hasSelected: boolean = false;
-  selected: Subject<Osc> = new Subject();
+  selected: Subject<Innovation> = new Subject();
   refreshed: Subject<boolean> = new Subject<boolean>();
   hidden: Subject<boolean> = new Subject<boolean>();
 
@@ -93,24 +93,24 @@ export class MapService {
     return this.textLayer;
   }
 
-  addMarker(coordinate: Coordinate, osc: Osc): void {
-    if (osc && osc.id && !this.markerOscMap.has(osc.id.toString())) {
+  addMarker(coordinate: Coordinate, innovation: Innovation): void {
+    if (innovation && innovation.id && !this.markerInnovationMap.has(innovation.id.toString())) {
       const iconFeature = new Feature({
-        name: osc.name,
+        name: innovation.name,
         geometry: new Point(coordinate),
       });
       iconFeature.setStyle(this.getMarkerStyle());
-      iconFeature.setId(osc.id);
+      iconFeature.setId(innovation.id);
       this.markerSource.addFeature(iconFeature);
-      this.markerOscMap.set(osc.id.toString(), osc);
+      this.markerInnovationMap.set(innovation.id.toString(), innovation);
 
-      if (osc.abbreviation) {
+      if (innovation.abbreviation) {
         const textFeature = new Feature({
-          name: osc.abbreviation,
+          name: innovation.abbreviation,
           geometry: new Point(coordinate)
         });
-        textFeature.setStyle(this.getMarkerTextStyle(osc.abbreviation));
-        textFeature.setId(`${osc.id}-text`);
+        textFeature.setStyle(this.getMarkerTextStyle(innovation.abbreviation));
+        textFeature.setId(`${innovation.id}-text`);
         this.textSource.addFeature(textFeature);
       }
     }
@@ -119,7 +119,7 @@ export class MapService {
   removeMarkers(): void {
     this.markerSource.clear();
     this.clusterSource.clear();
-    this.markerOscMap.clear();
+    this.markerInnovationMap.clear();
     this.textSource.clear();
   }
 
@@ -170,17 +170,17 @@ export class MapService {
 
   select(feature: Feature, emit: boolean = true) {
     const id = feature.getId();
-    let osc: Osc | undefined;
+    let innovation: Innovation | undefined;
     if (id) {
-      osc = this.markerOscMap.get(id.toString());
+      innovation = this.markerInnovationMap.get(id.toString());
     }
 
-    if (osc) {
+    if (innovation) {
       if (emit) {
-        this.selected.next(osc);
+        this.selected.next(innovation);
       } else {
-        if (osc?.longitude && osc.latitude) {
-          this.zoomToMarker([Number.parseFloat(osc?.longitude), Number.parseFloat(osc?.latitude)])
+        if (innovation?.longitude && innovation.latitude) {
+          this.zoomToMarker([Number.parseFloat(innovation?.longitude), Number.parseFloat(innovation?.latitude)])
         }
       }
     }
@@ -195,12 +195,12 @@ export class MapService {
       }
     });
 
-    if (osc) {
+    if (innovation) {
       if (emit) {
-        this.selected.next(osc);
+        this.selected.next(innovation);
       } else {
-        if (osc?.longitude && osc.latitude) {
-          this.zoomToMarker([Number.parseFloat(osc?.longitude), Number.parseFloat(osc?.latitude)])
+        if (innovation?.longitude && innovation.latitude) {
+          this.zoomToMarker([Number.parseFloat(innovation?.longitude), Number.parseFloat(innovation?.latitude)])
         }
       }
     }
@@ -214,7 +214,7 @@ export class MapService {
       iconSrc = '/assets/icons/map/marker-star-active.png';
       zIndex = 2;
     }
-    if (id && this.markerOscMap.has(id.toString())) {
+    if (id && this.markerInnovationMap.has(id.toString())) {
       const style = feature.getStyle() as Style;
       style.setZIndex(zIndex);
       style.setImage(new Icon({ src: iconSrc }));

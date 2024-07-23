@@ -17,14 +17,14 @@ export class I18nService {
   init(): Observable<any> {
     let language = this.storage.getItem('language');
     if (!language) {
-      if (location.hostname === 'cartodd.francophonie.org') {
+      if (location.hostname === 'carto.kixafrique21.org') {
         language = 'fr';
       } else {
         language = 'en';
       }
     }
     
-    if (location.hostname === 'cartodd.francophonie.org') {
+    if (location.hostname === 'carto.kixafrique21.org') {
       this.translate.setDefaultLang('fr');
     } else {
       this.translate.setDefaultLang('en');

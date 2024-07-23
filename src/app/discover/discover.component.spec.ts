@@ -8,24 +8,24 @@ import {
 } from '../layout/base-layout/base-layout.component.spec';
 import { MapService } from '../map/map.service';
 import { MapStubComponent } from '../map/testing';
-import { OscService } from '../oscs/osc.service';
+import { InnovationService } from '../innovations/innovation.service';
 
 import { DiscoverComponent } from './discover.component';
-import { Results } from '../oscs/results';
-import { Osc } from '../oscs/osc';
+import { Results } from '../innovations/results';
+import { Innovation } from '../innovations/innovation';
 
 describe('DiscoverComponent', () => {
   let component: DiscoverComponent;
   let fixture: ComponentFixture<DiscoverComponent>;
   let mapServiceSpy: jasmine.SpyObj<MapService>;
-  let oscServiceSpy: jasmine.SpyObj<OscService>;
-  const oscs = new Results<Osc>();
+  let innovationServiceSpy: jasmine.SpyObj<InnovationService>;
+  const innovations = new Results<Innovation>();
 
   beforeEach(async () => {
     const mockMapService = jasmine.createSpyObj('MapService', [
       'removeMarkers',
     ]);
-    const mockOscService = jasmine.createSpyObj('OscService', ['getAll']);
+    const mockInnovationService = jasmine.createSpyObj('InnovationService', ['getAll']);
 
     await TestBed.configureTestingModule({
       declarations: [
@@ -37,7 +37,7 @@ describe('DiscoverComponent', () => {
       imports: [RouterTestingModule, TranslateModule.forRoot()],
       providers: [
         { provide: MapService, useValue: mockMapService },
-        { provide: OscService, useValue: mockOscService },
+        { provide: InnovationService, useValue: mockInnovationService },
       ],
     }).compileComponents();
   });
@@ -46,8 +46,8 @@ describe('DiscoverComponent', () => {
     fixture = TestBed.createComponent(DiscoverComponent);
     component = fixture.componentInstance;
     mapServiceSpy = TestBed.inject(MapService) as jasmine.SpyObj<MapService>;
-    oscServiceSpy = TestBed.inject(OscService) as jasmine.SpyObj<OscService>;
-    oscServiceSpy.getAll.and.returnValue(of(oscs));
+    innovationServiceSpy = TestBed.inject(InnovationService) as jasmine.SpyObj<InnovationService>;
+    innovationServiceSpy.getAll.and.returnValue(of(innovations));
     fixture.detectChanges();
   });
 

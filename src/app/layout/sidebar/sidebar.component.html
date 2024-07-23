@@ -1,14 +1,15 @@
+<br><br>
 <div
-  class="fixed md:pt-20 pl-0 md:pl-5 pr-0 md:pr-5 md:top-0 md:bottom-0 left-0 right-0 md:right-auto md:w-[400px] md:bg-secondary md:z-0 overflow-auto overflow-x-hidden"
-  [ngClass]="getCssClasses()"
+  class="fixed md:pt-20 pl-0 md:pl-5 pr-0 md:pr-5 md:top-11 md:bottom-0 left-0 right-0 md:right-auto md:w-[400px] md:bg-secondary md:z-0 overflow-auto overflow-x-hidden"
+  [ngClass]="getCssClasses()" style="font-size: 8px;"
 >
   <app-search-bar
     class="hidden md:block mt-5"
-    [isRounded]="!showOscs"
+    [isRounded]="!showInnovations"
     (selected)="onPlaceSelected($event)"
   ></app-search-bar>
   <div
-    *ngIf="!showOscs"
+    *ngIf="!showInnovations"
     class="relative flex flex-col md:mt-3 bg-white rounded-lg shadow-lg"
     [ngClass]="{ 'pb-14': isOpen(), 'mt-2 mx-3': !isOpen() }"
   >
@@ -33,70 +34,72 @@
         class="group px-7 flex-1 max-h-[calc(100vh-116px)] md:max-h-[calc(100vh-300px)] overflow-auto"
       >
         <app-loading-lines
-          *ngIf="loading && odds.length === 0"
+          *ngIf="loading && thematiques.length === 0"
         ></app-loading-lines>
-        <div *ngFor="let item of odds" class="last:pb-28 last:md:pb-10">
-          <app-odd
-            [odd]="item"
-            [selected]="item === selectedOdd"
+        <div *ngFor="let item of thematiques" class="last:pb-28 last:md:pb-10">
+          <app-thematique
+            [thematique]="item"
+            [selected]="item === selectedThematique"
             [lite]="false"
             (categoriesSelection)="onCategoriesSelection($event)"
-            (click)="onSelectOdd(item)"
-          ></app-odd>
+            (click)="onSelectThematique(item)"
+          ></app-thematique>
         </div>
       </div>
     </div>
     <div
-      *ngIf="isOpen() && selectedOscsCount() !== 0"
+      *ngIf="isOpen() && selectedInnovationsCount() !== 0"
       class="fixed md:absolute bottom-0 left-0 right-0 flex px-5 py-3 bg-white rounded-b-lg shadow-[0px_-5px_10px_rgb(0,0,0,.2)]"
     >
       <button
-        *ngIf="selectedOdd"
+        *ngIf="selectedThematique"
         class="p-2 bg-secondary-light text-primary text-xs font-extrabold rounded-lg uppercase"
-        (click)="reinitialize()"
+        (click)="reinitialize(true)"
       >
-        {{ "button.reinitialize" | translate }}
+        {{ 
+          "button.reinitialize" | translate 
+        }}
       </button>
       <button
         class="p-2 ml-auto bg-accent text-primary disabled:bg-yellow-100 disabled:cursor-not-allowed text-xs font-extrabold rounded-lg uppercase"
-        (click)="onShowOscs()"
-        [disabled]="!selectedOdd && !ready"
+        (click)="onShowInnovations()"
+        [disabled]="!selectedThematique && !ready"
       >
         {{
-          "button.display_oscs" | translate : { oscsCount: selectedOscsCount() }
+          "button.display_innovations" | translate : { innovationsCount: selectedInnovationsCount() }
         }}
       </button>
     </div>
   </div>
   <div
-    *ngIf="showOscs"
+    *ngIf="showInnovations"
     class="relative flex flex-col pt-14 md:pt-0 pb-16 md:pb-5 px-3 md:px-0"
     [ngClass]="{ 'mt-2 mx-3': !isOpen() }"
-    [ngClass]="{ 'md:mt-3': !showOscs }"
+    [ngClass]="{ 'md:mt-3': !showInnovations }"
   >
     <div
       class="flex flex-col justify-center p-3 bg-white shadow-lg border-t-neutral-200 border-t"
       [ngClass]="{
         'rounded-lg':
-          mobileQuery.matches || (!mobileQuery.matches && !showOscs),
-        'rounded-b-lg': !mobileQuery.matches && showOscs
+          mobileQuery.matches || (!mobileQuery.matches && !showInnovations),
+        'rounded-b-lg': !mobileQuery.matches && showInnovations
       }"
     >
       <div
         class="w-full flex flex-wrap"
         [ngClass]="{ 'mb-3': selectedCategories.length !== 0 }"
       >
-        <app-odd-category
+        <app-thematique-category
           [category]="category"
           *ngFor="let category of selectedCategories; let i = index"
-          [color]="selectedOdd?.color"
+          [color]="selectedThematique?.color"
           (unselectCategory)="unselectCategory(i)"
-        ></app-odd-category>
+        ></app-thematique-category>
       </div>
       <div class="flex">
         <button
           class="flex text-primary text-xs md:text-sm font-bold items-center lowercase"
-          (click)="hideOscs()"
+          (click)="hideInnovations()"
         >
           <span>{{ "button.update_filters" | translate }}</span>
           <ng-icon
@@ -115,10 +118,10 @@
     </div>
     <div class="flex mt-3 md:mt-2 mb-3 md:mb-4">
       <p class="font-bold text-sm text-white">
-        <span>{{ oscs.length }} </span>
-        <span *ngIf="oscs.length === 1">{{ "text.one_osc" | translate }}</span>
-        <span *ngIf="oscs.length !== 1">{{
-          "text.oscs_count" | translate
+        <span>{{ innovations.length }} </span>
+        <span *ngIf="innovations.length === 1">{{ "text.one_innovation" | translate }}</span>
+        <span *ngIf="innovations.length !== 1">{{
+          "text.innovations_count" | translate
         }}</span>
       </p>
       <button class="ml-auto font-bold text-sm text-white">
@@ -127,12 +130,22 @@
       </button>
     </div>
     <app-loading-lines *ngIf="loading"></app-loading-lines>
-    <app-osc
-      [osc]="osc"
-      [selected]="selectedOsc !== null && osc.id === selectedOsc.id"
-      *ngFor="let osc of oscs"
-      (click)="onSelectOscFromSidebar(osc)"
-    ></app-osc>
+    <app-innovation
+      [innovation]="innovation"
+      [selected]="selectedInnovation !== null && innovation.id === selectedInnovation.id"
+      *ngFor="let innovation of innovations"
+      (click)="onSelectInnovationFromSidebar(innovation)"
+    >
+    <button
+    *ngIf="selectedThematique"
+    class="p-2 bg-secondary-light text-primary text-xs font-extrabold rounded-lg uppercase"
+    (click)="reinitialize(true)"
+  >
+    {{ 
+      "button.reinitialize" | translate 
+    }}
+  </button>
+    </app-innovation>
     <div
       class="pt-10 pb-5 fixed left-0 right-0 bottom-0 flex md:hidden justify-center"
     >
@@ -148,13 +161,13 @@
 
 <div
   class="fixed z-20 md:z-10 md:pt-20 top-0 bottom-0 left-0 right-0 md:right-auto md:translate-x-[400px] md:w-[400px] bg-white transition-transform"
-  *ngIf="selectedOsc && showOscs"
+  *ngIf="selectedInnovation && showInnovations"
 >
   <ng-scrollbar [autoHeightDisabled]="false" #scrollRef>
-    <app-osc-details
-      [selectedOsc]="selectedOsc"
-      (hide)="onCloseOscDetails()"
+    <app-innovation-details
+      [selectedInnovation]="selectedInnovation"
+      (hide)="onCloseInnovationDetails()"
       (changed)="scrollRef.scrollTo({ top: 0 })"
-    ></app-osc-details>
+    ></app-innovation-details>
   </ng-scrollbar>
 </div>

@@ -6,24 +6,24 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './base-layout.component.html'
 })
 export class BaseLayoutComponent implements OnInit{
-  oddNumber: string = '';
-  oscId?: number;
+  thematiqueNumber: string = '';
+  innovationId?: number;
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const oddNumber = this.route.snapshot.queryParamMap.get('odd');
+    const thematiqueNumber = this.route.snapshot.queryParamMap.get('thematique');
 
-    let oscIdString = this.route.snapshot.queryParamMap.get('oscId');
-      if (oscIdString) {
+    let innovationIdString = this.route.snapshot.queryParamMap.get('innovationId');
+      if (innovationIdString) {
         try {
-          const id = Number.parseInt(oscIdString);
-          this.oscId = id;
+          const id = Number.parseInt(innovationIdString);
+          this.innovationId = id;
         } catch (exception) {}
       }
 
-    if (oddNumber) {
-      this.oddNumber = oddNumber;
+    if (thematiqueNumber) {
+      this.thematiqueNumber = thematiqueNumber;
     }
   }
 }

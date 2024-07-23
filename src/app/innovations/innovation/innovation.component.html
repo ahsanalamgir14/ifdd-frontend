@@ -1,0 +1,9 @@
+<div class="flex p-2.5 mb-3 rounded-md shadow-md cursor-pointer" [ngClass]="{'bg-white': !selected, 'bg-primary': selected}">
+  <div>
+    <app-active-thematiques [ids]="innovation.thematiqueIds" [selected]="selected"></app-active-thematiques>
+  </div>
+  <div class="ml-3 max-w-[100%]">
+    <h3 class="font-bold h-10 overflow-hidden text-sm" [ngClass]="{'text-primary': !selected, 'text-white': selected}">{{ innovation.name }}</h3>
+    <p class="text-xs h-16 overflow-hidden" [ngClass]="{'text-neutral-500': !selected, 'text-slate-200': selected}">{{ innovation.description }}</p>
+  </div>
+</div>

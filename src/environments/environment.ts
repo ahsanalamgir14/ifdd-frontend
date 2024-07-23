@@ -3,9 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  apiRoot: 'http://127.0.0.1:8000/api',
-  apiKey: 'h8QCpW8CEPkRyiIcl5rMHAVb5CapWtHfxmbrznd5hvcRCxQJPYhme1dsTM1pQ2dC',
+  production: true,
+  apiRoot: 'https://carto-pilote.kixafrique21.org/api',
+  // apiRoot: 'http://127.0.0.1:8000/api',
+  apiKey: 'Ocmmh2EPxw4FdUvqMJ12ZI7ggZHpyFhgxjeZ6Dp0yIU0h1dg4dbmNneQP8SiAmx1',
 };
 
 /*

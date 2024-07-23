@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs';
 import { StorageService } from 'src/app/core/storage/storage.service';
-import { Odd } from 'src/app/odds/odd';
-import { OddService } from 'src/app/odds/odd.service';
-import { OscService } from 'src/app/oscs/osc.service';
+import { Thematique } from 'src/app/thematiques/thematique';
+import { ThematiqueService } from 'src/app/thematiques/thematique.service';
+import { InnovationService } from 'src/app/innovations/innovation.service';
 
 @Component({
   selector: 'app-numbers',
@@ -11,45 +11,45 @@ import { OscService } from 'src/app/oscs/osc.service';
 })
 export class NumbersComponent implements OnInit {
   numbers: any = {
-    countriesCount: 0,
-    oddsCount: 0,
+    countriesCount: 21,
+    thematiquesCount: 8,
     orgsCount: 0
   };
-  odds: Odd[] = [];
+  thematiques: Thematique[] = [];
   countriesCount: number = 6;
   orgsCount: number = 0;
   loading: boolean = false;
-  selectedOdd: Odd | null = null;
+  selectedThematique: Thematique | null = null;
   private timeout: any;
   language: string | null = 'fr';
 
-  constructor(private oddService: OddService, private oscService: OscService, private storage: StorageService) { }
+  constructor(private thematiqueService: ThematiqueService, private innovationService: InnovationService, private storage: StorageService) { }
 
   ngOnInit(): void {
     this.language = this.storage.getItem('language');
-    this.getOdds();
+    this.getThematiques();
   }
 
-  onSelectOdd(odd: Odd): void {
-    this.selectedOdd = odd;
+  onSelectThematique(thematique: Thematique): void {
+    this.selectedThematique = thematique;
   }
 
-  private countOscs(): void {
-    this.oscService.count().subscribe((count: number) => {
+  private countInnovations(): void {
+    this.innovationService.count().subscribe((count: number) => {
       this.orgsCount = count;
       this.animateNumbers();
     })
   }
 
-  private getOdds(): void {
+  private getThematiques(): void {
     this.loading = true;
-    this.oddService.getAll()
+    this.thematiqueService.getAll()
       .pipe(
         finalize(() => this.loading = false)
       )
       .subscribe(data => {
-        this.odds = data;
-        this.countOscs();
+        this.thematiques = data;
+        this.countInnovations();
       });
   }
 
@@ -57,14 +57,14 @@ export class NumbersComponent implements OnInit {
     if (this.numbers.countriesCount < this.countriesCount) {
       this.numbers.countriesCount++;
     }
-    if (this.numbers.oddsCount < this.odds.length) {
-      this.numbers.oddsCount++;
+    if (this.numbers.thematiquesCount < this.thematiques.length) {
+      this.numbers.thematiquesCount++;
     }
     if (this.numbers.orgsCount < this.orgsCount) {
       this.numbers.orgsCount++;
     }
 
-    if (this.numbers.countriesCount < this.countriesCount || this.numbers.oddsCount < this.odds.length || this.numbers.orgsCount < this.orgsCount) {
+    if (this.numbers.countriesCount < this.countriesCount || this.numbers.thematiquesCount < this.thematiques.length || this.numbers.orgsCount < this.orgsCount) {
       this.timeout = setTimeout(() => this.animateNumbers(), 30);
     } else {
       clearTimeout(this.timeout);
