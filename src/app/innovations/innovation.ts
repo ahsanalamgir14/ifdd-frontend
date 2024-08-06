@@ -10,6 +10,7 @@ export class Innovation {
   public country?: string;
   public date_fondation?: string;
   public description?: string;
+  public document_link ?: string;
   public personne_contact?: string;
   public telephone?: string;
   public email_innovation?: string;
@@ -36,6 +37,7 @@ export class Innovation {
       this.country = data.country;
       this.date_fondation = data.date_fondation;
       this.description = data.description;
+      this.document_link  = data.document_link ;
       this.personne_contact = data.personne_contact;
       this.telephone = data.telephone;
       this.email_innovation = data.email_innovation;

@@ -234,6 +234,12 @@
       </h4>
       <div [innerText]="innovation.description" class="text-sm"></div>
     </div>
+    <div class="py-4 border-b border-neutral-200">
+      <h4 class="text-secondary font-bold mb-2">
+        {{ "label.document_link" | translate }}
+      </h4>
+      <div [innerText]="innovation.document_link " class="text-sm"></div>
+    </div>
     <div class="py-4 border-b border-neutral-200" *ngIf="innovation.zoneInterventions">
       <div class="flex items-center">
         <h4
