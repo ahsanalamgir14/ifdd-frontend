@@ -33,19 +33,23 @@ export class PlaceService {
   }
 
   searchPlaces(name: string): Observable<MapLocation[]> {
-    let params = new HttpParams();
-    params = params.set('q', name);
-    params = params.set('format', 'geojson');
-    params = params.set('limit', 10);
-    return this.http.get<MapLocation[]>(this.url, { params: params })
+    let params = new HttpParams().set('name', name);
+    return this.http.get<MapLocation[]>(`/search-places`, { params: params })
       .pipe(
         map((data: any) => {
           const results: MapLocation[] = [];
-          data.features.forEach((item: any) => {
-            const location = new MapLocation(item.properties.display_name, item.geometry.coordinates[0], item.geometry.coordinates[1], item.bbox);
-            location.type = SUPPORTED_TYPES.includes(item.properties.type) ? item.properties.type : '';
-            results.push(location);
-          });
+          if (data.features) {
+            data.features.forEach((item: any) => {
+              const location = new MapLocation(
+                item.properties.display_name,
+                item.geometry.coordinates[1],
+                item.geometry.coordinates[0],
+                item.bbox
+              );
+              location.type = SUPPORTED_TYPES.includes(item.properties.type) ? item.properties.type : '';
+              results.push(location);
+            });
+          }
 
           return results;
         })
